@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  highlight?: string;
+  subtitle: string;
+  eyebrow: string;
+  breadcrumbs: { label: string; href?: string }[];
+}
+
+const { title, highlight, subtitle, eyebrow, breadcrumbs } = Astro.props;
+---
+
+<section class="relative py-16 md:py-28 overflow-hidden bg-dark">
+  <div class="absolute inset-0 bg-gradient-to-br from-dark via-dark-80 to-blue/20"></div>
+  <div class="absolute top-[-80px] right-[-80px] w-[400px] h-[400px] rounded-full bg-green/10"></div>
+  <div class="absolute bottom-[-60px] left-[-40px] w-[280px] h-[280px] rounded-full bg-blue/10"></div>
+
+  <div class="container relative z-10">
+    <nav class="text-xs text-white/40 mb-8 tracking-wide">
+      {breadcrumbs.map((crumb, i) => (
+        <>
+          {i > 0 && <span class="mx-2">/</span>}
+          {crumb.href
+            ? <a href={crumb.href} class="hover:text-green transition-colors">{crumb.label}</a>
+            : <span class="text-white/70">{crumb.label}</span>
+          }
+        </>
+      ))}
+    </nav>
+
+    <div class="max-w-[680px]">
+      <div class="hero-eyebrow">{eyebrow}</div>
+      <h1 class="font-serif text-[clamp(2.2rem,4.5vw,3.6rem)] text-white leading-[1.1] mb-6">
+        {title}{highlight && <em class="text-green italic" set:html={` ${highlight}`} />}
+      </h1>
+      <p class="text-white/70 text-lg leading-relaxed max-w-[540px] font-light">{subtitle}</p>
+    </div>
+  </div>
+</section>

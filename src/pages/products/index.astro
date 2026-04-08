@@ -1,0 +1,212 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../../components/TopBar.astro';
+import Header from '../../components/Header.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import Footer from '../../components/Footer.astro';
+
+const products = [
+  {
+    name: 'Green Roof Modules',
+    tagline: 'The foundation of every LiveRoof system',
+    description: 'A seamless, beautiful and instantly mature green roof. Four module options — Standard, Deep, Lite, and Maxx — to match any project requirement.',
+    href: '/products/modules',
+    chip: 'Core System',
+    chipColor: 'green' as const,
+  },
+  {
+    name: 'RoofEdge',
+    tagline: 'Aluminum edge restraint',
+    description: 'Patented second-generation green roof edging. Extruded, fabricated, and finished in the USA with architectural-grade anodized finishes.',
+    href: '/products/roofedge',
+    chip: 'Edging',
+    chipColor: 'blue' as const,
+  },
+  {
+    name: 'RoofStone',
+    tagline: 'Integrated rooftop pavers',
+    description: 'Artisan-quality pavers with built-in pedestals. Installs in 1/10th the time of traditional pedestal and paver solutions. ADA compliant.',
+    href: '/products/roofstone',
+    chip: 'Pavers',
+    chipColor: 'dark' as const,
+  },
+  {
+    name: 'WindDisc',
+    tagline: 'Wind uplift resistance',
+    description: 'Simple connectors that secure LiveRoof modules together for a sustained 200 PSF wind uplift rating. Essential for high-rise and hurricane-prone regions.',
+    href: '/products/winddisc',
+    chip: 'Accessory',
+    chipColor: 'blue' as const,
+  },
+  {
+    name: 'PipeRunner',
+    tagline: 'Irrigation pipe channels',
+    description: 'Cradles irrigation pipes between module rows with gaps for water flow and side extensions to prevent soil spillage.',
+    href: '/products/piperunner',
+    chip: 'Accessory',
+    chipColor: 'blue' as const,
+  },
+  {
+    name: 'RoofBlue',
+    tagline: 'Blue-green stormwater solutions',
+    description: 'Patented stormwater retention and detention systems. RETAIN captures and recycles water to plant roots; DETAIN provides temporary detention below modules.',
+    href: '/products/roofblue',
+    chip: 'Stormwater',
+    chipColor: 'green' as const,
+  },
+  {
+    name: 'Green Roof Plants',
+    tagline: 'RoofTop Proven™ plant selections',
+    description: 'Dozens of exclusive varieties bred and tested specifically for rooftop performance. Selected for drought tolerance, vigor, and beauty in your local climate.',
+    href: '/products/plants',
+    chip: 'Plants',
+    chipColor: 'green' as const,
+  },
+  {
+    name: 'Green Roof Soil',
+    tagline: 'Engineered to exacting standards',
+    description: 'Proprietary blend of the finest inorganic and organic materials. 94%+ inorganic by dry weight, conforming to German FLL granulometric standards.',
+    href: '/products/soil',
+    chip: 'Soil',
+    chipColor: 'dark' as const,
+  },
+  {
+    name: 'Delivery & Installation',
+    tagline: 'Equipment and tools',
+    description: 'Specialized delivery trucks, Roll-a-Roof conveyors, and Hoppit truck-to-roof conveyance racks to minimize installation time and cost.',
+    href: '/products/delivery-installation',
+    chip: 'Equipment',
+    chipColor: 'dark' as const,
+  },
+];
+
+const whyFeatures = [
+  {
+    title: 'Natural Function',
+    text: 'LiveRoof is a unique modular green roof system that unites the soil across a monolithic continuum. This allows for equal distribution of moisture, fertility, and beneficial organisms — the key to long term function.',
+  },
+  {
+    title: 'Natural Beauty',
+    text: 'LiveRoof is subterranean, allowing for a naturally beautiful, meadow-like aesthetic. There is no unsightly gridwork of module edges.',
+  },
+  {
+    title: 'Knowledgeable',
+    text: 'The LiveRoof network is dedicated to using sound green-roofing principles including proper interface with the waterproofing system, soil composition, and specific plant options for various soil depths, climates, and rooftop microclimates.',
+  },
+  {
+    title: 'Experienced & Proven',
+    text: 'Over 5,000 projects and 150M+ square feet installed throughout North America. Best practice information is shared among all LiveRoof growers — 500+ years of collective horticultural experience.',
+  },
+  {
+    title: 'Technical Support',
+    text: 'On most projects, a member of the LiveRoof grower\'s team will be present to consult, educate, and facilitate the installation. Growers are available for ongoing maintenance training and consultation.',
+  },
+  {
+    title: 'Scalable & Versatile',
+    text: 'The patented LiveRoof System is scalable to any size project — from warehouse-scale installations to precisely patterned boutique designs. Accommodate unique color patterns, social spaces, and a great variety of plants.',
+  },
+];
+---
+
+<Layout title="Products – LiveRoof Green Roof Systems">
+  <TopBar />
+  <Header />
+
+  <PageHero
+    eyebrow="Our Products"
+    title="Green Roof Products"
+    highlight="& Accessories"
+    subtitle="Integrated systems and accessories designed for attractive, simple, and secure green roof solutions. All components promote plant health, long life, and dependable sustainability."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Products' },
+    ]}
+  />
+
+  <!-- Product Grid -->
+  <section class="py-14 md:py-24 bg-white">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Product Lineup</span>
+        <h2>Everything You Need for Your Green Roof</h2>
+        <p>From modules and plants to stormwater management and installation equipment.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {products.map((product) => (
+          <ProductCard {...product} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why LiveRoof Systems -->
+  <section class="py-14 md:py-24 bg-mid">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Why LiveRoof</span>
+        <h2>Why Choose LiveRoof Systems?</h2>
+        <p>We are dedicated to providing the best functioning, most beautiful, longest lived, and most easily maintained green roof on the market.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {whyFeatures.map((feature) => (
+          <div class="bg-white rounded-xl p-8 shadow-[0_2px_20px_rgba(35,31,32,0.06)]">
+            <div class="w-12 h-12 rounded-lg bg-green-light flex items-center justify-center mb-5">
+              <svg width="24" height="24" fill="none" stroke="#00B25A" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4" />
+                <circle cx="12" cy="12" r="10" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-[1.25rem] text-dark mb-3">{feature.title}</h3>
+            <p class="text-[0.9rem] text-text-muted leading-relaxed">{feature.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Warranty Banner -->
+  <section class="py-10 md:py-16 bg-dark">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="tag">Guaranteed Quality</span>
+          <h2 class="font-serif text-[2rem] text-white mb-4">Our Products Are Guaranteed</h2>
+          <p class="text-white/60 leading-relaxed mb-4">
+            The LiveRoof module is warranted against material defects and photodegradation for
+            <strong class="text-green">50 years</strong> from the date of installation.
+          </p>
+          <p class="text-white/60 leading-relaxed mb-8">
+            We also offer plant warranties, membrane compatibility guarantees, and optional
+            overburden removal coverage for 10, 15, or 20 year terms.
+          </p>
+          <a href="/products/warranty" class="btn btn-primary">View Full Warranty Details</a>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white/[0.06] border border-white/10 rounded-xl p-6 text-center">
+            <div class="font-serif text-[2.2rem] text-green leading-none mb-2">50</div>
+            <div class="text-[0.72rem] text-white/50 uppercase tracking-wider font-semibold">Year Module Warranty</div>
+          </div>
+          <div class="bg-white/[0.06] border border-white/10 rounded-xl p-6 text-center">
+            <div class="font-serif text-[2.2rem] text-blue leading-none mb-2">6+</div>
+            <div class="text-[0.72rem] text-white/50 uppercase tracking-wider font-semibold">Single Source Providers</div>
+          </div>
+          <div class="bg-white/[0.06] border border-white/10 rounded-xl p-6 text-center">
+            <div class="font-serif text-[2.2rem] text-green leading-none mb-2">20</div>
+            <div class="text-[0.72rem] text-white/50 uppercase tracking-wider font-semibold">Year Overburden Option</div>
+          </div>
+          <div class="bg-white/[0.06] border border-white/10 rounded-xl p-6 text-center">
+            <div class="font-serif text-[2.2rem] text-blue leading-none mb-2">All</div>
+            <div class="text-[0.72rem] text-white/50 uppercase tracking-wider font-semibold">Major Membranes Compatible</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+  <Footer />
+</Layout>

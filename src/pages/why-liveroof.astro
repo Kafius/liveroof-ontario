@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopBar from '../components/TopBar.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import SolutionTabs from '../components/SolutionTabs.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import Footer from '../components/Footer.astro';
+
+const stats = [
+  { num: '6,700', unit: '+', label: 'Projects Installed' },
+  { num: '16', unit: 'M', label: 'Sq Ft Across North America' },
+  { num: '50', unit: '-Yr', label: 'Module Warranty' },
+  { num: '20', unit: '+', label: 'Years of Innovation' },
+];
+---
+
+<Layout title="Why LiveRoof Systems - Green Roof Solutions">
+  <TopBar />
+  <Header />
+
+  <PageHero
+    eyebrow="Green Roof Guides for Visionaries"
+    title="The Roof Like"
+    highlight="No Other"
+    subtitle="Short, concise, facility-specific guides for busy visionaries and leaders who want to create sustainable buildings and better rooftops -- for people and planet."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Why LiveRoof' },
+    ]}
+  />
+
+  <!-- Intro Blurb -->
+  <section class="py-10 md:py-14 bg-white">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div>
+          <span class="tag">For Visionaries</span>
+          <h2 class="font-serif text-[clamp(1.5rem,4vw,2rem)] text-dark mb-4">Proven Solutions for Every Building Type</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            There is a wealth of content on our website, but for leaders with little time and great
+            responsibility, these guides will get the wheels turning.
+          </p>
+          <p class="text-text-muted leading-relaxed mb-6">
+            When you are ready to advance your ideas, use the link below to find your local LiveRoof representative.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/contact" class="btn btn-primary">Find Your Local Rep</a>
+            <a href="#tabs" class="btn btn-outline-dark">Explore by Audience</a>
+          </div>
+        </div>
+        <div class="photo-placeholder rounded-xl aspect-[4/3]">
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+          </svg>
+          <span>Green Roof Aerial</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <div class="bg-dark py-8 md:py-12">
+    <div class="container">
+      <div class="stats-grid">
+        {stats.map((stat) => (
+          <div class="stat-item">
+            <div class="stat-num">
+              {stat.num}
+              {stat.unit && <span class="stat-unit">{stat.unit}</span>}
+            </div>
+            <div class="stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs + Panels -->
+  <div id="tabs" class="bg-mid">
+    <div class="container pt-14 md:pt-20 pb-4">
+      <div class="section-header">
+        <span class="tag">Solutions by Audience</span>
+        <h2>Choose Your Building Type</h2>
+        <p>Select an audience below to see the green roof benefits most relevant to you.</p>
+      </div>
+    </div>
+    <SolutionTabs />
+  </div>
+
+  <!-- Photo Break -->
+  <section class="py-14 md:py-20 bg-white">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="photo-placeholder rounded-xl aspect-[4/3]">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+          </svg>
+          <span>Green Roof Installation</span>
+        </div>
+        <div class="photo-placeholder rounded-xl aspect-[4/3]">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+          </svg>
+          <span>Mature Green Roof</span>
+        </div>
+        <div class="photo-placeholder rounded-xl aspect-[4/3]">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+          </svg>
+          <span>Rooftop Amenity Space</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Proof -->
+  <section class="py-14 md:py-20 bg-dark">
+    <div class="container text-center">
+      <span class="tag">The Proof is in the Roof</span>
+      <h2 class="font-serif text-[clamp(1.5rem,4vw,2.4rem)] text-white mb-4">Fully Dedicated to Your Success</h2>
+      <p class="text-white/60 max-w-[520px] mx-auto leading-relaxed mb-10">
+        We make green roofs simple, lasting, and beautiful -- and we stand behind every project with
+        industry-leading warranties and support.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/products" class="btn btn-primary">Explore Products</a>
+        <a href="/contact" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+  <Footer />
+</Layout>

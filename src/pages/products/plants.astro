@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../../components/TopBar.astro';
+import Header from '../../components/Header.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout title="Green Roof Plants – LiveRoof Products">
+  <TopBar />
+  <Header />
+
+  <PageHero
+    eyebrow="Plants"
+    title="RoofTop Proven™"
+    highlight="Green Roof Plants"
+    subtitle="Dozens of exclusive varieties bred and tested specifically for rooftop performance — selected for drought tolerance, vigor, and beauty in your local climate."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'Plants' },
+    ]}
+  />
+
+  <!-- Intro -->
+  <section class="py-14 md:py-24 bg-white">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div>
+          <span class="tag">Expert Selection</span>
+          <h2 class="font-serif text-[2.2rem] leading-[1.18] text-dark mb-5">Plants Are Not One-Size-Fits-All</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Green roof plants are not one-size-fits-all, and the individual requirements of each green roof
+            design must be taken into consideration. Your LiveRoof Licensed Grower is an experienced horticultural
+            professional who will examine the particular needs of your project and assist in selection of the
+            best plants to bring your design to life.
+          </p>
+          <p class="text-text-muted leading-relaxed mb-6">
+            Some green roof companies tout having a horticulturist on staff — but we have <strong class="text-green font-semibold">dozens,
+            in different climates</strong>, most with decades of experience growing plants for and in that local environment.
+          </p>
+          <a href="#" class="btn btn-primary">Find Your Local LiveRoof Rep</a>
+        </div>
+        <div class="photo-placeholder rounded-xl aspect-[4/3]">
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+          </svg>
+          <span>Sedum Varieties</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Climate, Development, Maintenance -->
+  <section class="py-14 md:py-24 bg-mid">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl p-8 shadow-[0_2px_20px_rgba(35,31,32,0.06)]">
+          <div class="w-12 h-12 rounded-lg bg-green-light flex items-center justify-center mb-5">
+            <svg width="24" height="24" fill="none" stroke="#00B25A" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" />
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-[1.25rem] text-dark mb-3">Climate Matters</h3>
+          <p class="text-[0.9rem] text-text-muted leading-relaxed">
+            On the roof, attention to local conditions is even more critical. In Toronto, plants must handle
+            rapid temperature changes and long winters. In Texas, they must endure prolonged heat, low precipitation,
+            and heavy humidity.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-[0_2px_20px_rgba(35,31,32,0.06)]">
+          <div class="w-12 h-12 rounded-lg bg-blue-light flex items-center justify-center mb-5">
+            <svg width="24" height="24" fill="none" stroke="#0092CF" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-[1.25rem] text-dark mb-3">Plant Development</h3>
+          <p class="text-[0.9rem] text-text-muted leading-relaxed">
+            We strive to be the industry leader in developing plants specifically suited to harsh green roof
+            conditions. With dozens of introductions, our RoofTop Proven™ line provides vigorous, hardy, and
+            consistent varieties.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-[0_2px_20px_rgba(35,31,32,0.06)]">
+          <div class="w-12 h-12 rounded-lg bg-green-light flex items-center justify-center mb-5">
+            <svg width="24" height="24" fill="none" stroke="#00B25A" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-[1.25rem] text-dark mb-3">Lower Maintenance</h3>
+          <p class="text-[0.9rem] text-text-muted leading-relaxed">
+            We focus on longevity — plants that are hardy with strong growth habits that deter weeds through
+            dense soil coverage. Using lean, preventative maintenance practices, owners can expect beautiful,
+            healthy systems that stand the test of time.
+          </p>
+        </div>
+      </div>
+
+      <!-- Important Note -->
+      <div class="mt-12 bg-white rounded-xl p-8 border-l-4 border-green">
+        <p class="text-[0.92rem] text-text-muted leading-relaxed">
+          <strong class="text-dark">Important:</strong> There is no such thing as a maintenance-free green roof.
+          Plants are living things and have basic requirements for survival. Neglected green roofs, regardless of
+          plant selection, location and design, are more susceptible to stress from drought, weed encroachment,
+          wind scour, pests and disease.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Plants & Biodiversity -->
+  <section class="py-14 md:py-24 bg-white">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+        <div>
+          <span class="tag">Plant Selection</span>
+          <h2 class="font-serif text-[2rem] text-dark mb-4">Best Plants for Green Roofs</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            In the Lite and Standard systems, we recommend plants with extreme drought resistance through
+            means other than the root system — succulent, water-holding plants like <strong class="text-green font-semibold">Sedums,
+            Alliums, Sempervivums, and Delospermas</strong>.
+          </p>
+          <p class="text-text-muted leading-relaxed mb-4">
+            The best LiveRoof plants store water and have "Crassulacean Acid Metabolism" (CAM). CAM plants
+            exchange gases at night when it is cooler — making them up to <strong class="text-green font-semibold">ten times more
+            efficient with water</strong> than non-CAM plants.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            In the Deep and Maxx systems with irrigation, a much broader plant palette is possible — including
+            hundreds of native forbs, sedges, grasses, and edible plants.
+          </p>
+        </div>
+
+        <div>
+          <span class="tag">Biodiversity</span>
+          <h2 class="font-serif text-[2rem] text-dark mb-4">Biodiverse Green Roofs</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Green roofs with 6" or greater soil depth can support a broad array of plants, and biodiversity
+            in plant and animal communities becomes very feasible.
+          </p>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Every biodiverse green roof requires a built-in irrigation system. Even drought-resistant native
+            plants can only extract so much water from 6–8 inches of soil — on a rooftop, they can't send roots
+            down several feet like they would in nature.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            Biodiverse LiveRoofs range from gardenlike (designed patterns) to meadowlike (random) and are
+            typically very beautiful and seasonally dynamic. We've provided hundreds of biodiverse plantings —
+            and we love them all.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Edible Plants -->
+  <section class="py-10 md:py-16 bg-dark">
+    <div class="container text-center">
+      <span class="tag">Rooftop Gardening</span>
+      <h2 class="font-serif text-[2rem] text-white mb-4">Grow Vegetables on Your Roof</h2>
+      <p class="text-white/60 max-w-[560px] mx-auto leading-relaxed">
+        Numerous vegetables, herbs, and select fruits may be grown on intensive green roofs with the Maxx module.
+        A blend of organic soil and traditional green roof media yields the best results.
+      </p>
+    </div>
+  </section>
+
+  <CtaBanner />
+  <Footer />
+</Layout>

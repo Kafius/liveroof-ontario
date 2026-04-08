@@ -1,0 +1,24 @@
+---
+const stats = [
+  { num: '150', unit: 'M+', label: 'Sq Ft Installed' },
+  { num: '5,000', unit: '+', label: 'Projects' },
+  { num: '25', unit: '+', label: 'Years in Business' },
+  { num: '4', unit: '', label: 'Countries' },
+];
+---
+
+<div class="bg-dark py-8 md:py-12">
+  <div class="container">
+    <div class="stats-grid">
+      {stats.map((stat) => (
+        <div class="stat-item">
+          <div class="stat-num">
+            {stat.num}
+            {stat.unit && <span class="stat-unit">{stat.unit}</span>}
+          </div>
+          <div class="stat-label">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

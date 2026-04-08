@@ -1,0 +1,185 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../../components/TopBar.astro';
+import Header from '../../components/Header.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import Footer from '../../components/Footer.astro';
+
+const provinces = [
+  'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick',
+  'Newfoundland & Labrador', 'Nova Scotia', 'Ontario',
+  'Prince Edward Island', 'Quebec', 'Saskatchewan',
+];
+
+const modules = [
+  { value: 'standard', label: 'Standard (4.25")', desc: 'Most popular — used on 80%+ of projects' },
+  { value: 'lite', label: 'Lite (2.5")', desc: 'Retrofit projects, lower weight capacity' },
+  { value: 'deep', label: 'Deep (6")', desc: 'Biodiverse green roofs, broader plant palette' },
+  { value: 'maxx', label: 'Maxx (8")', desc: 'Vegetable gardening, maximum biodiversity' },
+];
+---
+
+<Layout title="Spec Writer – LiveRoof Technical Resources">
+  <TopBar />
+  <Header />
+
+  <PageHero
+    eyebrow="Spec Writer"
+    title="Green Roof"
+    highlight="Specifications"
+    subtitle="Fill out the form below to download your customized spec sheet. We'll generate specifications tailored to your project."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Technical', href: '/technical' },
+      { label: 'Spec Writer' },
+    ]}
+  />
+
+  <section class="py-14 md:py-24 bg-white">
+    <div class="container">
+      <div class="max-w-[720px] mx-auto">
+        <form class="space-y-8" action="#" method="POST">
+
+          <!-- Personal Info -->
+          <div>
+            <h3 class="font-serif text-[1.3rem] text-dark mb-5 pb-3 border-b border-border">Your Information</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="sw-first" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">First Name *</label>
+                <input type="text" id="sw-first" name="firstName" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green" />
+              </div>
+              <div>
+                <label for="sw-last" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Last Name *</label>
+                <input type="text" id="sw-last" name="lastName" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+              <div>
+                <label for="sw-email" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Email *</label>
+                <input type="email" id="sw-email" name="email" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green" />
+              </div>
+              <div>
+                <label for="sw-phone" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Phone *</label>
+                <input type="tel" id="sw-phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+              <div>
+                <label for="sw-company" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Company *</label>
+                <input type="text" id="sw-company" name="company" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green" />
+              </div>
+              <div>
+                <label for="sw-role" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Role *</label>
+                <select id="sw-role" name="role" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="">Select role</option>
+                  <option value="consultant">Consultant / Designer</option>
+                  <option value="contractor">Contractor / Owner</option>
+                  <option value="student">Student</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Details -->
+          <div>
+            <h3 class="font-serif text-[1.3rem] text-dark mb-5 pb-3 border-b border-border">Project Details</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="sw-city" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Project City *</label>
+                <input type="text" id="sw-city" name="projectCity" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green" />
+              </div>
+              <div>
+                <label for="sw-province" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Province *</label>
+                <select id="sw-province" name="province" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="">Select province</option>
+                  {provinces.map((p) => (
+                    <option value={p}>{p}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div class="mt-5">
+              <label for="sw-area" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Approximate Green Roof Area (sq ft) *</label>
+              <input type="number" id="sw-area" name="area" required class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green" />
+            </div>
+          </div>
+
+          <!-- System Specifications -->
+          <div>
+            <h3 class="font-serif text-[1.3rem] text-dark mb-5 pb-3 border-b border-border">System Specifications</h3>
+
+            <label class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-3">Module Size *</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
+              {modules.map((mod) => (
+                <label class="flex items-start gap-3 bg-mid rounded-xl p-4 cursor-pointer border border-border hover:border-green transition-colors">
+                  <input type="checkbox" name="modules" value={mod.value} class="mt-1 accent-[#00B25A]" />
+                  <div>
+                    <div class="font-semibold text-dark text-[0.9rem]">{mod.label}</div>
+                    <div class="text-[0.8rem] text-text-muted">{mod.desc}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label for="sw-irrigation" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Irrigation</label>
+                <select id="sw-irrigation" name="irrigation" class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div>
+                <label for="sw-pavers" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Pavers (RoofStone)</label>
+                <select id="sw-pavers" name="pavers" class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="no">No</option>
+                  <option value="roofstone">RoofStone Integrated</option>
+                  <option value="conventional">Conventional Pedestal</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+              <div>
+                <label for="sw-edging" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Edging (RoofEdge)</label>
+                <select id="sw-edging" name="edging" class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div>
+                <label for="sw-roofblue" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">RoofBlue Stormwater</label>
+                <select id="sw-roofblue" name="roofblue" class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="no">No</option>
+                  <option value="retain">RoofBlue RETAIN</option>
+                  <option value="detain">RoofBlue DETAIN</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+              <div>
+                <label for="sw-solagreen" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">SolaGreen Integration</label>
+                <select id="sw-solagreen" name="solagreen" class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </div>
+              <div>
+                <label for="sw-drawings" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Detail Drawings Format</label>
+                <select id="sw-drawings" name="drawings" class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none focus:border-green focus:ring-1 focus:ring-green">
+                  <option value="pdf">PDF</option>
+                  <option value="cad">CAD (DWG)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full text-center">Generate Specifications</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+  <Footer />
+</Layout>

@@ -1,0 +1,403 @@
+---
+interface Card {
+  title: string;
+  body: string;
+}
+
+interface Group {
+  label?: string;
+  cards: Card[];
+}
+
+interface Tab {
+  id: string;
+  label: string;
+  subtitle: string;
+  groups: Group[];
+}
+
+const tabs: Tab[] = [
+  {
+    id: 'universal-benefits',
+    label: 'Universal Benefits',
+    subtitle: 'Benefits that apply to every building and every owner',
+    groups: [
+      {
+        cards: [
+          { title: 'Ongoing Cost Savings', body: 'Green roofs provide ongoing financial returns through energy savings, extended roof life, and stormwater compliance.' },
+          { title: 'Transforms Ugly Rooftops', body: 'Turn wasted rooftop space into beautiful, usable gardens and amenity areas.' },
+          { title: 'Save Energy', body: 'Reduces AC costs by approximately 10-75% during hot weather through natural insulation.' },
+          { title: 'Boost Solar Output', body: 'Evaporative cooling from plants makes co-located solar panels 5-15% more efficient.' },
+          { title: 'Increase Revenue', body: 'Visible green roofs boost rental rates, increase occupancy, and raise property values. Chicago study: green roof condo units sold for $69,000 more on average.' },
+          { title: 'Support Healing', body: 'Patients with a natural view heal faster and experience less pain.' },
+          { title: 'Attract & Retain Employees', body: 'A living roof signals you care about people and the environment, improving recruitment and retention.' },
+          { title: 'Reduce Absenteeism', body: 'Exposure to natural views reduces absenteeism and prevents employee burnout.' },
+          { title: 'Increase Productivity', body: 'Nature in workplaces yields happier, more productive employees.' },
+          { title: 'Stormwater Compliance', body: 'Reduce or eliminate stormwater discharge fees. Filters pollutants before they reach waterways.' },
+          { title: 'Stewardship & Goodwill', body: 'Show customers, residents, and neighbors that you care about their future.' },
+          { title: 'Promote Your Cause', body: 'Green roofs can display mascots, logos, or themed plantings that reinforce your brand or mission.' },
+          { title: 'Retrofit for Posterity', body: 'Green roofs work on old and new buildings alike.' },
+          { title: 'Roof Longevity', body: 'Extends roof life 2x-3x, turning a 30-year roof into a 90-year roof.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'technical-advantages',
+    label: 'Technical Advantages',
+    subtitle: 'Over two decades of innovation, testing, and proven performance',
+    groups: [
+      {
+        label: 'System Overview',
+        cards: [
+          { title: 'Proven Track Record', body: '6,700+ projects, 16 million sq. ft. installed across North America. Over 20 years of continuous innovation.' },
+          { title: 'Nearly Unlimited Plant Diversity', body: 'Adaptable to any project vision with climate-matched, Roof Top Proven plants.' },
+          { title: 'Coalition of Industry Experts', body: 'Backed by 700+ years of collective horticultural experience through licensed growers.' },
+          { title: 'Custom Design Friendly', body: 'No limitations on waterproofing membrane compatibility. Works with all major brands.' },
+        ],
+      },
+      {
+        label: 'Module System',
+        cards: [
+          { title: 'Patented Module Design', body: 'Creates a seamless, instantly mature green roof. Soil Elevators disappear at install -- no visible grid lines or container edges.' },
+          { title: 'Multiple Soil Depths', body: 'Lite (2.5"), Standard (4.25"), Deep (6"), Maxx (8") -- suited to any structural or design requirement.' },
+          { title: 'Instant Impact', body: 'Plants are fully established at installation. No after-planting through sedum mats.' },
+          { title: 'Zero Landfill Waste', body: 'All-in-one system is pallet-free and fully recyclable.' },
+        ],
+      },
+      {
+        label: 'Fire Resistance',
+        cards: [
+          { title: 'UL Fire Tested', body: 'Exposed to direct flame for 10 minutes. No ignition of deck. Soil and module remained structurally intact. Tested at UL Labs, January 2008.' },
+          { title: 'Code Compliant', body: 'Meets ANSI/SPRI VF-1 (2010), referenced in the 2024 IBC. First green roof system ever FM Approved (FM 4477, 2011). Meets ASTM standards.' },
+        ],
+      },
+      {
+        label: 'Wind Resistance',
+        cards: [
+          { title: 'CSA Wind Tested', body: 'Sustained 110+ MPH winds with no plant loss or media displacement.' },
+          { title: 'Uplift Tested', body: 'NRC tested to 200 psf uplift pressure; rated 133 psf after safety factor.' },
+          { title: 'WindDisc', body: 'Patented accessory that connects modules together for high-rise and hurricane-prone applications.' },
+        ],
+      },
+      {
+        label: 'Stormwater Management',
+        cards: [
+          { title: 'Engineered Green Roof Soil', body: 'Approximately 94% inorganic, meets German FLL standards, holds up to 48% water by volume.' },
+          { title: 'RoofBlue Detain', body: 'Detains up to 2 gal/ft2 under the green roof, reducing storm system loads. Can replace cisterns or detention ponds.' },
+          { title: 'RoofBlue Retain', body: 'Wicking system holds 1.35 gal/ft2 in addition to soil storage. Boosts retention up to 55% when paired with the Lite system.' },
+        ],
+      },
+      {
+        label: 'Accessories',
+        cards: [
+          { title: 'RoofEdge Aluminum Edging', body: 'Made in the USA. Architectural-grade, contractor-friendly. Available in mill, black anodized, and bronze anodized finishes. Multiple depths to match all module sizes.' },
+        ],
+      },
+      {
+        label: 'Solar Integration',
+        cards: [
+          { title: 'SolaGreen Bio-Solar System', body: 'Fully integrated solar + green roof system. No rooftop penetrations -- fully ballasted. Rounded edges protect installers and membranes. Locally made in North America.' },
+          { title: 'Simple Installation', body: 'Only one wrench size needed. Step-by-step illustrated and video directions.' },
+        ],
+      },
+      {
+        label: 'Warranty & Installation',
+        cards: [
+          { title: '50-Year Module Warranty', body: "Industry's longest. Warranted against defects and photodegradation when soil-covered and properly edged." },
+          { title: '1,000+ Certified Installers', body: 'Across North America. Trained, vetted, and ready to deliver quality installs.' },
+          { title: 'Single-Source Warranties', body: 'Available through Barrett, CertainTeed, Flex, GAF, Kemper, and Sika Hydrotech.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'cities-municipal',
+    label: 'Cities & Municipal',
+    subtitle: 'Green roofs that serve your constituents and your budget',
+    groups: [
+      {
+        cards: [
+          { title: 'Ongoing Cost Benefits', body: 'Reduce operational costs with energy savings, extended roof life, and stormwater fee avoidance.' },
+          { title: 'Stormwater Code Compliance', body: 'Avert stormwater discharge fees while protecting local waterways.' },
+          { title: 'Save Energy', body: 'Reduce AC costs 25%+ on municipal buildings.' },
+          { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
+          { title: 'Beautiful Public Spaces', body: 'Transform rooftops into beautiful, hospitable spaces for constituents.' },
+          { title: 'Walk Your Talk of Stewardship', body: 'Protect waterways, support pollinators, and demonstrate genuine environmental leadership.' },
+          { title: 'Resident Wellness', body: 'Exposure to nature supports human health and community wellbeing.' },
+          { title: 'Increase Productivity', body: 'Nature exposure makes employees happier and more productive.' },
+          { title: 'Send the Right Message', body: 'Show constituents your municipality leads on sustainability.' },
+          { title: 'Promote Your Cause', body: "Use themed plantings to reinforce your municipality's identity." },
+          { title: 'Display Progressiveness', body: 'Signal innovation and forward thinking to your community.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'developers',
+    label: 'Developers',
+    subtitle: 'Differentiate your properties and increase returns',
+    groups: [
+      {
+        cards: [
+          { title: 'Save Money', body: 'Energy savings, extended roof life, and stormwater compliance all reduce operating costs.' },
+          { title: 'Stormwater Compliance', body: 'Avert discharge fees and gain all associated benefits.' },
+          { title: 'Save Energy', body: 'Reduce AC cost 25%+.' },
+          { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
+          { title: 'Transforms Rooftops', body: 'Turn ugly roofs into beautiful usable amenity space.' },
+          { title: 'Attract Tenants & Buyers', body: 'People value natural, garden-like views and outdoor amenity space.' },
+          { title: 'Increase Revenue', body: 'Green roofs boost rental rates and occupancy. ROI proven in Chicago market data.' },
+          { title: 'Unique Amenities', body: 'Green roofs for entertainment and socializing differentiate your property.' },
+          { title: 'Expand Usable Space', body: 'Rooftop gardens with pathways and patios increase net usable building area.' },
+          { title: 'Restore Habitat', body: 'Support pollinators and demonstrate environmental leadership.' },
+          { title: 'Create Goodwill', body: 'Show residents and buyers that you care about their community.' },
+          { title: 'Retrofit for Posterity', body: 'Green roofs work on existing buildings as well as new construction.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'hospitals-healthcare',
+    label: 'Hospitals & Healthcare',
+    subtitle: 'Supporting healing, wellness, and staff performance',
+    groups: [
+      {
+        cards: [
+          { title: 'Support The Healing Mission', body: 'Green roofs directly support patient care and staff wellness.' },
+          { title: 'Practice Compassion', body: 'Visible commitment to patient experience, as seen in cancer treatment hospitals.' },
+          { title: 'Reduced Healing Time', body: 'Patients with a natural view heal faster and experience less pain (published research).' },
+          { title: 'Regulatory Leadership', body: 'In Ontario, visible hospital rooftops are required to be green by law.' },
+          { title: 'Staff Retention', body: 'Exposure to nature reduces stress and creates healthier, more productive staff.' },
+          { title: 'Beautiful Views', body: 'Natural views foster civility, creativity, and improved patient and staff experience.' },
+          { title: 'Transforms Ugly Rooftops', body: 'Turn unused roof space into beautiful, therapeutic views.' },
+          { title: 'Save Money', body: 'Energy savings, extended roof life, stormwater compliance.' },
+          { title: 'Save Energy', body: 'Reduce AC cost 25%+.' },
+          { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
+          { title: 'Stormwater Compliance', body: 'Avert discharge fees and protect local waterways.' },
+          { title: 'Stewardship & Goodwill', body: 'Demonstrate environmental care to patients, families, and the public.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'offices',
+    label: 'Offices',
+    subtitle: 'A competitive advantage for attracting and keeping top talent',
+    groups: [
+      {
+        cards: [
+          { title: 'Save Money', body: 'Reduce energy, extend roof life, achieve stormwater compliance.' },
+          { title: 'Save Energy', body: 'Reduce AC costs 25%+.' },
+          { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
+          { title: 'Increase Revenue', body: 'Visible green roofs boost rental rates and increase occupancy.' },
+          { title: 'Attract Employees', body: 'Green roofs signal that you care about employees, customers, and neighbors.' },
+          { title: 'Improve Employee Retention', body: 'People trust and stay with companies that care about the environment.' },
+          { title: 'Reduce Absenteeism', body: 'Natural views improve health and attendance rates.' },
+          { title: 'Increase Productivity', body: 'Nature exposure yields happier, more productive teams.' },
+          { title: 'Prevent Burnout', body: 'Natural environments reduce stress and increase job satisfaction.' },
+          { title: 'Walk Your Talk', body: 'Stewardship fosters goodwill with clients, tenants, and the community.' },
+          { title: 'Demonstrate Progressiveness', body: 'Green roofs foster dialogue, collaboration, and creativity.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'schools-universities',
+    label: 'Schools & Universities',
+    subtitle: 'Inspiring students, saving money, and teaching sustainability',
+    groups: [
+      {
+        cards: [
+          { title: 'Save Money', body: 'Reduce energy, extend roof life, achieve stormwater compliance.' },
+          { title: 'Save Energy', body: 'Reduce AC costs 25%+.' },
+          { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
+          { title: 'Stormwater Compliance', body: 'Avert discharge fees and protect local watersheds.' },
+          { title: 'Outdoor Classrooms', body: 'Fresh air and hands-on learning in a living lab. Supports social distancing when needed.' },
+          { title: 'Teach Sustainability', body: 'Green roofs teach ecology, biology, stewardship, and civility firsthand.' },
+          { title: 'Connect Students to Nature', body: 'Nature connection supports health and wellness for students and faculty.' },
+          { title: 'A Place to Decompress', body: 'Green roofs provide a calm space to re-center between classes.' },
+          { title: 'Change Ugly to Beautiful', body: 'Transform rooftops into calming, inspiring environments.' },
+          { title: 'Artwork & Campus Identity', body: 'Themed plantings (such as a school mascot) foster school spirit and collaboration.' },
+          { title: 'Demonstrate Stewardship', body: 'Green roofs protect waterways and support pollinators.' },
+          { title: 'Retrofit for Posterity', body: 'Works for new and older campus buildings alike.' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'single-family-homes',
+    label: 'Single-Family Homes',
+    subtitle: 'Beauty, savings, and sustainability for homeowners',
+    groups: [
+      {
+        cards: [
+          { title: 'Save Money', body: 'Energy savings, extended roof life, and stormwater management all reduce costs.' },
+          { title: 'Transforms Your Roof', body: 'Turn an ugly roof into a beautiful, usable space.' },
+          { title: 'Works on Sloped Roofs', body: 'Not just flat roofs -- LiveRoof works on sloped roofs too.' },
+          { title: 'Classes Up Accessory Buildings', body: 'Garages, sheds, and outbuildings get a premium look.' },
+          { title: 'Save Energy', body: 'Reduce AC cost 25%+.' },
+          { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
+          { title: 'Higher Resale Value', body: 'Visible green roofs boost property value.' },
+          { title: 'Walk Your Talk of Sustainability', body: 'Protect lakes and streams, and provide habitat for pollinators.' },
+          { title: 'Health & Wellness', body: 'Connecting with nature is good for mind and body.' },
+          { title: 'Beautiful as Well as Beneficial', body: 'Green roofs enhance the curb appeal and character of any home.' },
+        ],
+      },
+    ],
+  },
+];
+---
+
+<!-- Tab Bar -->
+<div class="sticky top-[76px] z-50 bg-dark border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
+  <div class="container">
+    <div
+      class="flex gap-2 py-4 overflow-x-auto whitespace-nowrap solution-scrollbar"
+      role="tablist"
+      id="solution-tablist"
+    >
+      {tabs.map((tab, i) => (
+        <button
+          class={`solution-tab flex-shrink-0 px-5 py-2.5 rounded-md text-[0.82rem] font-semibold tracking-wide transition-all cursor-pointer border-2 ${
+            i === 0
+              ? 'bg-green text-white border-green shadow-[0_4px_16px_rgba(0,178,90,0.3)]'
+              : 'bg-transparent text-white/60 border-white/10 hover:text-white hover:border-white/30'
+          }`}
+          data-tab={tab.id}
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? '0' : '-1'}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<!-- Tab Panels -->
+{tabs.map((tab, i) => (
+  <div
+    class={`solution-panel ${i !== 0 ? 'hidden' : ''}`}
+    data-panel={tab.id}
+    role="tabpanel"
+  >
+    <div class="container py-14 md:py-20">
+      <!-- Panel Header -->
+      <div class="mb-10">
+        <span class="tag">{tab.label}</span>
+        <h2 class="font-serif text-[clamp(1.5rem,4vw,2.2rem)] text-dark leading-[1.18] mb-3">{tab.label}</h2>
+        <p class="text-text-muted text-[0.95rem] max-w-[520px]">{tab.subtitle}</p>
+      </div>
+
+      {tab.groups.map((group) => (
+        <div class="mb-10">
+          {group.label && (
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-8 h-8 rounded-lg bg-blue-light flex items-center justify-center flex-shrink-0">
+                <svg width="16" height="16" fill="none" stroke="#0092CF" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 class="text-[0.72rem] font-bold tracking-[0.14em] uppercase text-blue">{group.label}</h3>
+            </div>
+          )}
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {group.cards.map((card) => (
+              <div class="bg-white rounded-xl border border-border p-6 shadow-[0_2px_20px_rgba(35,31,32,0.06)] hover:-translate-y-1 hover:shadow-[0_10px_36px_rgba(35,31,32,0.1)] hover:border-green transition-all duration-200">
+                <div class="flex items-start gap-3 mb-3">
+                  <div class="w-8 h-8 rounded-lg bg-green-light flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg width="16" height="16" fill="none" stroke="#00B25A" stroke-width="2.5" viewBox="0 0 24 24">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h4 class="font-serif text-[1.05rem] text-dark leading-snug">{card.title}</h4>
+                </div>
+                <p class="text-[0.88rem] text-text-muted leading-relaxed pl-11">{card.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+))}
+
+<style>
+  .solution-scrollbar::-webkit-scrollbar { height: 4px; }
+  .solution-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .solution-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tablist = document.getElementById('solution-tablist');
+    if (!tablist) return;
+
+    const allTabs = tablist.querySelectorAll<HTMLButtonElement>('.solution-tab');
+    const allPanels = document.querySelectorAll<HTMLElement>('.solution-panel');
+
+    function activate(tabId: string) {
+      allTabs.forEach((t) => {
+        const isActive = t.dataset.tab === tabId;
+        // Active state
+        t.classList.toggle('bg-green', isActive);
+        t.classList.toggle('text-white', isActive);
+        t.classList.toggle('border-green', isActive);
+        t.classList.toggle('shadow-[0_4px_16px_rgba(0,178,90,0.3)]', isActive);
+        // Inactive state
+        t.classList.toggle('bg-transparent', !isActive);
+        t.classList.toggle('text-white/60', !isActive);
+        t.classList.toggle('border-white/10', !isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.tabIndex = isActive ? 0 : -1;
+      });
+      allPanels.forEach((p) => {
+        p.classList.toggle('hidden', p.dataset.panel !== tabId);
+      });
+    }
+
+    // Hash sync on load
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.querySelector(`[data-tab="${hash}"]`)) {
+      activate(hash);
+    }
+
+    // Click handler
+    allTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const id = tab.dataset.tab!;
+        activate(id);
+        window.location.hash = id;
+        const bar = tablist.closest('.sticky');
+        if (bar) {
+          const rect = bar.getBoundingClientRect();
+          if (rect.top < 0) {
+            bar.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // Keyboard nav
+    tablist.addEventListener('keydown', (e) => {
+      const focused = document.activeElement as HTMLButtonElement;
+      if (!focused?.classList.contains('solution-tab')) return;
+
+      const tabArr = Array.from(allTabs);
+      const idx = tabArr.indexOf(focused);
+      let next = -1;
+
+      if (e.key === 'ArrowRight') next = (idx + 1) % tabArr.length;
+      else if (e.key === 'ArrowLeft') next = (idx - 1 + tabArr.length) % tabArr.length;
+
+      if (next >= 0) {
+        e.preventDefault();
+        tabArr[next].focus();
+        const id = tabArr[next].dataset.tab!;
+        activate(id);
+        window.location.hash = id;
+      }
+    });
+  });
+</script>

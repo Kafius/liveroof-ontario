@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiveRoof – Green Roof Systems for Performance & Longevity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0092CF;
+      --green: #00B25A;
+      --dark: #231F20;
+      --dark-80: rgba(35,31,32,0.82);
+      --blue-light: #e6f6fd;
+      --green-light: #e6f7ee;
+      --mid: #f4f4f2;
+      --white: #ffffff;
+      --text: #2b2728;
+      --text-muted: #6b6667;
+      --border: #e0dedc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; }
+
+    /* ─── UTILITY ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.22s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: var(--white);
+      border: 2px solid var(--green);
+    }
+    .btn-primary:hover { background: #009a4e; border-color: #009a4e; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,178,90,0.28); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.7);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); border-color: var(--white); }
+    .btn-outline-dark {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .btn-outline-dark:hover { background: var(--blue); color: var(--white); transform: translateY(-1px); }
+
+    /* photo placeholder */
+    .photo-placeholder {
+      background: linear-gradient(135deg, #d8ede0 0%, #c5e8f0 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #7aa89a;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      text-transform: uppercase;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(255,255,255,0.25) 20px,
+        rgba(255,255,255,0.25) 21px
+      );
+    }
+    .photo-placeholder svg { position: relative; z-index: 1; opacity: 0.6; }
+    .photo-placeholder span { position: relative; z-index: 1; }
+
+    /* ─── TOP BAR ─── */
+    .topbar {
+      background: var(--dark);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      padding: 8px 0;
+      letter-spacing: 0.03em;
+    }
+    .topbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar a { color: rgba(255,255,255,0.7); transition: color 0.2s; }
+    .topbar a:hover { color: var(--green); }
+    .topbar-links { display: flex; gap: 20px; }
+
+    /* ─── HEADER / NAV ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(35,31,32,0.06);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .logo-wordmark {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+    .logo-wordmark .live { color: var(--blue); }
+    .logo-wordmark .roof { color: var(--green); }
+    .logo-tagline {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-top: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .logo-wrap { display: flex; flex-direction: column; }
+
+    nav { display: flex; align-items: center; gap: 0; }
+    .nav-link {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      padding: 0 14px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .nav-link:hover { color: var(--blue); border-bottom-color: var(--blue); }
+    .nav-link.has-drop::after {
+      content: '▾';
+      font-size: 0.65rem;
+      margin-left: 4px;
+      opacity: 0.6;
+    }
+    .nav-cta {
+      margin-left: 16px;
+      padding: 10px 20px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: #009a4e; transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 88vh;
+      min-height: 580px;
+      overflow: hidden;
+    }
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-photo .photo-placeholder { height: 100%; background: linear-gradient(135deg, #0d3b26 0%, #0a3d52 60%, #052a39 100%); color: rgba(255,255,255,0.3); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(35,31,32,0.88) 0%,
+        rgba(35,31,32,0.55) 55%,
+        rgba(0,146,207,0.18) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 660px;
+      padding: 0 32px;
+      margin: 0 auto;
+      margin-left: clamp(32px, 8vw, 120px);
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 2px;
+      background: var(--green);
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 22px;
+    }
+    .hero h1 em { color: var(--green); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.65;
+      margin-bottom: 36px;
+      max-width: 520px;
+      font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-badge {
+      position: absolute;
+      bottom: 36px;
+      right: 48px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 20px 28px;
+      color: var(--white);
+      text-align: center;
+      z-index: 2;
+    }
+    .hero-badge .num { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--green); line-height: 1; }
+    .hero-badge .lbl { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-top: 4px; }
+
+    /* ─── STATS STRIP ─── */
+    .stats-strip {
+      background: var(--dark);
+      padding: 36px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 16px 24px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      color: var(--green);
+      line-height: 1;
+    }
+    .stat-unit { color: var(--blue); font-size: 1.4rem; }
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* ─── INTRO ─── */
+    .intro-section { padding: 96px 0 80px; }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .intro-text h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      line-height: 1.18;
+      color: var(--dark);
+      margin-bottom: 22px;
+    }
+    .intro-text h2 em { color: var(--blue); font-style: normal; }
+    .intro-text p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+    .intro-text p strong { color: var(--green); font-weight: 600; }
+    .intro-actions { margin-top: 32px; display: flex; gap: 14px; }
+    .intro-photo { border-radius: 12px; overflow: hidden; height: 440px; }
+    .intro-photo .photo-placeholder { height: 100%; }
+
+    /* ─── BENEFITS ─── */
+    .benefits-section { background: var(--mid); padding: 80px 0; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    .section-header p { font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; line-height: 1.65; }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .benefit-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(35,31,32,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .benefit-card:hover { transform: translateY(-5px); box-shadow: 0 10px 36px rgba(35,31,32,0.1); }
+    .benefit-img { height: 220px; }
+    .benefit-img .photo-placeholder { height: 100%; }
+    .benefit-body { padding: 28px; }
+.benefit-body h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--dark); margin-bottom: 10px; }
+    .benefit-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+    .benefit-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: gap 0.2s;
+    }
+    .benefit-link:hover { gap: 10px; }
+
+    /* ─── FEATURED PRODUCT ─── */
+    .feature-section { padding: 96px 0; }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .feature-grid.reverse { direction: rtl; }
+    .feature-grid.reverse > * { direction: ltr; }
+    .feature-photo { border-radius: 12px; overflow: hidden; height: 420px; }
+    .feature-photo .photo-placeholder { height: 100%; }
+    .feature-text h2 { font-family: 'DM Serif Display', serif; font-size: 2.1rem; line-height: 1.2; color: var(--dark); margin-bottom: 18px; }
+    .feature-text p { font-size: 0.98rem; line-height: 1.72; color: var(--text-muted); margin-bottom: 14px; }
+    .feature-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
+    .chip {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .chip.green { background: var(--green-light); color: var(--green); }
+    .chip.blue { background: var(--blue-light); color: var(--blue); }
+    .chip.dark { background: #eae9e8; color: var(--dark); }
+
+    /* ─── PRODUCT GRID ─── */
+    .products-section { background: var(--dark); padding: 96px 0; }
+    .products-section .section-header h2 { color: var(--white); }
+    .products-section .section-header p { color: rgba(255,255,255,0.55); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .product-card:hover { background: rgba(255,255,255,0.1); border-color: var(--blue); transform: translateY(-4px); }
+    .product-card-img { height: 160px; }
+    .product-card-img .photo-placeholder { height: 100%; background: linear-gradient(135deg, #0d2f20 0%, #0a2d3f 100%); color: rgba(255,255,255,0.25); }
+    .product-card-body { padding: 20px; }
+    .product-card-body h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .product-card-body p { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+    /* ─── NEWS SECTION ─── */
+    .news-section { padding: 96px 0; }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .news-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .news-card:hover { box-shadow: 0 8px 30px rgba(35,31,32,0.1); transform: translateY(-4px); }
+    .news-card-img { height: 200px; }
+    .news-card-img .photo-placeholder { height: 100%; }
+    .news-card-body { padding: 24px; }
+    .news-date { font-size: 0.72rem; color: var(--blue); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .news-card-body h4 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; line-height: 1.3; color: var(--dark); margin-bottom: 10px; }
+    .news-card-body p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; }
+    .news-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ─── PORTFOLIO STRIP ─── */
+    .portfolio-section { background: var(--mid); padding: 80px 0; overflow: hidden; }
+    .portfolio-inner { max-width: 1400px; margin: 0 auto; }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: 200px 200px;
+      gap: 12px;
+      margin-top: 48px;
+    }
+    .port-item { border-radius: 8px; overflow: hidden; }
+    .port-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .port-item:nth-child(2) { grid-column: span 2; }
+    .port-item:nth-child(3) { grid-column: span 2; }
+    .port-item:nth-child(4) { grid-column: span 1; }
+    .port-item:nth-child(5) { grid-column: span 1; }
+    .port-item:nth-child(6) { grid-column: span 2; }
+    .port-item .photo-placeholder { height: 100%; font-size: 0.65rem; }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      background: linear-gradient(120deg, var(--blue) 0%, #006e9e 50%, #005580 100%);
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .cta-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(0,178,90,0.15);
+    }
+    .cta-banner .container { position: relative; z-index: 1; }
+    .cta-banner h2 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--white); margin-bottom: 14px; }
+    .cta-banner p { font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 36px; line-height: 1.65; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: var(--white);
+      color: var(--blue);
+      border: 2px solid var(--white);
+      font-weight: 700;
+    }
+    .btn-white:hover { background: transparent; color: var(--white); }
+
+    /* ─── BRANDS ─── */
+    .brands-section { padding: 64px 0; border-top: 1px solid var(--border); }
+    .brands-header { text-align: center; margin-bottom: 40px; }
+    .brands-header p { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+    .brands-row { display: flex; align-items: center; justify-content: center; gap: 56px; flex-wrap: wrap; }
+    .brand-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .brand-pill:hover { border-color: var(--green); color: var(--green); }
+    .brand-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 64px 0 0; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+    }
+    .footer-brand .logo-wordmark { font-size: 1.5rem; margin-bottom: 4px; }
+    .footer-brand .logo-tagline { color: rgba(255,255,255,0.4); font-size: 0.6rem; }
+    .footer-brand p { font-size: 0.85rem; line-height: 1.65; margin-top: 20px; color: rgba(255,255,255,0.5); max-width: 280px; }
+    .footer-addr { margin-top: 20px; font-size: 0.8rem; line-height: 1.7; color: rgba(255,255,255,0.45); }
+    .footer-col h5 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 0.84rem; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,0.3); transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: var(--green); }
+
+    /* photo icon svg helper */
+    .ph-icon { opacity: 0.5; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container">
+    <span>LiveRoof LLC &nbsp;|&nbsp; Nunica, MI &nbsp;·&nbsp; (800) 875-1392</span>
+    <div class="topbar-links">
+      <a href="#">Catalog</a>
+      <a href="#">FAQ's</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-wrap">
+          <div class="logo-wordmark"><span class="live">Live</span><span class="roof">Roof</span></div>
+          <div class="logo-tagline">The Proof is in the Roof</div>
+        </div>
+      </a>
+      <nav>
+        <a href="#" class="nav-link">About Us</a>
+        <a href="#" class="nav-link">Why Green Roofs?</a>
+        <a href="#" class="nav-link has-drop">Products</a>
+        <a href="#" class="nav-link">News</a>
+        <a href="#" class="nav-link">Benefits</a>
+        <a href="#" class="nav-link has-drop">Portfolio</a>
+        <a href="#" class="nav-link has-drop">Technical</a>
+        <a href="#" class="nav-link has-drop">Contact</a>
+        <a href="#" class="nav-cta">Get a Quote</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo">
+    <div class="photo-placeholder" style="height:100%">
+      <svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+      <span>Hero Photo — Green Roof Aerial</span>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">LiveRoof Green Roof Systems</div>
+    <h1>Nature Above.<br/><em>Proven</em> Below.</h1>
+    <p class="hero-sub">Our patented hybrid green roof design combines the best features of alternate green roof methods — delivering instant maturity, natural beauty, and lasting performance from Day One.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary">Explore Products</a>
+      <a href="#" class="btn btn-outline">View Portfolio</a>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <div class="num">25<span style="font-size:1.2rem">+</span></div>
+    <div class="lbl">Years in Business</div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">150<span class="stat-unit">M+</span></div>
+        <div class="stat-label">Sq Ft Installed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5,000<span class="stat-unit">+</span></div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">25<span class="stat-unit">+</span></div>
+        <div class="stat-label">Years in Business</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-text">
+        <span class="tag">Patented Hybrid Design</span>
+        <h2>The <em>Best</em> of Both Worlds in Green Roofing</h2>
+        <p>LiveRoof offers the natural function and <strong>natural beauty</strong> of built-in-place living roofs — without the extensive ongoing costs of maturation. It's the only system that delivers an instantly mature, fully vegetated green roof.</p>
+        <p>Unlike conventional mat or carpet systems, LiveRoof modules arrive pre-grown, interconnected, and ready to thrive — eliminating the establishment phase that costs time and money.</p>
+        <div class="intro-actions">
+          <a href="#" class="btn btn-primary">Learn How It Works</a>
+          <a href="#" class="btn-outline-dark btn">Design Guide ↗</a>
+        </div>
+      </div>
+      <div class="intro-photo">
+        <div class="photo-placeholder">
+          <svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Product / Installation Photo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">Why LiveRoof?</span>
+      <h2>Three Pillars of Performance</h2>
+      <p>Our hybrid approach solves the core trade-offs that plague alternative green roof methods.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-img">
+          <div class="photo-placeholder"><svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Colorful Green Roof Plantings</span></div>
+        </div>
+        <div class="benefit-body">
+          <h3>Natural Beauty</h3>
+          <p>LiveRoof offers the natural function and beauty of built-in-place living roofs — without the extensive ongoing costs of maturation.</p>
+          <a href="#" class="benefit-link">Learn More →</a>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-img">
+          <div class="photo-placeholder"><svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Installation Photo</span></div>
+        </div>
+        <div class="benefit-body">
+          <h3>Ease of Installation</h3>
+          <p>Enjoy the speed and convenience of modular delivery — without grid lines or compartmentalization of soil.</p>
+          <a href="#" class="benefit-link">Learn More →</a>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-img">
+          <div class="photo-placeholder"><svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Mature Green Roof — Meijer Gardens</span></div>
+        </div>
+        <div class="benefit-body">
+          <h3>Instantly Mature</h3>
+          <p>Fully vegetated from Day One with a broader plant palette than carpet or mat systems — no establishment phase required.</p>
+          <a href="#" class="benefit-link">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE — SOLAGREEN -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feature-photo">
+        <div class="photo-placeholder">
+          <svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          <span>SolaGreen Solar + Green Roof Photo</span>
+        </div>
+      </div>
+      <div class="feature-text">
+        <span class="tag">New for 2025</span>
+        <h2>Introducing SolaGreen™ — Solar Meets Living Roof</h2>
+        <p>The future of sustainable roofing is here. SolaGreen combines LiveRoof's proven green roof technology with integrated solar panels — delivering dual environmental and energy benefits on a single rooftop footprint.</p>
+        <div class="feature-chips">
+          <span class="chip green">+25% Energy Output</span>
+          <span class="chip blue">Stormwater Retention</span>
+          <span class="chip dark">LEED Eligible</span>
+        </div>
+        <a href="#" class="btn btn-primary">Discover SolaGreen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE — ROOFBLUE (reversed) -->
+<section class="feature-section" style="background:var(--mid); padding-top:0;">
+  <div class="container" style="padding-top:96px">
+    <div class="feature-grid reverse">
+      <div class="feature-photo">
+        <div class="photo-placeholder">
+          <svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          <span>RoofBlue RETAIN System Photo</span>
+        </div>
+      </div>
+      <div class="feature-text">
+        <span class="tag">Blue-Green Roof Research</span>
+        <h2>RoofBlue RETAIN™ — Stormwater, Solved</h2>
+        <p>A 2022 study by world-renowned green roof researcher Brad Rowe found that RoofBlue RETAIN — combined with LiveRoof Standard or Lite modules — increases stormwater retention by over 25%.</p>
+        <p>The same system enhances plant growth and reduces irrigation requirements, making it one of the most impactful upgrades available for any green roof installation.</p>
+        <div class="feature-chips">
+          <span class="chip blue">25%+ More Retention</span>
+          <span class="chip green">Reduced Irrigation</span>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a href="#" class="btn btn-primary">White Paper</a>
+          <a href="#" class="btn-outline-dark btn">RoofBlue RETAIN</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag" style="color:var(--green)">Full Product Line</span>
+      <h2>Everything Your Roof Needs</h2>
+      <p>From modules to accessories, every LiveRoof component is engineered for decades of performance.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>Green Roof Modules</h4><p>Pre-grown, plug-and-play modules for instant roof coverage.</p></div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>RoofEdge</h4><p>Aluminum edging for clean, secure perimeter details.</p></div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>RoofStone</h4><p>Concrete pavers proven to reduce runoff by 25%.</p></div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>WindDisc</h4><p>Ballast system engineered for high-wind zones.</p></div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>RoofBlue</h4><p>Blue-green water retention layer for enhanced performance.</p></div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>RoofTop Proven™ Plants</h4><p>Rigorously tested exclusive plant selections for green roofs.</p></div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>Engineered Soil</h4><p>Locally blended growing media for optimal plant health.</p></div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-img"><div class="photo-placeholder"><span>Photo</span></div></div>
+        <div class="product-card-body"><h4>SolaGreen™</h4><p>Integrated solar + green roof system for 2025 and beyond.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">What's New</span>
+      <h2>Latest from LiveRoof</h2>
+      <p>Research, case studies, and insights from the world's leading green roof system.</p>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-card-img"><div class="photo-placeholder"><svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Article Photo</span></div></div>
+        <div class="news-card-body">
+          <div class="news-date">March 2025</div>
+          <h4>The Science Behind LiveRoof — Energy Savings</h4>
+          <p>In an era of rising energy costs, LiveRoof green roof systems deliver measurable reductions in building energy consumption.</p>
+          <a href="#" class="news-read">Read Article →</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img"><div class="photo-placeholder"><svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Article Photo</span></div></div>
+        <div class="news-card-body">
+          <div class="news-date">February 2025</div>
+          <h4>Ronald McDonald House Green Roofs in Atlanta</h4>
+          <p>Designed to last: the long-term performance of green roofs built to endure Georgia's climate for decades.</p>
+          <a href="#" class="news-read">Read Article →</a>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-card-img"><div class="photo-placeholder"><svg class="ph-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Article Photo</span></div></div>
+        <div class="news-card-body">
+          <div class="news-date">January 2025</div>
+          <h4>Eight Years Later: LiveRoof Performance in Toronto</h4>
+          <p>A case study from Bloor Islington Place, installed July 2018 — still thriving in one of Canada's most demanding urban climates.</p>
+          <a href="#" class="news-read">Read Article →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section">
+  <div class="container portfolio-inner">
+    <div class="section-header">
+      <span class="tag">Featured Projects</span>
+      <h2>Thousands of Roofs. One Standard.</h2>
+      <p>From university campuses to corporate headquarters, LiveRoof performs across every building type.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="port-item"><div class="photo-placeholder" style="height:100%"><span>Haworth Corporate HQ</span></div></div>
+      <div class="port-item"><div class="photo-placeholder" style="height:100%"><span>215 N Peoria</span></div></div>
+      <div class="port-item"><div class="photo-placeholder" style="height:100%"><span>Univ. of Notre Dame</span></div></div>
+      <div class="port-item"><div class="photo-placeholder" style="height:100%"><span>KLA</span></div></div>
+      <div class="port-item"><div class="photo-placeholder" style="height:100%"><span>Waunakee Library</span></div></div>
+      <div class="port-item"><div class="photo-placeholder" style="height:100%"><span>Union Station, Indianapolis</span></div></div>
+    </div>
+    <div style="text-align:center;margin-top:36px">
+      <a href="#" class="btn btn-primary">Browse All Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Ready to Build Your Living Roof?</h2>
+    <p>Generate custom specifications in 5 minutes, or connect with a local Licensed Grower near you.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn btn-white">Use Spec Writer</a>
+      <a href="#" class="btn btn-outline">Find a Representative</a>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands-section">
+  <div class="container">
+    <div class="brands-header">
+      <p>LiveRoof is brought to you by the same team as these leading brands</p>
+    </div>
+    <div class="brands-row">
+      <a href="#" class="brand-pill">
+        <img src="" alt="LiveWall logo" style="display:block;width:100px;height:32px;background:#e5e7eb;border-radius:4px;">
+      </a>
+      <a href="#" class="brand-pill">
+        <img src="" alt="Hortech logo" style="display:block;width:100px;height:32px;background:#e5e7eb;border-radius:4px;">
+      </a>
+      <a href="#" class="brand-pill">
+        <img src="" alt="Norb Lighting logo" style="display:block;width:120px;height:32px;background:#e5e7eb;border-radius:4px;">
+      </a>
+      <a href="#" class="brand-pill" style="background:var(--green-light);border-color:var(--green)">
+        <span class="brand-dot" style="background:var(--green)"></span>
+        Come Grow With Us →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-wordmark"><span class="live" style="color:var(--blue)">Live</span><span class="roof" style="color:var(--green)">Roof</span></div>
+        <div class="logo-tagline" style="color:rgba(255,255,255,0.4);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;margin-top:3px">The Proof is in the Roof</div>
+        <p>LiveRoof green roof systems deliver instant maturity, natural beauty, and decades of proven performance — locally grown, locally supported.</p>
+        <div class="footer-addr">
+          LiveRoof LLC<br/>
+          14109 Cleveland St<br/>
+          Nunica, MI 49448<br/>
+          (800) 875-1392
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          <li><a href="#">Green Roof Modules</a></li>
+          <li><a href="#">RoofEdge</a></li>
+          <li><a href="#">RoofStone</a></li>
+          <li><a href="#">WindDisc</a></li>
+          <li><a href="#">PipeRunner</a></li>
+          <li><a href="#">RoofBlue</a></li>
+          <li><a href="#">SolaGreen</a></li>
+          <li><a href="#">Plants & Soil</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Technical</h5>
+        <ul>
+          <li><a href="#">Design & Engineering</a></li>
+          <li><a href="#">Detail Drawings</a></li>
+          <li><a href="#">Installation Guide</a></li>
+          <li><a href="#">LEED Resources</a></li>
+          <li><a href="#">Spec Writer</a></li>
+          <li><a href="#">Continuing Education</a></li>
+          <li><a href="#">Maintenance & Ops</a></li>
+          <li><a href="#">Videos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Why Green Roofs?</a></li>
+          <li><a href="#">Benefits</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Representatives</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 LiveRoof LLC. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Catalog</a>
+        <a href="#">FAQ's</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

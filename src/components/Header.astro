@@ -1,0 +1,236 @@
+---
+const productDropdown = [
+  { label: 'All Products', href: '/products' },
+  { label: 'Green Roof Modules', href: '/products/modules' },
+  { label: 'RoofEdge', href: '/products/roofedge' },
+  { label: 'RoofStone', href: '/products/roofstone' },
+  { label: 'WindDisc', href: '/products/winddisc' },
+  { label: 'PipeRunner', href: '/products/piperunner' },
+  { label: 'RoofBlue', href: '/products/roofblue' },
+  { label: 'Plants', href: '/products/plants' },
+  { label: 'Soil', href: '/products/soil' },
+  { label: 'Delivery & Installation', href: '/products/delivery-installation' },
+  { label: 'Warranty', href: '/products/warranty' },
+];
+
+const technicalDropdown = [
+  { label: 'All Resources', href: '/technical' },
+  { label: 'Design & Engineering', href: '/technical/design-engineering' },
+  { label: 'Detail Drawings', href: '/technical/detail-drawings' },
+  { label: 'Installation', href: '/technical/installation' },
+  { label: 'LEED Resources', href: '/technical/leed' },
+  { label: 'Spec Writer', href: '/technical/spec-writer' },
+  { label: 'Continuing Education', href: '/technical/continuing-education' },
+  { label: 'Maintenance & Ops', href: '/technical/maintenance' },
+  { label: 'Videos', href: '/videos' },
+];
+---
+
+<header class="sticky top-0 z-[100] bg-white border-b border-border shadow-[0_2px_16px_rgba(35,31,32,0.06)]">
+  <div class="container">
+    <div class="flex items-center justify-between h-[76px]">
+      <a href="/" class="flex items-center">
+        <div class="flex flex-col">
+          <div class="font-serif text-[1.75rem] leading-none">
+            <span class="text-blue">Live</span><span class="text-green">Roof</span>
+          </div>
+          <div class="text-[0.62rem] text-text-muted tracking-wide mt-[3px] uppercase font-medium">
+            The Proof is in the Roof
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center">
+        <a href="/about" class="nav-link">About Us</a>
+        <a href="/why-liveroof" class="nav-link">Why LiveRoof?</a>
+
+        <!-- Products Dropdown -->
+        <div class="dropdown-wrap">
+          <a href="/products" class="nav-link has-drop">Products</a>
+          <div class="dropdown-panel">
+            {productDropdown.map((item) => (
+              <a href={item.href} class="dropdown-item">{item.label}</a>
+            ))}
+          </div>
+        </div>
+
+        <a href="/news" class="nav-link">News</a>
+        <a href="/benefits" class="nav-link">Benefits</a>
+        <a href="/portfolio" class="nav-link">Portfolio</a>
+
+        <!-- Technical Dropdown -->
+        <div class="dropdown-wrap">
+          <a href="/technical" class="nav-link has-drop">Technical</a>
+          <div class="dropdown-panel">
+            {technicalDropdown.map((item) => (
+              <a href={item.href} class="dropdown-item">{item.label}</a>
+            ))}
+          </div>
+        </div>
+
+        <a href="/contact" class="nav-link">Contact</a>
+        <a href="#" class="nav-cta">Get a Quote</a>
+      </nav>
+
+      <!-- Mobile Hamburger -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] cursor-pointer"
+        aria-label="Toggle menu"
+      >
+        <span class="hamburger-line block w-6 h-[2px] bg-dark transition-all"></span>
+        <span class="hamburger-line block w-6 h-[2px] bg-dark transition-all"></span>
+        <span class="hamburger-line block w-6 h-[2px] bg-dark transition-all"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Nav Panel -->
+  <nav id="mobile-menu" class="md:hidden hidden border-t border-border bg-white max-h-[80vh] overflow-y-auto">
+    <div class="container py-4 flex flex-col gap-1">
+      <a href="/about" class="mobile-nav-link">About Us</a>
+      <a href="/why-liveroof" class="mobile-nav-link">Why LiveRoof?</a>
+
+      <!-- Mobile Products Accordion -->
+      <div class="mobile-accordion">
+        <button class="mobile-nav-link flex items-center justify-between w-full" data-accordion="products">
+          <span>Products</span>
+          <svg class="accordion-arrow w-4 h-4 text-text-muted transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
+        </button>
+        <div class="accordion-panel hidden pl-4" id="accordion-products">
+          {productDropdown.map((item) => (
+            <a href={item.href} class="mobile-sub-link">{item.label}</a>
+          ))}
+        </div>
+      </div>
+
+      <a href="/news" class="mobile-nav-link">News</a>
+      <a href="/benefits" class="mobile-nav-link">Benefits</a>
+      <a href="/portfolio" class="mobile-nav-link">Portfolio</a>
+
+      <!-- Mobile Technical Accordion -->
+      <div class="mobile-accordion">
+        <button class="mobile-nav-link flex items-center justify-between w-full" data-accordion="technical">
+          <span>Technical</span>
+          <svg class="accordion-arrow w-4 h-4 text-text-muted transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
+        </button>
+        <div class="accordion-panel hidden pl-4" id="accordion-technical">
+          {technicalDropdown.map((item) => (
+            <a href={item.href} class="mobile-sub-link">{item.label}</a>
+          ))}
+        </div>
+      </div>
+
+      <a href="/faq" class="mobile-nav-link">FAQ's</a>
+      <a href="/careers" class="mobile-nav-link">Careers</a>
+      <a href="/contact" class="mobile-nav-link">Contact</a>
+      <a href="#" class="btn btn-primary text-center mt-3">Get a Quote</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  /* Desktop Dropdown */
+  .dropdown-wrap {
+    position: relative;
+  }
+  .dropdown-panel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 220px;
+    background: #ffffff;
+    border: 1px solid #e0dedc;
+    border-radius: 8px;
+    box-shadow: 0 12px 36px rgba(35, 31, 32, 0.12);
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    transform: translateX(-50%) translateY(4px);
+    z-index: 200;
+  }
+  .dropdown-wrap:hover .dropdown-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+  .dropdown-item {
+    display: block;
+    padding: 8px 20px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: #2b2728;
+    transition: background 0.15s, color 0.15s;
+  }
+  .dropdown-item:hover {
+    background: #f4f4f2;
+    color: #0092CF;
+  }
+
+  /* Mobile Nav */
+  .mobile-nav-link {
+    display: block;
+    padding: 12px 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #2b2728;
+    border-bottom: 1px solid #e0dedc;
+    transition: color 0.2s;
+  }
+  .mobile-nav-link:hover {
+    color: #0092CF;
+  }
+  .mobile-sub-link {
+    display: block;
+    padding: 10px 0;
+    font-size: 0.88rem;
+    color: #6b6667;
+    border-bottom: 1px solid #f4f4f2;
+    transition: color 0.15s;
+  }
+  .mobile-sub-link:hover {
+    color: #0092CF;
+  }
+  .accordion-open .accordion-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Hamburger animation */
+  .menu-open .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .menu-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-open .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Mobile menu toggle
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        btn.classList.toggle('menu-open');
+      });
+    }
+
+    // Mobile accordion toggles
+    document.querySelectorAll('[data-accordion]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const id = trigger.getAttribute('data-accordion');
+        const panel = document.getElementById(`accordion-${id}`);
+        if (!panel) return;
+        panel.classList.toggle('hidden');
+        trigger.classList.toggle('accordion-open');
+      });
+    });
+  });
+</script>

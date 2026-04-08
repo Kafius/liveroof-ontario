@@ -1,0 +1,91 @@
+---
+const productLinks = [
+  { label: 'Green Roof Modules', href: '/products/modules' },
+  { label: 'RoofEdge', href: '/products/roofedge' },
+  { label: 'RoofStone', href: '/products/roofstone' },
+  { label: 'WindDisc', href: '/products/winddisc' },
+  { label: 'PipeRunner', href: '/products/piperunner' },
+  { label: 'RoofBlue', href: '/products/roofblue' },
+  { label: 'Plants', href: '/products/plants' },
+  { label: 'Soil', href: '/products/soil' },
+];
+const technicalLinks = [
+  { label: 'Design & Engineering', href: '/technical/design-engineering' },
+  { label: 'Detail Drawings', href: '/technical/detail-drawings' },
+  { label: 'Installation Guide', href: '/technical/installation' },
+  { label: 'LEED Resources', href: '/technical/leed' },
+  { label: 'Spec Writer', href: '/technical/spec-writer' },
+  { label: 'Continuing Education', href: '/technical/continuing-education' },
+  { label: 'Maintenance & Ops', href: '/technical/maintenance' },
+  { label: 'Videos', href: '/videos' },
+];
+const companyLinks = [
+  { label: 'About Us', href: '/about' },
+  { label: 'Why LiveRoof?', href: '/why-liveroof' },
+  { label: 'Benefits', href: '/benefits' },
+  { label: 'News', href: '/news' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'FAQ\'s', href: '/faq' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<footer class="bg-dark text-white/60 pt-16">
+  <div class="container">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 lg:gap-12 pb-12">
+      <div>
+        <div class="font-serif text-2xl mb-1">
+          <span class="text-blue">Live</span><span class="text-green">Roof</span>
+        </div>
+        <div class="text-white/40 text-[0.6rem] tracking-wide uppercase font-medium mt-[3px]">
+          The Proof is in the Roof
+        </div>
+        <p class="text-[0.85rem] leading-relaxed mt-5 text-white/50 max-w-[280px]">
+          LiveRoof green roof systems deliver instant maturity, natural beauty, and decades of proven
+          performance — locally grown, locally supported.
+        </p>
+        <div class="mt-5 text-[0.8rem] leading-[1.7] text-white/[0.45]">
+          LiveRoof Ontario<br />
+          23078 Adelaide Road<br />
+          Mt. Brydges, ON, N0L 1W0<br />
+          (519) 671-5777<br />
+          kees@liveroofontario.ca
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Products</h5>
+        <ul>
+          {productLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Technical</h5>
+        <ul>
+          {technicalLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          {companyLinks.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/[0.08] py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
+      <span>&copy; 2025 LiveRoof Ontario. All rights reserved.</span>
+      <div class="flex gap-5">
+        <a href="#" class="text-white/30 hover:text-green transition-colors">Privacy Policy</a>
+        <a href="#" class="text-white/30 hover:text-green transition-colors">Catalog</a>
+        <a href="#" class="text-white/30 hover:text-green transition-colors">FAQ's</a>
+        <a href="#" class="text-white/30 hover:text-green transition-colors">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>

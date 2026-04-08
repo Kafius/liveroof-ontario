@@ -1,0 +1,71 @@
+---
+const sections = [
+  {
+    tag: 'Who We Are',
+    title: 'Green Roof Innovators',
+    text: 'We are green roof innovators, focused on optimizing every aspect of the green roof. We are a network of industry leading green roof growers with a collective 500+ years of horticultural experience.',
+    sub: 'We are local in key markets across North America with specialization in regional plant materials, soils, water and climate.',
+    cta: { label: 'Find Your Local LiveRoof Rep', href: '#' },
+  },
+  {
+    tag: 'Who We Work With',
+    title: 'Inclusive & Compatible',
+    text: 'We are trying our best to foster a greener world, and one facet of this is creating a certified installer group that is "inclusive" of both roofing-, landscape- and green roof contractors.',
+    sub: 'Our green roof systems are complementary to nearly all types of waterproofing from all manufacturers — whether EPDM, TPO, PVC, bituminous, polyurethane, rubberized asphalt, inverted, or conventional.',
+  },
+  {
+    tag: 'What We Believe',
+    title: 'Greatest Long-Term Value',
+    text: 'We believe that to do green roofs right, we must provide the greatest long term owner value — not necessarily the cheapest acquisition price. To us this means ease of maintenance, greatest beauty, longest lifespan, and lowest life cycle cost.',
+    sub: 'We believe in teamwork and timely, honest communication. We believe in win-win scenarios, fairness, and ethical business practices. We believe in efficiency, consistency, and great service.',
+  },
+  {
+    tag: 'What We Do',
+    title: 'Restoring the Balance',
+    text: 'We strive to improve the world by restoring the balance between green spaces and hard spaces. We respect life; the environment, water, air, plants, animals, and humanity.',
+    sub: 'We develop systems, soils and plants for green roofs in our respective climates, and grow them in a healthy, environmentally responsible manner.',
+  },
+  {
+    tag: 'Why We Do It',
+    title: 'Because We Care',
+    text: 'We care about the earth and its plant, animal, and human inhabitants. And we feel compelled to do our part to help restore the health of the planet and its occupants.',
+  },
+  {
+    tag: 'How We Do It',
+    title: 'Tested, Grown & Delivered',
+    text: 'We test and develop systems, soils, and plants for green roofs in our respective climates and grow them in a healthy, environmentally responsible manner.',
+    sub: 'We grow in the unique and proven LiveRoof system, deliver on time, and take pride in dependable and attentive service.',
+  },
+];
+---
+
+<section class="py-14 md:py-24 bg-white">
+  <div class="container">
+    <div class="grid gap-14 md:gap-20">
+      {sections.map((s, i) => (
+        <div class={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center ${i % 2 === 1 ? 'md:[direction:rtl]' : ''}`}>
+          <!-- Photo placeholder -->
+          <div class={`photo-placeholder rounded-xl aspect-[4/3] ${i % 2 === 1 ? 'md:[direction:ltr]' : ''}`}>
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+            </svg>
+            <span>Photo</span>
+          </div>
+
+          <!-- Text -->
+          <div class={`${i % 2 === 1 ? 'md:[direction:ltr]' : ''}`}>
+            <span class="tag">{s.tag}</span>
+            <h2 class="font-serif text-[2.2rem] leading-[1.18] text-dark mb-5">{s.title}</h2>
+            <p class="text-base text-text-muted leading-[1.75] mb-4">{s.text}</p>
+            {s.sub && <p class="text-base text-text-muted leading-[1.75] mb-4">{s.sub}</p>}
+            {s.cta && (
+              <a href={s.cta.href} class="btn btn-primary mt-4">{s.cta.label}</a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

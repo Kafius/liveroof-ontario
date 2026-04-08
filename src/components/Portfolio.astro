@@ -1,0 +1,32 @@
+---
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
+
+const projects = [
+  'Haworth Corporate HQ',
+  '215 N Peoria',
+  'Univ. of Notre Dame',
+  'KLA',
+  'Waunakee Library',
+  'Union Station, Indianapolis',
+];
+---
+
+<section class="bg-mid py-14 md:py-24 overflow-hidden">
+  <div class="container max-w-[1400px]">
+    <div class="section-header">
+      <span class="tag">Featured Projects</span>
+      <h2>Thousands of Roofs. One Standard.</h2>
+      <p>From university campuses to corporate headquarters, LiveRoof performs across every building type.</p>
+    </div>
+    <div class="portfolio-grid">
+      {projects.map((name) => (
+        <div class="port-item">
+          <PhotoPlaceholder label={name} class="h-full" showIcon={false} />
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-9">
+      <a href="#" class="btn btn-primary">Browse All Projects</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
+---
+
+<section class="py-14 md:py-24">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="rounded-xl overflow-hidden h-[280px] md:h-[420px]">
+        <PhotoPlaceholder label="SolaGreen Solar + Green Roof Photo" class="h-full" iconSize={40} />
+      </div>
+      <div class="feature-text">
+        <span class="tag">New for 2025</span>
+        <h2>Introducing SolaGreen&trade; — Solar Meets Living Roof</h2>
+        <p>
+          The future of sustainable roofing is here. SolaGreen combines LiveRoof's proven green roof
+          technology with integrated solar panels — delivering dual environmental and energy benefits
+          on a single rooftop footprint.
+        </p>
+        <div class="flex flex-wrap gap-2.5 my-6">
+          <span class="chip green">+25% Energy Output</span>
+          <span class="chip blue">Stormwater Retention</span>
+          <span class="chip dark">LEED Eligible</span>
+        </div>
+        <a href="#" class="btn btn-primary">Discover SolaGreen</a>
+      </div>
+    </div>
+  </div>
+</section>

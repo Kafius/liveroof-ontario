@@ -1,0 +1,31 @@
+---
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
+---
+
+<section class="hero">
+  <div class="absolute inset-0">
+    <PhotoPlaceholder
+      label="Hero Photo — Green Roof Aerial"
+      class="h-full"
+      style="background: linear-gradient(135deg, #0d3b26 0%, #0a3d52 60%, #052a39 100%); color: rgba(255,255,255,0.3);"
+      iconSize={48}
+    />
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">LiveRoof Green Roof Systems</div>
+    <h1>Nature Above.<br /><em>Proven</em> Below.</h1>
+    <p class="hero-sub">
+      Our patented hybrid green roof design combines the best features of alternate green roof
+      methods — delivering instant maturity, natural beauty, and lasting performance from Day One.
+    </p>
+    <div class="flex gap-3.5 flex-wrap">
+      <a href="#" class="btn btn-primary">Explore Products</a>
+      <a href="#" class="btn btn-outline">View Portfolio</a>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <div class="num">25<span style="font-size:1.2rem">+</span></div>
+    <div class="lbl">Years in Business</div>
+  </div>
+</section>

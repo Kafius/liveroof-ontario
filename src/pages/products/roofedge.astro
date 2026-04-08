@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../../components/TopBar.astro';
+import Header from '../../components/Header.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProductPageLayout from '../../components/ProductPageLayout.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import Footer from '../../components/Footer.astro';
+
+const sizes = [
+  { name: 'RoofEdge Lite', height: '2.75"', system: 'Lite Module' },
+  { name: 'RoofEdge Standard', height: '4.25"', system: 'Standard Module' },
+  { name: 'RoofEdge Deep', height: '6.5"', system: 'Deep Module' },
+  { name: 'RoofEdge Maxx', height: '8.5"', system: 'Maxx Module' },
+];
+
+const finishes = [
+  { name: 'Mill Finish', desc: 'Natural aluminum — complements a wide variety of modern structures.' },
+  { name: 'Black Anodize', desc: 'Reduces glare and blends with dark architectural features.' },
+  { name: 'Bronze Anodize', desc: 'Warm tone that complements brick, wood, and earth-toned buildings.' },
+];
+---
+
+<Layout title="RoofEdge Aluminum Edging – LiveRoof Products">
+  <TopBar />
+  <Header />
+
+  <PageHero
+    eyebrow="Edging"
+    title="RoofEdge®"
+    highlight="Aluminum Edge Restraint"
+    subtitle="A new standard in green roof edging. Extruded, fabricated and finished in the USA — the result of lessons learned over thousands of installations."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'RoofEdge' },
+    ]}
+  />
+
+  <ProductPageLayout name="RoofEdge" tagline="Architecturally pleasing and contractor-friendly — economical and easy to install.">
+    <span class="tag">Integrated Sizes</span>
+    <h2 class="font-serif text-[2rem] text-dark mb-6">Designed to Complement Every Module</h2>
+    <p class="text-text-muted leading-relaxed mb-8">
+      RoofEdge is extruded, fabricated and finished in the United States using the highest quality
+      materials and standards. Extenders add 4 inches to any size.
+    </p>
+
+    <!-- Size Table -->
+    <div class="rounded-xl border border-border overflow-x-auto mb-12">
+      <table class="w-full text-left min-w-[400px]">
+        <thead class="bg-mid">
+          <tr>
+            <th class="px-4 md:px-5 py-3 text-[0.72rem] font-bold tracking-wider uppercase text-text-muted">Product</th>
+            <th class="px-4 md:px-5 py-3 text-[0.72rem] font-bold tracking-wider uppercase text-text-muted">Height</th>
+            <th class="px-4 md:px-5 py-3 text-[0.72rem] font-bold tracking-wider uppercase text-text-muted">Pairs With</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sizes.map((size, i) => (
+            <tr class={i % 2 === 0 ? 'bg-white' : 'bg-mid/50'}>
+              <td class="px-5 py-3 font-semibold text-dark text-[0.9rem]">{size.name}</td>
+              <td class="px-5 py-3 text-text-muted text-[0.9rem]">{size.height}</td>
+              <td class="px-5 py-3 text-text-muted text-[0.9rem]">{size.system}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Finishes -->
+    <span class="tag">Architectural-Grade Finishes</span>
+    <h3 class="font-serif text-[1.5rem] text-dark mb-4">Built to Last Decades</h3>
+    <p class="text-text-muted leading-relaxed mb-6">
+      We chose anodization over powder coating because green roofs are intended to last decades.
+      Anodization is a permanent change to the aluminum's surface — most suitable for salty
+      environments and more durable than coated products.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+      {finishes.map((finish) => (
+        <div class="bg-mid rounded-xl p-5">
+          <div class="photo-placeholder rounded-lg aspect-[3/2] mb-3">
+            <span class="text-[0.65rem]">{finish.name}</span>
+          </div>
+          <h4 class="font-semibold text-dark text-[0.92rem] mb-1">{finish.name}</h4>
+          <p class="text-[0.82rem] text-text-muted leading-relaxed">{finish.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Accessories -->
+    <span class="tag">Accessories</span>
+    <h3 class="font-serif text-[1.5rem] text-dark mb-4">Corners, Drain Boxes & Tie-Off Boxes</h3>
+
+    <div class="space-y-6">
+      <div class="bg-mid rounded-xl p-6">
+        <h4 class="font-semibold text-dark mb-2">Factory-Formed Corners</h4>
+        <p class="text-[0.9rem] text-text-muted leading-relaxed">
+          Stocked in all sizes and finishes. Formed before anodization for a flawless finish.
+          Available in Base In (encloses outside of vegetation) and Base Out (boxes out vegetation-free zones).
+        </p>
+      </div>
+      <div class="bg-mid rounded-xl p-6">
+        <h4 class="font-semibold text-dark mb-2">Drain Boxes — 24" x 24"</h4>
+        <p class="text-[0.9rem] text-text-muted leading-relaxed">
+          Fabricated drain boxes simplify boxing out drain areas. Lidded option includes latches
+          with locking pins for tool-free access during inspections.
+        </p>
+      </div>
+      <div class="bg-mid rounded-xl p-6">
+        <h4 class="font-semibold text-dark mb-2">Tie-Off Boxes — 12" x 12"</h4>
+        <p class="text-[0.9rem] text-text-muted leading-relaxed">
+          For boxing out roof anchors and penetrations. Three corners welded — the fourth opens
+          to fit around tall pipes or anchors.
+        </p>
+      </div>
+    </div>
+  </ProductPageLayout>
+
+  <CtaBanner />
+  <Footer />
+</Layout>

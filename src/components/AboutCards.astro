@@ -1,0 +1,59 @@
+---
+const cards = [
+  {
+    label: 'Products',
+    title: 'Explore Our Green Roof Systems',
+    description: 'Lush, fully vegetated LiveRoof modules designed for instant maturity and lasting performance.',
+    linkText: 'Learn More About Our Products',
+    href: '#',
+  },
+  {
+    label: 'LiveWall',
+    title: 'Living Wall Systems',
+    description: 'Complementary green wall solutions that bring vertical greenery to any building facade.',
+    linkText: 'Learn More About LiveWall',
+    href: '#',
+  },
+  {
+    label: 'Hortech',
+    title: 'Our Parent Company',
+    description: 'One of the Midwest\'s leading wholesale growers of sustainably-grown perennials.',
+    linkText: 'Learn More About Hortech',
+    href: '#',
+  },
+];
+---
+
+<section class="py-14 md:py-24 bg-white">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">Discover More</span>
+      <h2>Part of the LiveRoof Family</h2>
+      <p>Explore our full ecosystem of green roof products, living walls, and sustainably-grown plants.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+      {cards.map((card) => (
+        <a href={card.href} class="benefit-card group">
+          <div class="photo-placeholder aspect-[16/10]">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+            </svg>
+            <span>{card.label}</span>
+          </div>
+          <div class="p-6">
+            <span class="tag">{card.label}</span>
+            <h3 class="font-serif text-[1.3rem] text-dark mb-2">{card.title}</h3>
+            <p class="text-[0.9rem] text-text-muted leading-relaxed">{card.description}</p>
+            <span class="benefit-link mt-4">
+              {card.linkText}
+              <span class="transition-transform group-hover:translate-x-1">&rarr;</span>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

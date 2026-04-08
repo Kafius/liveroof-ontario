@@ -1,0 +1,32 @@
+---
+interface Props {
+  name: string;
+  tagline: string;
+}
+
+const { name, tagline } = Astro.props;
+---
+
+<section class="py-24 bg-white">
+  <div class="container">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <!-- Product Image -->
+      <div class="lg:sticky lg:top-[100px]">
+        <div class="photo-placeholder rounded-xl aspect-[4/3]">
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+          </svg>
+          <span>{name}</span>
+        </div>
+        <p class="text-sm text-text-muted mt-4 italic">{tagline}</p>
+      </div>
+
+      <!-- Product Content -->
+      <div>
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
