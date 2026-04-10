@@ -16,6 +16,35 @@ interface Tab {
   groups: Group[];
 }
 
+interface CardStyle {
+  iconPath: string;
+  color: string;
+  bg: string;
+}
+
+function getCardStyle(title: string): CardStyle {
+  const t = title.toLowerCase();
+  if (/cost|save money|revenue|rental|income|financial|resale/.test(t))
+    return { iconPath: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6', color: '#16a34a', bg: '#dcfce7' };
+  if (/energy|solar|ac cost|electric/.test(t))
+    return { iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z', color: '#d97706', bg: '#fef3c7' };
+  if (/storm|water|rain|retain|detain|cistern/.test(t))
+    return { iconPath: 'M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z', color: '#0284c7', bg: '#e0f2fe' };
+  if (/heal|health|wellness|patient|burnout|absentee/.test(t))
+    return { iconPath: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z', color: '#dc2626', bg: '#fee2e2' };
+  if (/\broof\b|longev|warrant|module|membrane|edging|install/.test(t))
+    return { iconPath: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z', color: '#00B25A', bg: '#e6f7ee' };
+  if (/fire|wind|uplift|ul |code|certif|complian|tested/.test(t))
+    return { iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', color: '#6366f1', bg: '#eef2ff' };
+  if (/employ|talent|recruit|attract|productiv|staff|retention/.test(t))
+    return { iconPath: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z', color: '#7c3aed', bg: '#f5f3ff' };
+  if (/habitat|natur|plant|garden|pollinator|beautif|transform|ugly|outdoor|teach|sustain|decompress/.test(t))
+    return { iconPath: 'M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5zM16 8L2 22M17.5 15H9', color: '#059669', bg: '#d1fae5' };
+  if (/brand|steward|goodwill|promote|mascot|identity|message|posterity|retrofit|show|progressive|walk|cause/.test(t))
+    return { iconPath: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z', color: '#0092CF', bg: '#e6f6fd' };
+  return { iconPath: 'M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z', color: '#00B25A', bg: '#e6f7ee' };
+}
+
 const tabs: Tab[] = [
   {
     id: 'universal-benefits',
@@ -252,13 +281,13 @@ const tabs: Tab[] = [
 <div class="sticky top-[76px] z-50 bg-dark border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
   <div class="container">
     <div
-      class="flex gap-2 py-4 overflow-x-auto whitespace-nowrap solution-scrollbar"
+      class="flex flex-wrap gap-2 py-4"
       role="tablist"
       id="solution-tablist"
     >
       {tabs.map((tab, i) => (
         <button
-          class={`solution-tab flex-shrink-0 px-5 py-2.5 rounded-md text-[0.82rem] font-semibold tracking-wide transition-all cursor-pointer border-2 ${
+          class={`solution-tab px-5 py-2.5 rounded-md text-[0.82rem] font-semibold tracking-wide transition-all cursor-pointer border-2 ${
             i === 0
               ? 'bg-green text-white border-green shadow-[0_4px_16px_rgba(0,178,90,0.3)]'
               : 'bg-transparent text-white/60 border-white/10 hover:text-white hover:border-white/30'
@@ -283,51 +312,86 @@ const tabs: Tab[] = [
     role="tabpanel"
   >
     <div class="container py-14 md:py-20">
+
       <!-- Panel Header -->
-      <div class="mb-10">
-        <span class="tag">{tab.label}</span>
-        <h2 class="font-serif text-[clamp(1.5rem,4vw,2.2rem)] text-dark leading-[1.18] mb-3">{tab.label}</h2>
-        <p class="text-text-muted text-[0.95rem] max-w-[520px]">{tab.subtitle}</p>
+      <div class="relative overflow-hidden rounded-2xl bg-dark mb-12 p-8 md:p-10">
+        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 85% 50%, rgba(0,178,90,0.18) 0%, transparent 60%)"></div>
+        <div class="relative z-10">
+          <span class="text-[0.68rem] font-bold tracking-[0.18em] uppercase text-green block mb-3">{tab.label}</span>
+          <h2 class="font-serif text-[clamp(1.5rem,4vw,2.2rem)] text-white leading-[1.18] mb-0">{tab.subtitle}</h2>
+          <div class="h-0.5 w-12 bg-green mt-5 rounded-full"></div>
+        </div>
       </div>
 
       {tab.groups.map((group) => (
-        <div class="mb-10">
+        <div class="mb-12">
+
           {group.label && (
-            <div class="flex items-center gap-3 mb-6">
-              <div class="w-8 h-8 rounded-lg bg-blue-light flex items-center justify-center flex-shrink-0">
-                <svg width="16" height="16" fill="none" stroke="#0092CF" stroke-width="2.5" viewBox="0 0 24 24">
+            <div class="flex items-center gap-4 mb-7">
+              <div class="h-px flex-1 bg-border"></div>
+              <div class="flex items-center gap-2 bg-blue-light border border-blue/20 rounded-full px-4 py-1.5">
+                <svg width="13" height="13" fill="none" stroke="#0092CF" stroke-width="2.5" viewBox="0 0 24 24">
                   <path d="M5 13l4 4L19 7" />
                 </svg>
+                <span class="text-[0.68rem] font-bold tracking-[0.14em] uppercase text-blue">{group.label}</span>
               </div>
-              <h3 class="text-[0.72rem] font-bold tracking-[0.14em] uppercase text-blue">{group.label}</h3>
+              <div class="h-px flex-1 bg-border"></div>
             </div>
           )}
+
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {group.cards.map((card) => (
-              <div class="bg-white rounded-xl border border-border p-6 shadow-[0_2px_20px_rgba(35,31,32,0.06)] hover:-translate-y-1 hover:shadow-[0_10px_36px_rgba(35,31,32,0.1)] hover:border-green transition-all duration-200">
-                <div class="flex items-start gap-3 mb-3">
-                  <div class="w-8 h-8 rounded-lg bg-green-light flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg width="16" height="16" fill="none" stroke="#00B25A" stroke-width="2.5" viewBox="0 0 24 24">
-                      <path d="M5 13l4 4L19 7" />
+            {group.cards.map((card, cardIdx) => {
+              const s = getCardStyle(card.title);
+              const isFeatured = !group.label && cardIdx === 0;
+
+              return isFeatured ? (
+                <div
+                  class="col-span-full flex flex-col md:flex-row gap-7 items-start rounded-2xl p-8 md:p-10 border-2 shadow-md"
+                  style={`background: ${s.bg}; border-color: ${s.color}30; border-top: 4px solid ${s.color}`}
+                >
+                  <div
+                    class="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0"
+                    style={`background: ${s.color}`}
+                  >
+                    <svg width="26" height="26" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                      <path d={s.iconPath} />
                     </svg>
                   </div>
-                  <h4 class="font-serif text-[1.05rem] text-dark leading-snug">{card.title}</h4>
+                  <div>
+                    <div class="text-[0.68rem] font-bold tracking-[0.16em] uppercase mb-2" style={`color: ${s.color}`}>
+                      Key Benefit
+                    </div>
+                    <h4 class="font-serif text-[1.35rem] text-dark leading-snug mb-3">{card.title}</h4>
+                    <p class="text-[0.95rem] text-text-muted leading-relaxed max-w-prose">{card.body}</p>
+                  </div>
                 </div>
-                <p class="text-[0.88rem] text-text-muted leading-relaxed pl-11">{card.body}</p>
-              </div>
-            ))}
+              ) : (
+                <div
+                  class="bg-white rounded-xl border border-border p-6 flex flex-col shadow-[0_2px_16px_rgba(35,31,32,0.06)] hover:-translate-y-1 hover:shadow-[0_10px_32px_rgba(35,31,32,0.1)] transition-all duration-200"
+                  style={`border-top: 3px solid ${s.color}`}
+                >
+                  <div
+                    class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 flex-shrink-0"
+                    style={`background: ${s.bg}`}
+                  >
+                    <svg width="18" height="18" fill="none" stroke={s.color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                      <path d={s.iconPath} />
+                    </svg>
+                  </div>
+                  <h4 class="font-serif text-[1.05rem] text-dark leading-snug mb-2">{card.title}</h4>
+                  <p class="text-[0.88rem] text-text-muted leading-relaxed flex-1">{card.body}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       ))}
+
     </div>
   </div>
 ))}
 
-<style>
-  .solution-scrollbar::-webkit-scrollbar { height: 4px; }
-  .solution-scrollbar::-webkit-scrollbar-track { background: transparent; }
-  .solution-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-</style>
+<style></style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

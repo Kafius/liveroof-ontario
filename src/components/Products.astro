@@ -2,14 +2,14 @@
 import PhotoPlaceholder from './PhotoPlaceholder.astro';
 
 const products = [
-  { title: 'Green Roof Modules', desc: 'Pre-grown, plug-and-play modules for instant roof coverage.' },
-  { title: 'RoofEdge', desc: 'Aluminum edging for clean, secure perimeter details.' },
-  { title: 'RoofStone', desc: 'Concrete pavers proven to reduce runoff by 25%.' },
-  { title: 'WindDisc', desc: 'Ballast system engineered for high-wind zones.' },
-  { title: 'RoofBlue', desc: 'Blue-green water retention layer for enhanced performance.' },
-  { title: 'RoofTop Proven™ Plants', desc: 'Rigorously tested exclusive plant selections for green roofs.' },
-  { title: 'Engineered Soil', desc: 'Locally blended growing media for optimal plant health.' },
-  { title: 'SolaGreen™', desc: 'Integrated solar + green roof system for 2025 and beyond.' },
+  { title: 'Green Roof Modules', desc: 'Pre-grown, plug-and-play modules for instant roof coverage.', href: '/products/modules' },
+  { title: 'RoofEdge', desc: 'Aluminum edging for clean, secure perimeter details.', href: '/products/roofedge' },
+  { title: 'RoofStone', desc: 'Concrete pavers proven to reduce runoff by 25%.', href: '/products/roofstone' },
+  { title: 'WindDisc', desc: 'Ballast system engineered for high-wind zones.', href: '/products/winddisc' },
+  { title: 'RoofBlue', desc: 'Blue-green water retention layer for enhanced performance.', href: '/products/roofblue' },
+  { title: 'RoofTop Proven™ Plants', desc: 'Rigorously tested exclusive plant selections for green roofs.', href: '/products/plants' },
+  { title: 'Engineered Soil', desc: 'Locally blended growing media for optimal plant health.', href: '/products/soil' },
+  { title: 'SolaGreen™', desc: 'Integrated solar + green roof system for 2025 and beyond.', href: '/products' },
 ];
 ---
 
@@ -25,7 +25,7 @@ const products = [
     </div>
     <div class="products-grid">
       {products.map((p) => (
-        <div class="product-card">
+        <a href={p.href} class="product-card">
           <div class="h-40">
             <PhotoPlaceholder
               label="Photo"
@@ -38,7 +38,7 @@ const products = [
             <h4>{p.title}</h4>
             <p>{p.desc}</p>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   </div>
