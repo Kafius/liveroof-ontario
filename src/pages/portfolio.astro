@@ -1,13 +1,67 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 import TopBar from '../components/TopBar.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Footer from '../components/Footer.astro';
+import { sanityClient, PROJECTS_QUERY } from '../lib/sanity';
+import type { SanityProject } from '../lib/sanity';
+
+const projects: SanityProject[] = await sanityClient.fetch(PROJECTS_QUERY);
+const activeProjects = projects.filter(p => p.active !== false);
+
+const provinceLabels: Record<string, string> = {
+  ON: 'Ontario',
+  NB: 'New Brunswick',
+  NL: 'Newfoundland & Labrador',
+  NS: 'Nova Scotia',
+  PE: 'Prince Edward Island',
+};
+
+const showcaseLabels: Record<string, string> = {
+  commercial: 'Commercial',
+  educational: 'Educational',
+  healthcare: 'Healthcare',
+  'other-institutional': 'Other Institutional',
+  public: 'Public',
+  residential: 'Residential',
+};
+
+const moduleLabels: Record<string, string> = {
+  deep: 'LiveRoof Deep System',
+  lite: 'LiveRoof Lite System',
+  maxx: 'LiveRoof Maxx System',
+  standard: 'LiveRoof Standard System',
+};
+
+const leedLabels: Record<string, string> = {
+  certified: 'LEED Certified',
+  silver: 'LEED Silver',
+  gold: 'LEED Gold',
+  platinum: 'LEED Platinum',
+};
+
+const optionLabels: Record<string, string> = {
+  'multiple-plant-mixes': 'Multiple Plant Mixes',
+  'organic-shape': 'Organic Shape Design',
+  'roofstone-pavers': 'RoofStone Pavers',
+  'sloped-roof': 'Sloped Roof',
+};
+
+// Compute which filter values actually exist in the data
+const usedProvinces = [...new Set(activeProjects.map(p => p.province).filter(Boolean))];
+const usedShowcase  = [...new Set(activeProjects.map(p => p.showcaseType).filter(Boolean))];
+const usedModules   = [...new Set(activeProjects.map(p => p.moduleType).filter(Boolean))];
+const usedLeed      = [...new Set(activeProjects.map(p => p.leedCertified).filter(Boolean))];
+const usedOptions   = [...new Set(activeProjects.flatMap(p => p.options ?? []))];
+const hasRetrofit   = activeProjects.some(p => p.retrofit);
+const hasPublic     = activeProjects.some(p => p.publicAccess);
+const hasRoofBlue   = activeProjects.some(p => p.roofBlue);
+const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
 ---
 
-<Layout title="Portfolio – LiveRoof Green Roof Systems">
+<Layout title="Portfolio – LiveRoof Ontario">
   <TopBar />
   <Header />
 
@@ -15,7 +69,7 @@ import Footer from '../components/Footer.astro';
     eyebrow="Portfolio"
     title="Project"
     highlight="Portfolio"
-    subtitle="Thousands of green roofs installed across North America — from university campuses to corporate headquarters."
+    subtitle="Vegetative Roof projects across Ontario — from university campuses to corporate headquarters."
     breadcrumbs={[
       { label: 'Home', href: '/' },
       { label: 'Portfolio' },
@@ -24,26 +78,371 @@ import Footer from '../components/Footer.astro';
 
   <section class="py-14 md:py-24 bg-white">
     <div class="container">
-      <div class="max-w-[600px] mx-auto text-center">
-        <div class="w-16 h-16 rounded-2xl bg-green-light flex items-center justify-center mx-auto mb-6">
-          <svg width="32" height="32" fill="none" stroke="#00B25A" stroke-width="1.5" viewBox="0 0 24 24">
-            <rect x="3" y="3" width="18" height="18" rx="3" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
-          </svg>
+
+      {activeProjects.length === 0 ? (
+        <div class="max-w-[500px] mx-auto text-center py-16">
+          <div class="w-16 h-16 rounded-2xl bg-green-light flex items-center justify-center mx-auto mb-6">
+            <svg width="32" height="32" fill="none" stroke="#17b060" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+            </svg>
+          </div>
+          <h2 class="font-serif text-[1.8rem] text-dark mb-3">Projects Coming Soon</h2>
+          <p class="text-text-muted leading-relaxed">Check back soon — we're adding our project portfolio.</p>
         </div>
-        <h2 class="font-serif text-[2rem] text-dark mb-4">Browse All Projects</h2>
-        <p class="text-text-muted leading-relaxed mb-8">
-          Search and explore the full LiveRoof project gallery — filter by size, location, and building type
-          to find inspiration for your next green roof.
-        </p>
-        <a href="https://liveroof.com/projects/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          View Project Gallery on LiveRoof.com &rarr;
-        </a>
-      </div>
+      ) : (
+        <>
+          {/* ── Filter Bar ── */}
+          <div id="filter-bar" class="mb-10 space-y-4">
+
+            {/* Header row */}
+            <div class="flex items-center justify-between gap-4 flex-wrap">
+              <p id="filter-count" class="text-[0.85rem] text-text-muted font-medium">
+                Showing <span id="visible-count">{activeProjects.length}</span> of {activeProjects.length} projects
+              </p>
+              <button
+                id="clear-filters"
+                class="hidden text-[0.8rem] font-semibold text-green hover:underline"
+              >
+                Clear all filters
+              </button>
+            </div>
+
+            {/* Province */}
+            {usedProvinces.length > 1 && (
+              <div class="filter-group" data-group="province">
+                <span class="filter-label">Province</span>
+                <div class="filter-chips">
+                  {usedProvinces.map(v => (
+                    <button class="filter-chip" data-group="province" data-value={v}>
+                      {provinceLabels[v] ?? v}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Showcase Type */}
+            {usedShowcase.length > 1 && (
+              <div class="filter-group" data-group="showcase">
+                <span class="filter-label">Type</span>
+                <div class="filter-chips">
+                  {usedShowcase.map(v => (
+                    <button class="filter-chip" data-group="showcase" data-value={v}>
+                      {showcaseLabels[v!] ?? v}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Module Type */}
+            {usedModules.length > 1 && (
+              <div class="filter-group" data-group="module">
+                <span class="filter-label">Module</span>
+                <div class="filter-chips">
+                  {usedModules.map(v => (
+                    <button class="filter-chip" data-group="module" data-value={v}>
+                      {moduleLabels[v!] ?? v}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* LEED */}
+            {usedLeed.length > 0 && (
+              <div class="filter-group" data-group="leed">
+                <span class="filter-label">LEED</span>
+                <div class="filter-chips">
+                  {usedLeed.map(v => (
+                    <button class="filter-chip" data-group="leed" data-value={v}>
+                      {leedLabels[v!] ?? v}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Options */}
+            {usedOptions.length > 0 && (
+              <div class="filter-group" data-group="option">
+                <span class="filter-label">Features</span>
+                <div class="filter-chips">
+                  {usedOptions.map(v => (
+                    <button class="filter-chip" data-group="option" data-value={v}>
+                      {optionLabels[v] ?? v}
+                    </button>
+                  ))}
+                  {hasRoofBlue   && <button class="filter-chip" data-group="flag" data-value="roofblue">RoofBlue</button>}
+                  {hasSolaGreen  && <button class="filter-chip" data-group="flag" data-value="solagreen">SolaGreen</button>}
+                  {hasRetrofit   && <button class="filter-chip" data-group="flag" data-value="retrofit">Retrofit</button>}
+                  {hasPublic     && <button class="filter-chip" data-group="flag" data-value="public-access">Public Access</button>}
+                </div>
+              </div>
+            )}
+
+          </div>
+
+          {/* ── No results message ── */}
+          <p id="no-results" class="hidden text-center text-text-muted py-16 text-[0.95rem]">
+            No projects match the selected filters.
+          </p>
+
+          {/* ── Project Grid ── */}
+          <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            {activeProjects.map((project) => {
+              const flags = [
+                project.roofBlue    && 'roofblue',
+                project.solaGreen   && 'solagreen',
+                project.retrofit    && 'retrofit',
+                project.publicAccess && 'public-access',
+              ].filter(Boolean).join(' ');
+
+              return (
+                <div
+                  class="project-card bg-mid rounded-xl overflow-hidden flex flex-col"
+                  data-province={project.province ?? ''}
+                  data-showcase={project.showcaseType ?? ''}
+                  data-module={project.moduleType ?? ''}
+                  data-leed={project.leedCertified ?? ''}
+                  data-options={(project.options ?? []).join(' ')}
+                  data-flags={flags}
+                >
+                  {/* Photo */}
+                  <div class="aspect-[4/3] bg-[#ddd] relative overflow-hidden">
+                    {(() => {
+                      const thumb = project.photos?.find(p => p.isMain) ?? project.photos?.[0];
+                      return thumb?.image?.asset?.url ? (
+                        <img
+                          src={thumb.image.asset.url + '?w=640&h=480&fit=crop&auto=format'}
+                          alt={thumb.caption ?? project.name}
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div class="photo-placeholder h-full rounded-none">
+                          <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <rect x="3" y="3" width="18" height="18" rx="3" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+                          </svg>
+                          <span>{project.name}</span>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Badges */}
+                    <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                      {project.leedCertified && (
+                        <span class="chip green text-[0.65rem]">{leedLabels[project.leedCertified]}</span>
+                      )}
+                      {project.roofBlue && (
+                        <span class="chip blue text-[0.65rem]">RoofBlue</span>
+                      )}
+                      {project.solaGreen && (
+                        <span class="chip green text-[0.65rem]">SolaGreen</span>
+                      )}
+                    </div>
+
+                    {project.photos && project.photos.length > 1 && (
+                      <div class="absolute bottom-2 right-2 bg-black/50 text-white text-[0.7rem] font-semibold px-2 py-0.5 rounded-full backdrop-blur-sm">
+                        {project.photos.length} photos
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div class="p-6 flex flex-col gap-3 flex-1">
+                    <div>
+                      <h3 class="font-serif text-[1.2rem] text-dark leading-snug mb-1">{project.name}</h3>
+                      <p class="text-[0.82rem] text-text-muted">
+                        {[project.city, provinceLabels[project.province]].filter(Boolean).join(', ')}
+                      </p>
+                    </div>
+
+                    {project.description && (
+                      <p class="text-[0.85rem] text-text-muted leading-relaxed">{project.description}</p>
+                    )}
+
+                    {(project.projectSize || project.installationDate || project.grower) && (
+                      <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-[0.78rem]">
+                        {project.projectSize && (
+                          <>
+                            <dt class="text-text-muted font-semibold uppercase tracking-wide">Size</dt>
+                            <dd class="text-dark">{project.projectSize.toLocaleString()} sq m</dd>
+                          </>
+                        )}
+                        {project.installationDate && (
+                          <>
+                            <dt class="text-text-muted font-semibold uppercase tracking-wide">Installed</dt>
+                            <dd class="text-dark">{new Date(project.installationDate).toLocaleDateString('en-CA', { year: 'numeric', month: 'long' })}</dd>
+                          </>
+                        )}
+                        {project.grower && (
+                          <>
+                            <dt class="text-text-muted font-semibold uppercase tracking-wide">Grower</dt>
+                            <dd class="text-dark">{project.grower}</dd>
+                          </>
+                        )}
+                      </dl>
+                    )}
+
+                    {/* Tags */}
+                    <div class="flex flex-wrap gap-1.5">
+                      {project.showcaseType && (
+                        <span class="chip dark text-[0.65rem]">{showcaseLabels[project.showcaseType]}</span>
+                      )}
+                      {project.moduleType && (
+                        <span class="chip blue text-[0.65rem]">{moduleLabels[project.moduleType]}</span>
+                      )}
+                      {project.retrofit && (
+                        <span class="chip dark text-[0.65rem]">Retrofit</span>
+                      )}
+                      {project.publicAccess && (
+                        <span class="chip green text-[0.65rem]">Public Access</span>
+                      )}
+                    </div>
+
+                    {/* Options */}
+                    {project.options && project.options.length > 0 && (
+                      <div class="flex flex-wrap gap-1.5">
+                        {project.options.map((opt) => (
+                          <span class="text-[0.68rem] text-text-muted bg-white border border-border rounded-full px-2.5 py-0.5">
+                            {optionLabels[opt] ?? opt}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+
     </div>
   </section>
 
   <CtaBanner />
   <Footer />
 </Layout>
+
+<style>
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .filter-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6b6566;
+    white-space: nowrap;
+    min-width: 64px;
+  }
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 13px;
+    border-radius: 999px;
+    border: 1.5px solid #e0dedc;
+    background: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #6b6566;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    font-family: inherit;
+    line-height: 1.4;
+  }
+  .filter-chip:hover {
+    border-color: #17b060;
+    color: #17b060;
+  }
+  .filter-chip.active {
+    background: #17b060;
+    border-color: #17b060;
+    color: #ffffff;
+  }
+  .project-card {
+    transition: opacity 0.2s;
+  }
+  .project-card.hidden-card {
+    display: none;
+  }
+</style>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.filter-chip');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+  const clearBtn = document.getElementById('clear-filters') as HTMLButtonElement;
+  const visibleCount = document.getElementById('visible-count') as HTMLElement;
+  const noResults = document.getElementById('no-results') as HTMLElement;
+  const total = cards.length;
+
+  // activeFilters: group → Set of active values
+  const activeFilters = new Map<string, Set<string>>();
+
+  function applyFilters() {
+    let visible = 0;
+
+    cards.forEach(card => {
+      const matches = [...activeFilters.entries()].every(([group, values]) => {
+        if (group === 'option') {
+          const cardOptions = (card.dataset.options ?? '').split(' ').filter(Boolean);
+          return [...values].some(v => cardOptions.includes(v));
+        }
+        if (group === 'flag') {
+          const cardFlags = (card.dataset.flags ?? '').split(' ').filter(Boolean);
+          return [...values].some(v => cardFlags.includes(v));
+        }
+        return values.has(card.dataset[group] ?? '');
+      });
+
+      card.classList.toggle('hidden-card', !matches);
+      if (matches) visible++;
+    });
+
+    visibleCount.textContent = String(visible);
+    noResults.classList.toggle('hidden', visible > 0);
+    clearBtn.classList.toggle('hidden', activeFilters.size === 0);
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const group = chip.dataset.group!;
+      const value = chip.dataset.value!;
+
+      if (!activeFilters.has(group)) activeFilters.set(group, new Set());
+      const set = activeFilters.get(group)!;
+
+      if (set.has(value)) {
+        set.delete(value);
+        if (set.size === 0) activeFilters.delete(group);
+        chip.classList.remove('active');
+      } else {
+        set.add(value);
+        chip.classList.add('active');
+      }
+
+      applyFilters();
+    });
+  });
+
+  clearBtn.addEventListener('click', () => {
+    activeFilters.clear();
+    chips.forEach(c => c.classList.remove('active'));
+    applyFilters();
+  });
+</script>

@@ -9,18 +9,18 @@ import Footer from '../../components/Footer.astro';
 
 const products = [
   {
-    name: 'Green Roof Modules',
+    name: 'Vegetative Roof Modules',
     tagline: 'The foundation of every LiveRoof system',
-    description: 'A seamless, beautiful and instantly mature green roof. Four module options — Standard, Deep, Lite, and Maxx — to match any project requirement.',
-    href: '/products/modules',
+    description: 'A seamless, beautiful and instantly mature vegetative roof. Four module options — Standard, Deep, Lite, and Maxx — to match any project requirement.',
+    href: 'https://liveroof.com/products/modules/',
     chip: 'Core System',
     chipColor: 'green' as const,
   },
   {
     name: 'RoofEdge',
     tagline: 'Aluminum edge restraint',
-    description: 'Patented second-generation green roof edging. Extruded, fabricated, and finished in the USA with architectural-grade anodized finishes.',
-    href: '/products/roofedge',
+    description: 'Patented second-generation vegetative roof edging. Extruded, fabricated, and finished in the USA with architectural-grade anodized finishes.',
+    href: 'https://liveroof.com/products/roofedge/',
     chip: 'Edging',
     chipColor: 'blue' as const,
   },
@@ -28,7 +28,7 @@ const products = [
     name: 'RoofStone',
     tagline: 'Integrated rooftop pavers',
     description: 'Artisan-quality pavers with built-in pedestals. Installs in 1/10th the time of traditional pedestal and paver solutions. ADA compliant.',
-    href: '/products/roofstone',
+    href: 'https://liveroof.com/products/roofstone/',
     chip: 'Pavers',
     chipColor: 'dark' as const,
   },
@@ -36,7 +36,7 @@ const products = [
     name: 'WindDisc',
     tagline: 'Wind uplift resistance',
     description: 'Simple connectors that secure LiveRoof modules together for a sustained 200 PSF wind uplift rating. Essential for high-rise and hurricane-prone regions.',
-    href: '/products/winddisc',
+    href: 'https://liveroof.com/products/winddisc/',
     chip: 'Accessory',
     chipColor: 'blue' as const,
   },
@@ -44,7 +44,7 @@ const products = [
     name: 'PipeRunner',
     tagline: 'Irrigation pipe channels',
     description: 'Cradles irrigation pipes between module rows with gaps for water flow and side extensions to prevent soil spillage.',
-    href: '/products/piperunner',
+    href: 'https://liveroof.com/products/piperunner/',
     chip: 'Accessory',
     chipColor: 'blue' as const,
   },
@@ -52,31 +52,47 @@ const products = [
     name: 'RoofBlue',
     tagline: 'Blue-green stormwater solutions',
     description: 'Patented stormwater retention and detention systems. RETAIN captures and recycles water to plant roots; DETAIN provides temporary detention below modules.',
-    href: '/products/roofblue',
+    href: 'https://liveroof.com/products/roofblue/',
     chip: 'Stormwater',
     chipColor: 'green' as const,
   },
   {
-    name: 'Green Roof Plants',
+    name: 'Vegetative Roof Plants',
     tagline: 'RoofTop Proven™ plant selections',
     description: 'Dozens of exclusive varieties bred and tested specifically for rooftop performance. Selected for drought tolerance, vigor, and beauty in your local climate.',
-    href: '/products/plants',
+    href: 'https://liveroof.com/products/plants/',
     chip: 'Plants',
     chipColor: 'green' as const,
   },
   {
-    name: 'Green Roof Soil',
+    name: 'SolaGreen',
+    tagline: 'Solar meets living roof',
+    description: 'LiveRoof\'s proven vegetative roof technology combined with integrated solar panels — delivering dual environmental and energy benefits on a single rooftop footprint.',
+    href: 'https://liveroof.com/solagreen/',
+    chip: 'New for 2025',
+    chipColor: 'green' as const,
+  },
+  {
+    name: 'Vegetative Roof Soil',
     tagline: 'Engineered to exacting standards',
     description: 'Proprietary blend of the finest inorganic and organic materials. 94%+ inorganic by dry weight, conforming to German FLL granulometric standards.',
-    href: '/products/soil',
+    href: 'https://liveroof.com/products/soil/',
     chip: 'Soil',
     chipColor: 'dark' as const,
+  },
+  {
+    name: 'Hydropavers',
+    tagline: 'Permeable rooftop paving',
+    description: 'Permeable paving solution that manages stormwater while supporting foot traffic. Ideal for accessible rooftop terraces and vegetative roof perimeter walkways.',
+    href: '/products/hydropavers',
+    chip: 'Pavers',
+    chipColor: 'blue' as const,
   },
   {
     name: 'Delivery & Installation',
     tagline: 'Equipment and tools',
     description: 'Specialized delivery trucks, Roll-a-Roof conveyors, and Hoppit truck-to-roof conveyance racks to minimize installation time and cost.',
-    href: '/products/delivery-installation',
+    href: 'https://liveroof.com/products/delivery-installation-tools/',
     chip: 'Equipment',
     chipColor: 'dark' as const,
   },
@@ -85,7 +101,7 @@ const products = [
 const whyFeatures = [
   {
     title: 'Natural Function',
-    text: 'LiveRoof is a unique modular green roof system that unites the soil across a monolithic continuum. This allows for equal distribution of moisture, fertility, and beneficial organisms — the key to long term function.',
+    text: 'LiveRoof is a unique modular vegetative roof system that unites the soil across a monolithic continuum. This allows for equal distribution of moisture, fertility, and beneficial organisms — the key to long term function.',
   },
   {
     title: 'Natural Beauty',
@@ -110,15 +126,15 @@ const whyFeatures = [
 ];
 ---
 
-<Layout title="Products – LiveRoof Green Roof Systems">
+<Layout title="Products – LiveRoof Vegetative Roof Systems">
   <TopBar />
   <Header />
 
   <PageHero
     eyebrow="Our Products"
-    title="Green Roof Products"
+    title="Vegetative Roof Products"
     highlight="& Accessories"
-    subtitle="Integrated systems and accessories designed for attractive, simple, and secure green roof solutions. All components promote plant health, long life, and dependable sustainability."
+    subtitle="Integrated systems and accessories designed for attractive, simple, and secure vegetative roof solutions. All components promote plant health, long life, and dependable sustainability."
     breadcrumbs={[
       { label: 'Home', href: '/' },
       { label: 'Products' },
@@ -130,7 +146,7 @@ const whyFeatures = [
     <div class="container">
       <div class="section-header">
         <span class="tag">Product Lineup</span>
-        <h2>Everything You Need for Your Green Roof</h2>
+        <h2>Everything You Need for Your Vegetative Roof</h2>
         <p>From modules and plants to stormwater management and installation equipment.</p>
       </div>
 
@@ -148,14 +164,14 @@ const whyFeatures = [
       <div class="section-header">
         <span class="tag">Why LiveRoof</span>
         <h2>Why Choose LiveRoof Systems?</h2>
-        <p>We are dedicated to providing the best functioning, most beautiful, longest lived, and most easily maintained green roof on the market.</p>
+        <p>We are dedicated to providing the best functioning, most beautiful, longest lived, and most easily maintained vegetative roof on the market.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
         {whyFeatures.map((feature) => (
           <div class="bg-white rounded-xl p-8 shadow-[0_2px_20px_rgba(35,31,32,0.06)]">
             <div class="w-12 h-12 rounded-lg bg-green-light flex items-center justify-center mb-5">
-              <svg width="24" height="24" fill="none" stroke="#00B25A" stroke-width="2" viewBox="0 0 24 24">
+              <svg width="24" height="24" fill="none" stroke="#17b060" stroke-width="2" viewBox="0 0 24 24">
                 <path d="M9 12l2 2 4-4" />
                 <circle cx="12" cy="12" r="10" />
               </svg>
@@ -183,7 +199,7 @@ const whyFeatures = [
             We also offer plant warranties, membrane compatibility guarantees, and optional
             overburden removal coverage for 10, 15, or 20 year terms.
           </p>
-          <a href="/products/warranty" class="btn btn-primary">View Full Warranty Details</a>
+          <a href="https://liveroof.com/products/warranty/" class="btn btn-primary">View Full Warranty Details</a>
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div class="bg-white/[0.06] border border-white/10 rounded-xl p-6 text-center">

@@ -1,4 +1,4 @@
----
+﻿---
 interface Card {
   title: string;
   body: string;
@@ -33,7 +33,7 @@ function getCardStyle(title: string): CardStyle {
   if (/heal|health|wellness|patient|burnout|absentee/.test(t))
     return { iconPath: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z', color: '#dc2626', bg: '#fee2e2' };
   if (/\broof\b|longev|warrant|module|membrane|edging|install/.test(t))
-    return { iconPath: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z', color: '#00B25A', bg: '#e6f7ee' };
+    return { iconPath: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z', color: '#17b060', bg: '#e6f7ee' };
   if (/fire|wind|uplift|ul |code|certif|complian|tested/.test(t))
     return { iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', color: '#6366f1', bg: '#eef2ff' };
   if (/employ|talent|recruit|attract|productiv|staff|retention/.test(t))
@@ -42,7 +42,7 @@ function getCardStyle(title: string): CardStyle {
     return { iconPath: 'M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5zM16 8L2 22M17.5 15H9', color: '#059669', bg: '#d1fae5' };
   if (/brand|steward|goodwill|promote|mascot|identity|message|posterity|retrofit|show|progressive|walk|cause/.test(t))
     return { iconPath: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z', color: '#0092CF', bg: '#e6f6fd' };
-  return { iconPath: 'M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z', color: '#00B25A', bg: '#e6f7ee' };
+  return { iconPath: 'M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z', color: '#17b060', bg: '#e6f7ee' };
 }
 
 const tabs: Tab[] = [
@@ -53,19 +53,19 @@ const tabs: Tab[] = [
     groups: [
       {
         cards: [
-          { title: 'Ongoing Cost Savings', body: 'Green roofs provide ongoing financial returns through energy savings, extended roof life, and stormwater compliance.' },
+          { title: 'Ongoing Cost Savings', body: 'Vegetative Roofs provide ongoing financial returns through energy savings, extended roof life, and stormwater compliance.' },
           { title: 'Transforms Ugly Rooftops', body: 'Turn wasted rooftop space into beautiful, usable gardens and amenity areas.' },
           { title: 'Save Energy', body: 'Reduces AC costs by approximately 10-75% during hot weather through natural insulation.' },
           { title: 'Boost Solar Output', body: 'Evaporative cooling from plants makes co-located solar panels 5-15% more efficient.' },
-          { title: 'Increase Revenue', body: 'Visible green roofs boost rental rates, increase occupancy, and raise property values. Chicago study: green roof condo units sold for $69,000 more on average.' },
+          { title: 'Increase Revenue', body: 'Visible vegetative roofs boost rental rates, increase occupancy, and raise property values. Chicago study: vegetative roof condo units sold for $69,000 more on average.' },
           { title: 'Support Healing', body: 'Patients with a natural view heal faster and experience less pain.' },
           { title: 'Attract & Retain Employees', body: 'A living roof signals you care about people and the environment, improving recruitment and retention.' },
           { title: 'Reduce Absenteeism', body: 'Exposure to natural views reduces absenteeism and prevents employee burnout.' },
           { title: 'Increase Productivity', body: 'Nature in workplaces yields happier, more productive employees.' },
           { title: 'Stormwater Compliance', body: 'Reduce or eliminate stormwater discharge fees. Filters pollutants before they reach waterways.' },
           { title: 'Stewardship & Goodwill', body: 'Show customers, residents, and neighbors that you care about their future.' },
-          { title: 'Promote Your Cause', body: 'Green roofs can display mascots, logos, or themed plantings that reinforce your brand or mission.' },
-          { title: 'Retrofit for Posterity', body: 'Green roofs work on old and new buildings alike.' },
+          { title: 'Promote Your Cause', body: 'Vegetative Roofs can display mascots, logos, or themed plantings that reinforce your brand or mission.' },
+          { title: 'Retrofit for Posterity', body: 'Vegetative Roofs work on old and new buildings alike.' },
           { title: 'Roof Longevity', body: 'Extends roof life 2x-3x, turning a 30-year roof into a 90-year roof.' },
         ],
       },
@@ -88,7 +88,7 @@ const tabs: Tab[] = [
       {
         label: 'Module System',
         cards: [
-          { title: 'Patented Module Design', body: 'Creates a seamless, instantly mature green roof. Soil Elevators disappear at install -- no visible grid lines or container edges.' },
+          { title: 'Patented Module Design', body: 'Creates a seamless, instantly mature vegetative roof. Soil Elevators disappear at install -- no visible grid lines or container edges.' },
           { title: 'Multiple Soil Depths', body: 'Lite (2.5"), Standard (4.25"), Deep (6"), Maxx (8") -- suited to any structural or design requirement.' },
           { title: 'Instant Impact', body: 'Plants are fully established at installation. No after-planting through sedum mats.' },
           { title: 'Zero Landfill Waste', body: 'All-in-one system is pallet-free and fully recyclable.' },
@@ -98,7 +98,7 @@ const tabs: Tab[] = [
         label: 'Fire Resistance',
         cards: [
           { title: 'UL Fire Tested', body: 'Exposed to direct flame for 10 minutes. No ignition of deck. Soil and module remained structurally intact. Tested at UL Labs, January 2008.' },
-          { title: 'Code Compliant', body: 'Meets ANSI/SPRI VF-1 (2010), referenced in the 2024 IBC. First green roof system ever FM Approved (FM 4477, 2011). Meets ASTM standards.' },
+          { title: 'Code Compliant', body: 'Meets ANSI/SPRI VF-1 (2010), referenced in the 2024 IBC. First vegetative roof system ever FM Approved (FM 4477, 2011). Meets ASTM standards.' },
         ],
       },
       {
@@ -112,8 +112,8 @@ const tabs: Tab[] = [
       {
         label: 'Stormwater Management',
         cards: [
-          { title: 'Engineered Green Roof Soil', body: 'Approximately 94% inorganic, meets German FLL standards, holds up to 48% water by volume.' },
-          { title: 'RoofBlue Detain', body: 'Detains up to 2 gal/ft2 under the green roof, reducing storm system loads. Can replace cisterns or detention ponds.' },
+          { title: 'Engineered Vegetative Roof Soil', body: 'Approximately 94% inorganic, meets German FLL standards, holds up to 48% water by volume.' },
+          { title: 'RoofBlue Detain', body: 'Detains up to 2 gal/ft2 under the vegetative roof, reducing storm system loads. Can replace cisterns or detention ponds.' },
           { title: 'RoofBlue Retain', body: 'Wicking system holds 1.35 gal/ft2 in addition to soil storage. Boosts retention up to 55% when paired with the Lite system.' },
         ],
       },
@@ -126,7 +126,7 @@ const tabs: Tab[] = [
       {
         label: 'Solar Integration',
         cards: [
-          { title: 'SolaGreen Bio-Solar System', body: 'Fully integrated solar + green roof system. No rooftop penetrations -- fully ballasted. Rounded edges protect installers and membranes. Locally made in North America.' },
+          { title: 'SolaGreen Bio-Solar System', body: 'Fully integrated solar + vegetative roof system. No rooftop penetrations -- fully ballasted. Rounded edges protect installers and membranes. Locally made in North America.' },
           { title: 'Simple Installation', body: 'Only one wrench size needed. Step-by-step illustrated and video directions.' },
         ],
       },
@@ -143,7 +143,7 @@ const tabs: Tab[] = [
   {
     id: 'cities-municipal',
     label: 'Cities & Municipal',
-    subtitle: 'Green roofs that serve your constituents and your budget',
+    subtitle: 'Vegetative Roofs that serve your constituents and your budget',
     groups: [
       {
         cards: [
@@ -175,12 +175,12 @@ const tabs: Tab[] = [
           { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
           { title: 'Transforms Rooftops', body: 'Turn ugly roofs into beautiful usable amenity space.' },
           { title: 'Attract Tenants & Buyers', body: 'People value natural, garden-like views and outdoor amenity space.' },
-          { title: 'Increase Revenue', body: 'Green roofs boost rental rates and occupancy. ROI proven in Chicago market data.' },
-          { title: 'Unique Amenities', body: 'Green roofs for entertainment and socializing differentiate your property.' },
+          { title: 'Increase Revenue', body: 'Vegetative Roofs boost rental rates and occupancy. ROI proven in Chicago market data.' },
+          { title: 'Unique Amenities', body: 'Vegetative Roofs for entertainment and socializing differentiate your property.' },
           { title: 'Expand Usable Space', body: 'Rooftop gardens with pathways and patios increase net usable building area.' },
           { title: 'Restore Habitat', body: 'Support pollinators and demonstrate environmental leadership.' },
           { title: 'Create Goodwill', body: 'Show residents and buyers that you care about their community.' },
-          { title: 'Retrofit for Posterity', body: 'Green roofs work on existing buildings as well as new construction.' },
+          { title: 'Retrofit for Posterity', body: 'Vegetative Roofs work on existing buildings as well as new construction.' },
         ],
       },
     ],
@@ -192,7 +192,7 @@ const tabs: Tab[] = [
     groups: [
       {
         cards: [
-          { title: 'Support The Healing Mission', body: 'Green roofs directly support patient care and staff wellness.' },
+          { title: 'Support The Healing Mission', body: 'Vegetative Roofs directly support patient care and staff wellness.' },
           { title: 'Practice Compassion', body: 'Visible commitment to patient experience, as seen in cancer treatment hospitals.' },
           { title: 'Reduced Healing Time', body: 'Patients with a natural view heal faster and experience less pain (published research).' },
           { title: 'Regulatory Leadership', body: 'In Ontario, visible hospital rooftops are required to be green by law.' },
@@ -218,14 +218,14 @@ const tabs: Tab[] = [
           { title: 'Save Money', body: 'Reduce energy, extend roof life, achieve stormwater compliance.' },
           { title: 'Save Energy', body: 'Reduce AC costs 25%+.' },
           { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
-          { title: 'Increase Revenue', body: 'Visible green roofs boost rental rates and increase occupancy.' },
-          { title: 'Attract Employees', body: 'Green roofs signal that you care about employees, customers, and neighbors.' },
+          { title: 'Increase Revenue', body: 'Visible vegetative roofs boost rental rates and increase occupancy.' },
+          { title: 'Attract Employees', body: 'Vegetative Roofs signal that you care about employees, customers, and neighbors.' },
           { title: 'Improve Employee Retention', body: 'People trust and stay with companies that care about the environment.' },
           { title: 'Reduce Absenteeism', body: 'Natural views improve health and attendance rates.' },
           { title: 'Increase Productivity', body: 'Nature exposure yields happier, more productive teams.' },
           { title: 'Prevent Burnout', body: 'Natural environments reduce stress and increase job satisfaction.' },
           { title: 'Walk Your Talk', body: 'Stewardship fosters goodwill with clients, tenants, and the community.' },
-          { title: 'Demonstrate Progressiveness', body: 'Green roofs foster dialogue, collaboration, and creativity.' },
+          { title: 'Demonstrate Progressiveness', body: 'Vegetative Roofs foster dialogue, collaboration, and creativity.' },
         ],
       },
     ],
@@ -242,12 +242,12 @@ const tabs: Tab[] = [
           { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
           { title: 'Stormwater Compliance', body: 'Avert discharge fees and protect local watersheds.' },
           { title: 'Outdoor Classrooms', body: 'Fresh air and hands-on learning in a living lab. Supports social distancing when needed.' },
-          { title: 'Teach Sustainability', body: 'Green roofs teach ecology, biology, stewardship, and civility firsthand.' },
+          { title: 'Teach Sustainability', body: 'Vegetative Roofs teach ecology, biology, stewardship, and civility firsthand.' },
           { title: 'Connect Students to Nature', body: 'Nature connection supports health and wellness for students and faculty.' },
-          { title: 'A Place to Decompress', body: 'Green roofs provide a calm space to re-center between classes.' },
+          { title: 'A Place to Decompress', body: 'Vegetative Roofs provide a calm space to re-center between classes.' },
           { title: 'Change Ugly to Beautiful', body: 'Transform rooftops into calming, inspiring environments.' },
           { title: 'Artwork & Campus Identity', body: 'Themed plantings (such as a school mascot) foster school spirit and collaboration.' },
-          { title: 'Demonstrate Stewardship', body: 'Green roofs protect waterways and support pollinators.' },
+          { title: 'Demonstrate Stewardship', body: 'Vegetative Roofs protect waterways and support pollinators.' },
           { title: 'Retrofit for Posterity', body: 'Works for new and older campus buildings alike.' },
         ],
       },
@@ -266,10 +266,10 @@ const tabs: Tab[] = [
           { title: 'Classes Up Accessory Buildings', body: 'Garages, sheds, and outbuildings get a premium look.' },
           { title: 'Save Energy', body: 'Reduce AC cost 25%+.' },
           { title: 'Roof Longevity', body: 'Turn a 30-year roof into a 90-year roof.' },
-          { title: 'Higher Resale Value', body: 'Visible green roofs boost property value.' },
+          { title: 'Higher Resale Value', body: 'Visible vegetative roofs boost property value.' },
           { title: 'Walk Your Talk of Sustainability', body: 'Protect lakes and streams, and provide habitat for pollinators.' },
           { title: 'Health & Wellness', body: 'Connecting with nature is good for mind and body.' },
-          { title: 'Beautiful as Well as Beneficial', body: 'Green roofs enhance the curb appeal and character of any home.' },
+          { title: 'Beautiful as Well as Beneficial', body: 'Vegetative Roofs enhance the curb appeal and character of any home.' },
         ],
       },
     ],

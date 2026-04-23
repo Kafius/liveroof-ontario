@@ -1,28 +1,31 @@
 ---
 const productDropdown = [
   { label: 'All Products', href: '/products' },
-  { label: 'Green Roof Modules', href: '/products/modules' },
-  { label: 'RoofEdge', href: '/products/roofedge' },
-  { label: 'RoofStone', href: '/products/roofstone' },
-  { label: 'WindDisc', href: '/products/winddisc' },
-  { label: 'PipeRunner', href: '/products/piperunner' },
-  { label: 'RoofBlue', href: '/products/roofblue' },
-  { label: 'Plants', href: '/products/plants' },
-  { label: 'Soil', href: '/products/soil' },
-  { label: 'Delivery & Installation', href: '/products/delivery-installation' },
-  { label: 'Warranty', href: '/products/warranty' },
+  { label: 'Vegetative Roof Modules', href: 'https://liveroof.com/products/modules/' },
+  { label: 'RoofEdge', href: 'https://liveroof.com/products/roofedge/' },
+  { label: 'RoofStone', href: 'https://liveroof.com/products/roofstone/' },
+  { label: 'WindDisc', href: 'https://liveroof.com/products/winddisc/' },
+  { label: 'PipeRunner', href: 'https://liveroof.com/products/piperunner/' },
+  { label: 'RoofBlue', href: 'https://liveroof.com/products/roofblue/' },
+  { label: 'Plants', href: 'https://liveroof.com/products/plants/' },
+  { label: 'Soil', href: 'https://liveroof.com/products/soil/' },
+  { label: 'SolaGreen', href: 'https://liveroof.com/solagreen/' },
+  { label: 'Hydropavers', href: '/products/hydropavers' },
+  { label: 'Delivery & Installation', href: 'https://liveroof.com/products/delivery-installation-tools/' },
+  { label: 'Warranty', href: 'https://liveroof.com/products/warranty/' },
 ];
 
 const technicalDropdown = [
   { label: 'All Resources', href: '/technical' },
-  { label: 'Design & Engineering', href: '/technical/design-engineering' },
-  { label: 'Detail Drawings', href: '/technical/detail-drawings' },
-  { label: 'Installation', href: '/technical/installation' },
-  { label: 'LEED Resources', href: '/technical/leed' },
-  { label: 'Spec Writer', href: '/technical/spec-writer' },
-  { label: 'Continuing Education', href: '/technical/continuing-education' },
-  { label: 'Maintenance & Ops', href: '/technical/maintenance' },
-  { label: 'Videos', href: '/videos' },
+  { label: 'Design & Engineering', href: 'https://liveroof.com/technical/design/' },
+  { label: 'Design Guide', href: 'https://liveroof.com/technical/design-guide/' },
+  { label: 'Detail Drawings', href: 'https://liveroof.com/technical/detail-drawings/' },
+  { label: 'Installation', href: 'https://liveroof.com/technical/installation/' },
+  { label: 'LEED Resources', href: 'https://liveroof.com/technical/leed/' },
+  { label: 'Maintenance & Ops', href: 'https://liveroof.com/technical/maintenance/' },
+  { label: 'Spec Writer', href: 'https://liveroof.com/technical/spec-writer/' },
+  { label: 'Continuing Education', href: 'https://liveroof.com/technical/continuing-education/' },
+  { label: 'Videos', href: 'https://liveroof.com/videos/' },
 ];
 ---
 
@@ -30,7 +33,14 @@ const technicalDropdown = [
   <div class="container">
     <div class="flex items-center justify-between h-[76px]">
       <a href="/" class="flex items-center">
-        <div class="flex flex-col">
+        <!-- Place your logo file at public/logo.svg (or .png) and it will appear here -->
+        <img
+          src="/logo.svg"
+          alt="LiveRoof Ontario"
+          class="h-14 w-auto object-contain"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="flex-col hidden" id="logo-fallback">
           <div class="font-serif text-[1.75rem] leading-none">
             <span class="text-blue">Live</span><span class="text-green">Roof</span>
           </div>

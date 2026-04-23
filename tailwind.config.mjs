@@ -16,9 +16,9 @@ export default {
           light: '#e6f6fd',
         },
         green: {
-          DEFAULT: '#00B25A',
+          DEFAULT: '#17b060',
           light: '#e6f7ee',
-          hover: '#009a4e',
+          hover: '#149e56',
         },
         dark: {
           DEFAULT: '#231F20',
