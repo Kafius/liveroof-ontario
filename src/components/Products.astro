@@ -1,16 +1,14 @@
 ---
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
-
 const products = [
-  { title: 'Vegetative Roof Modules', desc: 'Pre-grown, plug-and-play modules for instant roof coverage.', href: '/products/modules' },
-  { title: 'RoofEdge', desc: 'Aluminum edging for clean, secure perimeter details.', href: '/products/roofedge' },
-  { title: 'RoofStone', desc: 'Concrete pavers proven to reduce runoff by 25%.', href: '/products/roofstone' },
-  { title: 'WindDisc', desc: 'Ballast system engineered for high-wind zones.', href: '/products/winddisc' },
-  { title: 'RoofBlue', desc: 'Blue-green water retention layer for enhanced performance.', href: '/products/roofblue' },
-  { title: 'RoofTop Proven™ Plants', desc: 'Rigorously tested exclusive plant selections for vegetative roofs.', href: '/products/plants' },
-  { title: 'Engineered Soil', desc: 'Locally blended growing media for optimal plant health.', href: '/products/soil' },
-  { title: 'SolaGreen™', desc: 'Integrated solar + vegetative roof system for 2025 and beyond.', href: '/products' },
-  { title: 'Hydropavers', desc: 'Permeable paving solution that manages stormwater while supporting foot traffic.', href: '/products/hydropavers' },
+  { title: 'Vegetative Roof Modules', desc: 'Pre-grown, plug-and-play modules for instant roof coverage.', href: '/products/modules', img: '/images/index-modules.webp' },
+  { title: 'RoofEdge', desc: 'Aluminum edging for clean, secure perimeter details.', href: '/products/roofedge', img: '/images/roofedge.jpg' },
+  { title: 'RoofStone', desc: 'Concrete pavers proven to reduce runoff by 25%.', href: '/products/roofstone', img: '/images/roofstone-pavers.png' },
+  { title: 'WindDisc', desc: 'Ballast system engineered for high-wind zones.', href: '/products/winddisc', img: '/images/index-modules.webp' },
+  { title: 'RoofBlue', desc: 'Blue-green water retention layer for enhanced performance.', href: '/products/roofblue', img: '/images/roofblue.jpg' },
+  { title: 'RoofTop Proven™ Plants', desc: 'Rigorously tested exclusive plant selections for vegetative roofs.', href: '/products/plants', img: '/images/plants.jpg' },
+  { title: 'Engineered Soil', desc: 'Locally blended growing media for optimal plant health.', href: '/products/soil', img: '/images/soil.jpg' },
+  { title: 'SolaGreen™', desc: 'Integrated solar + vegetative roof system for 2025 and beyond.', href: '/products', img: '/images/solagreen.webp' },
+  { title: 'Hydropavers', desc: 'Permeable paving solution that manages stormwater while supporting foot traffic.', href: '/products/hydropavers', img: '/images/roofstone-pavers.png' },
 ];
 ---
 
@@ -27,13 +25,8 @@ const products = [
     <div class="products-grid">
       {products.map((p) => (
         <a href={p.href} class="product-card">
-          <div class="h-40">
-            <PhotoPlaceholder
-              label="Photo"
-              class="h-full"
-              style="background: linear-gradient(135deg, #0d2f20 0%, #0a2d3f 100%); color: rgba(255,255,255,0.25);"
-              showIcon={false}
-            />
+          <div class="h-40 overflow-hidden">
+            <img src={p.img} alt={p.title} class="w-full h-full object-cover" />
           </div>
           <div class="product-card-body p-5">
             <h4>{p.title}</h4>
