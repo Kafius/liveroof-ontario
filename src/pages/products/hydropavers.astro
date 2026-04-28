@@ -1,0 +1,347 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../../components/TopBar.astro';
+import Header from '../../components/Header.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import Footer from '../../components/Footer.astro';
+
+const howItWorks = [
+  {
+    step: '01',
+    title: 'Rain Falls on the Surface',
+    description:
+      'Instead of pooling on top like concrete or asphalt, raindrops are absorbed directly into the body of the paver itself. The material is engineered to be truly porous — water management is built into the construction, not in the joints between blocks.',
+  },
+  {
+    step: '02',
+    title: 'The Paver Holds & Filters',
+    description:
+      'Each paver can absorb up to a ¼-inch rain event before reaching saturation. As water moves through the ceramic matrix, sediments and contaminants are filtered, helping to keep stormwater cleaner before it ever reaches the soil or storm system.',
+  },
+  {
+    step: '03',
+    title: 'Water Drains to the Base',
+    description:
+      'Excess water passes through the paver and into a prepared base of High-Performance Bedding (HPB) — washed, angular limestone aggregate that drains even when compacted. Stormwater is absorbed back into the ground rather than racing to the nearest storm drain.',
+  },
+];
+
+const benefits = [
+  {
+    title: 'Eliminates Standing Water',
+    description:
+      'Drier, safer surfaces during and after heavy rainfall. No puddles, no slip hazards, no ice patches forming overnight.',
+    color: 'green',
+  },
+  {
+    title: 'L.I.D. Compliant',
+    description:
+      'Helps fulfill Low Impact Development requirements for new construction and stormwater management plans.',
+    color: 'blue',
+  },
+  {
+    title: 'Lower CO₂ Footprint',
+    description:
+      'Just 1.15 lbs CO₂ per sq ft — versus 20.5 lbs for traditional Portland-cement alternatives. Made from post-industrial recycled ceramic tile.',
+    color: 'green',
+  },
+  {
+    title: 'Cooler Surface Temps',
+    description:
+      'Moisture trapped in the paver evaporates over time, cooling the surface and reducing the urban heat-island effect around buildings.',
+    color: 'blue',
+  },
+  {
+    title: 'Quieter Environments',
+    description:
+      'The porous structure absorbs sound — ideal for transit platforms, courtyards, and dense urban amenity decks.',
+    color: 'green',
+  },
+  {
+    title: 'Award-Winning Design',
+    description:
+      'Recognized internationally and nominated for Green Building Product of the Year. Trusted on residential, commercial, and municipal projects.',
+    color: 'blue',
+  },
+];
+
+const applications = [
+  { label: 'Driveways', icon: 'car' },
+  { label: 'Parking Lots', icon: 'parking' },
+  { label: 'Patios & Courtyards', icon: 'patio' },
+  { label: 'Walkways & Sidewalks', icon: 'walkway' },
+  { label: 'Pool Decks', icon: 'pool' },
+  { label: 'Rooftop Amenity Decks', icon: 'roof' },
+  { label: 'Parks & Public Spaces', icon: 'park' },
+  { label: 'EV & ADA Spaces', icon: 'ev' },
+];
+
+const stats = [
+  { value: '¼"', label: 'Rain event absorbed before saturation' },
+  { value: '12', label: 'Standard colors plus custom collections' },
+  { value: '11', label: 'Sizes from 4″×4″ up to 24″×24″' },
+  { value: '94%+', label: 'Recycled content from post-industrial ceramic' },
+];
+---
+
+<Layout title="Hydropavers – Permeable Paving for LiveRoof Systems">
+  <TopBar />
+  <Header />
+
+  <PageHero
+    eyebrow="Hydropavers"
+    title="Permeable Paving That"
+    highlight="Drains Itself"
+    subtitle="A truly porous paving system that absorbs and channels stormwater through the paver itself — keeping surfaces dry, safer, and dramatically reducing runoff. Engineered for everywhere it rains."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'Hydropavers' },
+    ]}
+  />
+
+  <!-- Intro -->
+  <section class="py-14 md:py-20 bg-white">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16 items-start">
+        <div>
+          <span class="tag">A Different Kind of Paver</span>
+          <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] leading-[1.18] text-dark mb-5">
+            Stormwater management built into the paver — not the gaps between them.
+          </h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Most "permeable" pavers aren't really permeable at all — they're solid concrete blocks
+            with gravel-filled joints. When the joints clog, the surface floods. <strong class="text-dark">hydroPAVERS<sup>®</sup></strong>
+            are different: the paver itself is porous, so water moves <em>through</em> the surface
+            rather than around it.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            Manufactured from recycled ceramic tile, bentonite clay, and oxide pigment — then
+            compressed at 1,600 tonnes and fired at 1,200 °C in a 1,500-foot kiln — each paver
+            becomes a permanent, hard-wearing surface that drains like a sponge and lasts like stone.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 lg:gap-4">
+          {stats.map((s) => (
+            <div class="bg-mid rounded-xl p-5">
+              <div class="font-serif text-[1.8rem] text-green leading-none mb-2">{s.value}</div>
+              <div class="text-[0.78rem] text-text-muted leading-snug">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-14 md:py-20 bg-mid">
+    <div class="container">
+      <div class="text-center max-w-[640px] mx-auto mb-12">
+        <span class="tag">How It Works</span>
+        <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] text-dark mb-3">
+          Three Stages, One Continuous Flow
+        </h2>
+        <p class="text-text-muted leading-relaxed">
+          A storm event becomes a non-event. Water moves from sky to soil without ever pooling
+          on the surface or overwhelming a drain.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {howItWorks.map((s) => (
+          <div class="bg-white rounded-xl p-6 sm:p-7 shadow-[0_2px_20px_rgba(35,31,32,0.05)]">
+            <div class="font-serif text-[2.2rem] text-green leading-none mb-3">{s.step}</div>
+            <h3 class="font-serif text-[1.25rem] text-dark mb-3 leading-snug">{s.title}</h3>
+            <p class="text-[0.92rem] text-text-muted leading-relaxed">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-14 md:py-20 bg-white">
+    <div class="container">
+      <div class="max-w-[640px] mb-10">
+        <span class="tag">Why Hydropavers</span>
+        <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] text-dark mb-3">
+          Engineered for Performance, Built for the Planet
+        </h2>
+        <p class="text-text-muted leading-relaxed">
+          Every benefit traces back to the same idea: a paver that works <em>with</em> the water
+          cycle instead of against it.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {benefits.map((b) => (
+          <div class="bg-mid rounded-xl p-6 hover:shadow-[0_8px_28px_rgba(35,31,32,0.08)] transition-shadow">
+            <div class={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 ${b.color === 'green' ? 'bg-green-light' : 'bg-blue-light'}`}>
+              <svg width="20" height="20" fill="none" stroke={b.color === 'green' ? '#17b060' : '#0092CF'} stroke-width="2" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-[1.15rem] text-dark mb-2 leading-snug">{b.title}</h3>
+            <p class="text-[0.9rem] text-text-muted leading-relaxed">{b.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Real vs Fake -->
+  <section class="py-14 md:py-20 bg-dark text-white">
+    <div class="container">
+      <div class="max-w-[640px] mb-10">
+        <span class="tag" style="color:#17b060">The Real Difference</span>
+        <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] text-white mb-3">
+          Truly Porous vs. Just Permeable in Name
+        </h2>
+        <p class="text-white/70 leading-relaxed">
+          Many "permeable" systems are conventional concrete, asphalt, or interlocking brick with
+          gravel between joints. They're not porous — they just rely on gaps that eventually clog.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="bg-white/[0.04] border border-white/[0.08] rounded-xl p-6 sm:p-7">
+          <div class="text-[0.7rem] uppercase tracking-wider font-semibold text-green mb-2">Real hydroPAVERS<sup>®</sup></div>
+          <h3 class="font-serif text-[1.3rem] text-white mb-4">Water moves through the material itself.</h3>
+          <ul class="space-y-3 text-[0.92rem] text-white/75 leading-relaxed">
+            <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>Paver body absorbs and retains water until saturation, then drains downward.</span></li>
+            <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>Made from recycled ceramic tile diverted from landfill.</span></li>
+            <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>1.15 lbs CO₂ per sq ft — versus 20.5 lbs for cement alternatives.</span></li>
+            <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>Permeability tested and maintained for the life of the product.</span></li>
+          </ul>
+        </div>
+
+        <div class="bg-white/[0.04] border border-white/[0.08] rounded-xl p-6 sm:p-7">
+          <div class="text-[0.7rem] uppercase tracking-wider font-semibold text-white/50 mb-2">Conventional "Permeable" Pavers</div>
+          <h3 class="font-serif text-[1.3rem] text-white/80 mb-4">Water relies on the gaps between blocks.</h3>
+          <ul class="space-y-3 text-[0.92rem] text-white/55 leading-relaxed">
+            <li class="flex gap-3"><span class="text-white/40 flex-shrink-0">✕</span><span>The brick itself is solid concrete — water has to find the joints.</span></li>
+            <li class="flex gap-3"><span class="text-white/40 flex-shrink-0">✕</span><span>Joints clog with sediment, dust, and debris over time.</span></li>
+            <li class="flex gap-3"><span class="text-white/40 flex-shrink-0">✕</span><span>Heavy rainfall floods the surface despite the "permeable" label.</span></li>
+            <li class="flex gap-3"><span class="text-white/40 flex-shrink-0">✕</span><span>Cement-based, with a much heavier carbon footprint.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blue Roof / LiveRoof Integration -->
+  <section class="py-14 md:py-20 bg-white">
+    <div class="container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div>
+          <span class="tag" style="color:#0092CF">Blue Roof Integration</span>
+          <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] text-dark mb-4 leading-[1.18]">
+            From the Ground Up — and the Roof Down
+          </h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            On the rooftop, hydroPAVERS<sup>®</sup> sit on self-leveling pedestals to create
+            walkable, slip-resistant amenity decks that complement a vegetated LiveRoof system —
+            providing parapet-to-parapet stormwater capture across the entire roof.
+          </p>
+          <p class="text-text-muted leading-relaxed mb-6">
+            Pavers on pedestals retain roughly <strong class="text-dark">6 L/m²</strong> per rain
+            event. Paired with GR52 water-retention panels, that capacity grows to over
+            <strong class="text-dark">20 L/m²</strong> — turning hard surfaces into active
+            stormwater infrastructure.
+          </p>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-blue-light rounded-xl p-4">
+              <div class="font-serif text-[1.6rem] text-blue leading-none mb-1">6 L/m²</div>
+              <div class="text-[0.78rem] text-text-muted leading-snug">On pedestals alone</div>
+            </div>
+            <div class="bg-blue-light rounded-xl p-4">
+              <div class="font-serif text-[1.6rem] text-blue leading-none mb-1">20+ L/m²</div>
+              <div class="text-[0.78rem] text-text-muted leading-snug">With retention panels</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-placeholder rounded-xl aspect-[4/3]">
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
+          </svg>
+          <span>Hydropavers on Rooftop</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Applications -->
+  <section class="py-14 md:py-20 bg-mid">
+    <div class="container">
+      <div class="text-center max-w-[640px] mx-auto mb-10">
+        <span class="tag">Where They're Used</span>
+        <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] text-dark mb-3">
+          Anywhere Water Needs to Disappear
+        </h2>
+        <p class="text-text-muted leading-relaxed">
+          From residential driveways to municipal parks — hydroPAVERS<sup>®</sup> handle projects
+          of any size, in any climate where it rains.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {applications.map((a) => (
+          <div class="bg-white rounded-xl p-5 text-center hover:shadow-[0_8px_28px_rgba(35,31,32,0.08)] transition-shadow">
+            <div class="w-12 h-12 rounded-lg bg-green-light flex items-center justify-center mx-auto mb-3">
+              <svg width="24" height="24" fill="none" stroke="#17b060" stroke-width="1.8" viewBox="0 0 24 24">
+                <path d="M12 2v20M2 12h20" />
+              </svg>
+            </div>
+            <div class="text-[0.92rem] font-semibold text-dark leading-snug">{a.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA — link to hydropavers.ca (triggers leaving modal) -->
+  <section class="py-14 md:py-20 bg-white">
+    <div class="container">
+      <div class="bg-dark rounded-2xl overflow-hidden relative">
+        <div class="absolute top-[-80px] right-[-80px] w-[320px] h-[320px] rounded-full bg-green/15"></div>
+        <div class="absolute bottom-[-60px] left-[-40px] w-[240px] h-[240px] rounded-full bg-blue/15"></div>
+
+        <div class="relative z-10 px-6 sm:px-10 lg:px-14 py-12 md:py-16 text-center max-w-[720px] mx-auto">
+          <span class="tag" style="color:#17b060">Learn More</span>
+          <h2 class="font-serif text-[clamp(1.8rem,4vw,2.6rem)] text-white mb-4 leading-[1.18]">
+            Explore the Full hydroPAVERS<sup>®</sup> Catalog
+          </h2>
+          <p class="text-white/70 leading-relaxed mb-8 max-w-[520px] mx-auto">
+            For full technical specifications, color and size selections, project galleries,
+            installation guides, and downloadable resources — visit our partner site at
+            hydroPAVERS<sup>®</sup>.
+          </p>
+          <a
+            href="https://hydropavers.ca"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-green hover:bg-green-hover text-white font-semibold px-7 py-4 rounded-lg transition-colors text-[0.95rem]"
+          >
+            Visit hydropavers.ca
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+          <p class="text-white/40 text-[0.78rem] mt-5">
+            Opens our partner's official site in a new tab.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+  <Footer />
+</Layout>

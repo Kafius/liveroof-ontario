@@ -15,7 +15,7 @@ const { title } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -34,14 +34,12 @@ const { title } = Astro.props;
           </svg>
         </div>
         <h2 id="ext-modal-title">You are leaving LiveRoof Ontario</h2>
-        <p>
-          You are now leaving <strong>liveroofontario.ca</strong> and entering
-          <strong>liveroof.com</strong> — the LiveRoof Global website, where additional
-          product information, technical resources, and specifications are hosted.
+        <p id="ext-modal-body">
+          You are now leaving <strong>liveroofontario.ca</strong> and entering an external site.
         </p>
         <div id="ext-modal-actions">
           <button id="ext-modal-cancel">Stay on this site</button>
-          <a id="ext-modal-continue" href="#" target="_blank" rel="noopener noreferrer">Continue to liveroof.com</a>
+          <a id="ext-modal-continue" href="#" target="_blank" rel="noopener noreferrer">Continue</a>
         </div>
       </div>
     </div>
@@ -52,9 +50,32 @@ const { title } = Astro.props;
         const backdrop = document.getElementById('ext-modal-backdrop') as HTMLElement;
         const cancelBtn = document.getElementById('ext-modal-cancel') as HTMLElement;
         const continueLink = document.getElementById('ext-modal-continue') as HTMLAnchorElement;
+        const body = document.getElementById('ext-modal-body') as HTMLElement;
 
-        function openModal(href: string) {
+        const partners: Record<string, { domain: string; copy: string }> = {
+          'liveroof.com': {
+            domain: 'liveroof.com',
+            copy: 'the LiveRoof Global website, where additional product information, technical resources, and specifications are hosted.',
+          },
+          'hydropavers.ca': {
+            domain: 'hydropavers.ca',
+            copy: 'the official hydroPAVERS® site, our partner for permeable paving and stormwater management products.',
+          },
+        };
+
+        function matchPartner(href: string) {
+          for (const key of Object.keys(partners)) {
+            if (href.includes(key) && !href.includes('liveroofontario')) return partners[key];
+          }
+          return null;
+        }
+
+        function openModal(href: string, partner: { domain: string; copy: string }) {
           continueLink.href = href;
+          continueLink.textContent = 'Continue to ' + partner.domain;
+          body.innerHTML =
+            'You are now leaving <strong>liveroofontario.ca</strong> and entering <strong>' +
+            partner.domain + '</strong> — ' + partner.copy;
           modal.style.display = 'flex';
           cancelBtn.focus();
         }
@@ -68,9 +89,10 @@ const { title } = Astro.props;
           const anchor = (e.target as Element)?.closest('a');
           if (!anchor || anchor.id === 'ext-modal-continue') return;
           const href = (anchor as HTMLAnchorElement).href || '';
-          if (href.includes('liveroof.com') && !href.includes('liveroofontario')) {
+          const partner = matchPartner(href);
+          if (partner) {
             e.preventDefault();
-            openModal(href);
+            openModal(href, partner);
           }
         });
 

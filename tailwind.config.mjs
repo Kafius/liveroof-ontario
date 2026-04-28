@@ -34,8 +34,6 @@ export default {
       fontFamily: {
         serif: ['"DM Serif Display"', 'serif'],
         sans: ['"DM Sans"', 'sans-serif'],
-        display: ['"Playfair Display"', 'serif'],
-        body: ['"Inter"', 'sans-serif'],
       },
       maxWidth: {
         container: '1200px',

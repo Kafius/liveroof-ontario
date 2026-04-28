@@ -1,0 +1,102 @@
+---
+interface Props {
+  number: string;
+  format?: 'paren' | 'dash';
+  class?: string;
+  ariaLabel?: string;
+}
+
+const { number, format = 'paren', class: className = '', ariaLabel } = Astro.props;
+
+const digits = number.replace(/\D/g, '');
+
+let a = '', b = '', c = '', d = '';
+if (digits.length === 11) {
+  a = digits.slice(0, 1);
+  b = digits.slice(1, 4);
+  c = digits.slice(4, 7);
+  d = digits.slice(7, 11);
+} else if (digits.length === 10) {
+  b = digits.slice(0, 3);
+  c = digits.slice(3, 6);
+  d = digits.slice(6, 10);
+} else {
+  b = digits;
+}
+
+const masked = format === 'dash'
+  ? (a ? '•-•••-•••-••••' : '•••-•••-••••')
+  : '(•••) •••-••••';
+---
+<button
+  type="button"
+  class={`phone-reveal ${className}`}
+  data-format={format}
+  data-a={a}
+  data-b={b}
+  data-c={c}
+  data-d={d}
+  aria-label={ariaLabel ?? 'Click to reveal phone number'}
+>
+  <span class="phone-reveal-text">{masked}</span>
+  <span class="phone-reveal-hint" aria-hidden="true"> &middot; tap to reveal</span>
+</button>
+
+<style>
+  .phone-reveal {
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-align: inherit;
+    text-decoration: inherit;
+  }
+  .phone-reveal:hover .phone-reveal-text { text-decoration: underline; }
+  .phone-reveal-hint {
+    font-size: 0.7em;
+    opacity: 0.55;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  .phone-reveal[data-revealed="true"] .phone-reveal-hint { display: none; }
+</style>
+
+<script is:inline>
+  (function () {
+    if (window.__phoneRevealInit) return;
+    window.__phoneRevealInit = true;
+
+    function format(btn) {
+      var a = btn.dataset.a || '';
+      var b = btn.dataset.b || '';
+      var c = btn.dataset.c || '';
+      var d = btn.dataset.d || '';
+      var fmt = btn.dataset.format || 'paren';
+      if (fmt === 'dash') {
+        return (a ? a + '-' : '') + b + '-' + c + '-' + d;
+      }
+      return '(' + b + ') ' + c + '-' + d;
+    }
+    function tel(btn) {
+      return '+' + (btn.dataset.a || '1') + (btn.dataset.b || '') + (btn.dataset.c || '') + (btn.dataset.d || '');
+    }
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest && e.target.closest('.phone-reveal');
+      if (!btn) return;
+      if (btn.dataset.revealed === 'true') {
+        e.preventDefault();
+        window.location.href = tel(btn);
+        return;
+      }
+      e.preventDefault();
+      var span = btn.querySelector('.phone-reveal-text');
+      if (span) span.textContent = format(btn);
+      btn.dataset.revealed = 'true';
+      btn.setAttribute('aria-label', 'Call ' + format(btn));
+    });
+  })();
+</script>
