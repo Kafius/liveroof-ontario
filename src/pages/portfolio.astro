@@ -201,8 +201,9 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
               ].filter(Boolean).join(' ');
 
               return (
-                <div
-                  class="project-card bg-mid rounded-xl overflow-hidden flex flex-col"
+                <a
+                  href={`/portfolio/${project.slug.current}`}
+                  class="project-card bg-mid rounded-xl overflow-hidden flex flex-col group hover:shadow-lg transition-shadow"
                   data-province={project.province ?? ''}
                   data-showcase={project.showcaseType ?? ''}
                   data-module={project.moduleType ?? ''}
@@ -262,10 +263,6 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                       </p>
                     </div>
 
-                    {project.description && (
-                      <p class="text-[0.85rem] text-text-muted leading-relaxed">{project.description}</p>
-                    )}
-
                     {(project.projectSize || project.installationDate || project.grower) && (
                       <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-[0.78rem]">
                         {project.projectSize && (
@@ -315,8 +312,15 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                         ))}
                       </div>
                     )}
+
+                    <span class="mt-auto pt-2 text-[0.78rem] font-semibold text-green inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                      View project
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>
