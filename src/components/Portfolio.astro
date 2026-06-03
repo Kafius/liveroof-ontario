@@ -1,13 +1,11 @@
 ---
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
-
 const projects = [
-  'Haworth Corporate HQ',
-  '215 N Peoria',
-  'Univ. of Notre Dame',
-  'KLA',
-  'Waunakee Library',
-  'Union Station, Indianapolis',
+  { name: 'Haworth Corporate HQ', img: '/images/sedum-red-autumn.jpg' },
+  { name: '215 N Peoria', img: '/images/wildflower-cityscape-2.jpg' },
+  { name: 'Univ. of Notre Dame', img: '/images/historic-building-green-roof.jpeg' },
+  { name: 'KLA', img: '/images/aerial-sedum-roof.jpeg' },
+  { name: 'Waunakee Library', img: '/images/native-grass-roof.png' },
+  { name: 'Union Station, Indianapolis', img: '/images/installation-crane-toronto.jpg' },
 ];
 ---
 
@@ -19,9 +17,9 @@ const projects = [
       <p>From university campuses to corporate headquarters, LiveRoof performs across every building type.</p>
     </div>
     <div class="portfolio-grid">
-      {projects.map((name) => (
+      {projects.map((p) => (
         <div class="port-item">
-          <PhotoPlaceholder label={name} class="h-full" showIcon={false} />
+          <img src={p.img} alt={p.name} class="h-full w-full object-cover" />
         </div>
       ))}
     </div>

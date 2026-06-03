@@ -1,6 +1,7 @@
 ---
 const cards = [
   {
+    img: '/images/meadow-roof-toronto.png',
     label: 'Products',
     title: 'Explore Our Vegetated Roof Systems',
     description: 'Lush, fully vegetated LiveRoof modules designed for instant maturity and lasting performance.',
@@ -8,6 +9,7 @@ const cards = [
     href: '#',
   },
   {
+    img: '/images/wildflower-cityscape-1.jpg',
     label: 'LiveWall',
     title: 'Living Wall Systems',
     description: 'Complementary green wall solutions that bring vertical greenery to any building facade.',
@@ -15,6 +17,7 @@ const cards = [
     href: '#',
   },
   {
+    img: '/images/nursery-growing-field.jpeg',
     label: 'Hortech',
     title: 'Our Parent Company',
     description: 'One of the Midwest\'s leading wholesale growers of sustainably-grown perennials.',
@@ -35,13 +38,8 @@ const cards = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
       {cards.map((card) => (
         <a href={card.href} class="benefit-card group">
-          <div class="photo-placeholder aspect-[16/10]">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="18" height="18" rx="3" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
-            </svg>
-            <span>{card.label}</span>
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src={card.img} alt={card.label} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           </div>
           <div class="p-6">
             <span class="tag">{card.label}</span>

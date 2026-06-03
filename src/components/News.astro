@@ -1,18 +1,19 @@
 ---
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
-
 const articles = [
   {
+    img: '/images/solargreen-installation.jpg',
     date: 'March 2025',
     title: 'The Science Behind LiveRoof — Energy Savings',
     desc: 'In an era of rising energy costs, LiveRoof vegetated roof systems deliver measurable reductions in building energy consumption.',
   },
   {
+    img: '/images/sedum-red-landscape.jpg',
     date: 'February 2025',
     title: 'Ronald McDonald House Vegetated Roofs in Atlanta',
     desc: "Designed to last: the long-term performance of vegetated roofs built to endure Georgia's climate for decades.",
   },
   {
+    img: '/images/wildflower-roof-cityview.jpg',
     date: 'January 2025',
     title: 'Eight Years Later: LiveRoof Performance in Toronto',
     desc: "A case study from Bloor Islington Place, installed July 2018 — still thriving in one of Canada's most demanding urban climates.",
@@ -31,7 +32,7 @@ const articles = [
       {articles.map((a) => (
         <div class="news-card">
           <div class="h-[200px]">
-            <PhotoPlaceholder label="Article Photo" class="h-full" iconSize={28} />
+            <img src={a.img} alt={a.title} class="h-full w-full object-cover" />
           </div>
           <div class="news-card-body p-6">
             <div class="news-date">{a.date}</div>

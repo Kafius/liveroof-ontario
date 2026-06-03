@@ -1,19 +1,17 @@
 ---
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
-
 const benefits = [
   {
-    img: 'Colorful Vegetated Roof Plantings',
+    img: '/images/natural-beauty.jpg',
     title: 'Natural Beauty',
     desc: "LiveRoof offers the natural function and beauty of built-in-place living roofs — without the extensive ongoing costs of maturation.",
   },
   {
-    img: 'Installation Photo',
+    img: '/images/ease-installation.jpg',
     title: 'Ease of Installation',
     desc: 'Enjoy the speed and convenience of modular delivery — without grid lines or compartmentalization of soil.',
   },
   {
-    img: 'Mature Vegetated Roof — Meijer Gardens',
+    img: '/images/building-reselience.jpeg',
     title: 'Instantly Mature',
     desc: 'Fully vegetated from Day One with a broader plant palette than carpet or mat systems — no establishment phase required.',
   },
@@ -31,7 +29,7 @@ const benefits = [
       {benefits.map((b) => (
         <div class="benefit-card">
           <div class="h-[220px]">
-            <PhotoPlaceholder label={b.img} class="h-full" />
+            <img src={b.img} alt={b.title} class="h-full w-full object-cover" />
           </div>
           <div class="benefit-body p-7">
             <h3>{b.title}</h3>

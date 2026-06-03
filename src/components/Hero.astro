@@ -1,33 +1,68 @@
 ---
+const slides = [
+  { src: '/images/meadow-roof-toronto.png', alt: 'LiveRoof meadow green roof with coneflowers and city skyline' },
+  { src: '/images/wildflower-roof-cityview.jpg', alt: 'Mature vegetated roof with wildflowers and city skyline' },
+  { src: '/images/allium-roof.png', alt: 'LiveRoof with purple allium blooms' },
+  { src: '/images/aerial-sedum-roof.jpeg', alt: 'Aerial view of LiveRoof installation' },
+  { src: '/images/coneflower-meadow-roof.jpeg', alt: 'Lush meadow roof with echinacea and modern building' },
+];
 ---
 
 <section class="hero">
-  <video
-    class="absolute inset-0 w-full h-full object-cover"
-    src="/videos/bf4b99e087ce64bd6b7ba29dfe77f948_1777011656.mp4"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-  ></video>
+  <div class="hero-carousel">
+    {slides.map((slide, i) => (
+      <div class={`hero-slide${i === 0 ? ' active' : ''}`}>
+        <img src={slide.src} alt={slide.alt} />
+      </div>
+    ))}
+  </div>
   <div class="hero-overlay"></div>
   <div class="container hero-container">
-  <div class="hero-content">
-    <div class="hero-eyebrow">LiveRoof Vegetated Roof Systems</div>
-    <h1>Nature Above.<br /><em>Proven</em> Below.</h1>
-    <p class="hero-sub">
-      Our patented hybrid vegetated roof design combines the best features of alternate vegetated roof
-      methods — delivering instant maturity, natural beauty, and lasting performance from Day One.
-    </p>
-    <div class="flex gap-3.5 flex-wrap">
-      <a href="/products" class="btn btn-primary">Explore Products</a>
-      <a href="/portfolio" class="btn btn-outline">View Portfolio</a>
+    <div class="hero-content">
+      <div class="hero-eyebrow">LiveRoof Vegetated Roof Systems</div>
+      <h1>The Proof is in the Roof</h1>
+      <p class="hero-sub">
+        Natural stormwater management from your local nursery.<br />
+        LiveRoof modular vegetated roof design delivers lasting performance and natural beauty from Day One.
+      </p>
+      <div class="flex gap-3.5 flex-wrap">
+        <a href="/products" class="btn btn-primary">Explore Products</a>
+        <a href="/portfolio" class="btn btn-outline">View Portfolio</a>
+      </div>
     </div>
   </div>
-  </div>
-  <div class="hero-badge">
-    <div class="num">25<span style="font-size:1.2rem">+</span></div>
-    <div class="lbl">Years in Business</div>
+  <div class="hero-dots">
+    {slides.map((_, i) => (
+      <button class={`hero-dot${i === 0 ? ' active' : ''}`} data-index={String(i)} aria-label={`Go to slide ${i + 1}`}></button>
+    ))}
   </div>
 </section>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>('.hero-slide');
+  const dots = document.querySelectorAll<HTMLElement>('.hero-dot');
+  let current = 0;
+  let timer: ReturnType<typeof setInterval>;
+
+  function goTo(index: number) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function startTimer() {
+    timer = setInterval(() => goTo((current + 1) % slides.length), 5000);
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(timer);
+      goTo(i);
+      startTimer();
+    });
+  });
+
+  startTimer();
+</script>

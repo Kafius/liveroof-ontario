@@ -1,28 +1,29 @@
 ---
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
 ---
 
 <section class="bg-mid py-14 md:py-24">
   <div class="container">
     <div class="feature-grid reverse">
-      <div class="rounded-xl overflow-hidden h-[280px] md:h-[420px]">
-        <PhotoPlaceholder label="RoofBlue RETAIN System Photo" class="h-full" iconSize={40} />
+      <div class="flex flex-col gap-4 h-[280px] md:h-[420px]">
+        <div class="rounded-xl overflow-hidden flex-1">
+          <img src="/images/roofblue-detain.jpeg" alt="RoofBlue Detain — controlled stormwater release" class="h-full w-full object-cover" />
+        </div>
+        <div class="rounded-xl overflow-hidden flex-1">
+          <img src="/images/roofblue-retain.jpeg" alt="RoofBlue Retain — water captured for plant use" class="h-full w-full object-cover" />
+        </div>
       </div>
       <div class="feature-text">
-        <span class="tag">Blue-Vegetated Roof Research</span>
-        <h2>RoofBlue RETAIN&trade; — Stormwater, Solved</h2>
+        <span class="tag">Blue-Green Roof Solutions</span>
+        <h2>RoofBlue: Blue-Green Roof Solutions for Enhanced Stormwater Management</h2>
         <p>
-          A 2022 study by world-renowned vegetated roof researcher Brad Rowe found that RoofBlue RETAIN
-          — combined with LiveRoof Standard or Lite modules — increases stormwater retention by over
-          25%.
+          Blue Roof? Green Roof? — Why not both.
         </p>
         <p>
-          The same system enhances plant growth and reduces irrigation requirements, making it one of
-          the most impactful upgrades available for any vegetated roof installation.
+          LiveRoof offers two options to combine Blue Roof and Green Roof for enhanced stormwater management: RoofBlue Detain allows to temporarily store stormwater under the modules for a controlled release. RoofBlue Retain captures water under the modules with plants using it as needed.
         </p>
         <div class="flex flex-wrap gap-2.5 my-6">
-          <span class="chip blue">25%+ More Retention</span>
-          <span class="chip green">Reduced Irrigation</span>
+          <span class="chip blue">Stormwater Detention</span>
+          <span class="chip green">Stormwater Retention</span>
         </div>
         <div class="flex gap-3.5 flex-wrap">
           <a href="/products/roofblue" class="btn btn-primary">White Paper</a>
