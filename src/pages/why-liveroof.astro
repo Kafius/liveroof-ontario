@@ -6,13 +6,6 @@ import PageHero from '../components/PageHero.astro';
 import SolutionTabs from '../components/SolutionTabs.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Footer from '../components/Footer.astro';
-
-const stats = [
-  { num: '6,700', unit: '+', label: 'Projects Installed' },
-  { num: '16', unit: 'M', label: 'Sq Ft Across North America' },
-  { num: '50', unit: '-Yr', label: 'Module Warranty' },
-  { num: '20', unit: '+', label: 'Years of Innovation' },
-];
 ---
 
 <Layout title="Why LiveRoof Systems - Vegetated Roof Solutions">
@@ -55,23 +48,6 @@ const stats = [
       </div>
     </div>
   </section>
-
-  <!-- Stats Strip -->
-  <div class="bg-dark py-8 md:py-12">
-    <div class="container">
-      <div class="stats-grid">
-        {stats.map((stat) => (
-          <div class="stat-item">
-            <div class="stat-num">
-              {stat.num}
-              {stat.unit && <span class="stat-unit">{stat.unit}</span>}
-            </div>
-            <div class="stat-label">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
 
   <!-- Tabs + Panels -->
   <div id="tabs" class="bg-mid">
