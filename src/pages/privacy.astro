@@ -1,0 +1,194 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopBar from '../components/TopBar.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import Footer from '../components/Footer.astro';
+
+const lastUpdated = 'June 4, 2025';
+---
+
+<Layout title="Privacy Policy – LiveRoof Ontario">
+  <TopBar />
+  <Header />
+
+  <PageHero
+    eyebrow="Legal"
+    title="Privacy"
+    highlight="Policy"
+    subtitle="We respect your privacy and are committed to protecting the personal information you share with us."
+    breadcrumbs={[
+      { label: 'Home', href: '/' },
+      { label: 'Privacy Policy' },
+    ]}
+  />
+
+  <section class="py-14 md:py-20 bg-white">
+    <div class="container">
+      <div class="max-w-[780px] mx-auto">
+
+        <p class="text-[0.85rem] text-text-muted mb-10">Last updated: {lastUpdated}</p>
+
+        <!-- Intro -->
+        <div class="mb-10">
+          <p class="text-text-muted leading-relaxed mb-4">
+            LiveRoof Ontario ("<strong class="text-dark">we</strong>," "<strong class="text-dark">us</strong>," or "<strong class="text-dark">our</strong>") operates the website
+            <strong class="text-dark">liveroofontario.ca</strong>. This Privacy Policy explains how we collect, use,
+            disclose, and safeguard your personal information in accordance with Canada's
+            <em>Personal Information Protection and Electronic Documents Act</em> (PIPEDA) and applicable provincial privacy legislation.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            By using our website or submitting an inquiry, you consent to the practices described in this policy.
+          </p>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">1. Information We Collect</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            We collect personal information only to the extent necessary to respond to your inquiries and provide our services.
+          </p>
+          <h3 class="text-dark font-semibold text-[1rem] mb-2">Information you provide directly</h3>
+          <ul class="list-disc list-inside space-y-2 text-text-muted leading-relaxed mb-4 pl-1">
+            <li>Name, email address, and phone number submitted through our contact form</li>
+            <li>Company or organization name and project region</li>
+            <li>The content of messages or inquiries you send us</li>
+          </ul>
+          <h3 class="text-dark font-semibold text-[1rem] mb-2">Information collected automatically</h3>
+          <ul class="list-disc list-inside space-y-2 text-text-muted leading-relaxed pl-1">
+            <li>Basic server logs including IP address, browser type, and pages visited</li>
+            <li>Cookies and similar tracking technologies used to improve site functionality (see Section 5)</li>
+          </ul>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">2. How We Use Your Information</h2>
+          <p class="text-text-muted leading-relaxed mb-3">We use the information we collect to:</p>
+          <ul class="list-disc list-inside space-y-2 text-text-muted leading-relaxed pl-1">
+            <li>Respond to your inquiries and provide project quotations or technical support</li>
+            <li>Send follow-up communications related to your request</li>
+            <li>Improve our website content and user experience</li>
+            <li>Comply with legal obligations</li>
+          </ul>
+          <p class="text-text-muted leading-relaxed mt-4">
+            We do not use your personal information for automated decision-making or profiling.
+          </p>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">3. Disclosure of Your Information</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            We do not sell, trade, or rent your personal information. We may share it with:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-text-muted leading-relaxed pl-1">
+            <li>
+              <strong class="text-dark">LiveRoof Global, LLC</strong> — our parent organization, to the extent necessary
+              to fulfill your request or provide technical resources
+            </li>
+            <li>
+              <strong class="text-dark">Service providers</strong> — trusted third parties (such as our form processing provider)
+              who assist us in operating our website, subject to confidentiality obligations
+            </li>
+            <li>
+              <strong class="text-dark">Legal authorities</strong> — when required by law, court order, or to protect the
+              rights, property, or safety of our company, customers, or the public
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">4. Data Retention</h2>
+          <p class="text-text-muted leading-relaxed">
+            We retain personal information only as long as necessary to fulfill the purposes for which it was collected
+            or as required by applicable law. Contact form submissions are retained for a reasonable period to support
+            any ongoing project relationship and are then securely deleted or anonymized.
+          </p>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">5. Cookies & Analytics</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Our website may use cookies — small text files stored on your device — to remember your preferences and
+            analyze how visitors use the site. We may use a third-party analytics tool (such as Google Analytics) to
+            collect aggregate, anonymized data about site traffic.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            You can instruct your browser to refuse cookies or alert you when cookies are being sent. Some parts of our
+            site may not function properly if you disable cookies.
+          </p>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">6. Security</h2>
+          <p class="text-text-muted leading-relaxed">
+            We take reasonable administrative, technical, and physical safeguards to protect your personal information
+            from unauthorized access, disclosure, alteration, or destruction. However, no method of transmission over
+            the internet is completely secure, and we cannot guarantee absolute security.
+          </p>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">7. Your Rights</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            Under PIPEDA and applicable provincial law, you have the right to:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-text-muted leading-relaxed pl-1">
+            <li>Request access to the personal information we hold about you</li>
+            <li>Request correction of inaccurate or incomplete information</li>
+            <li>Withdraw your consent to our use of your information (subject to legal or contractual restrictions)</li>
+            <li>Lodge a complaint with the Office of the Privacy Commissioner of Canada</li>
+          </ul>
+          <p class="text-text-muted leading-relaxed mt-4">
+            To exercise any of these rights, please contact us using the details in Section 9 below.
+          </p>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">8. Third-Party Links</h2>
+          <p class="text-text-muted leading-relaxed">
+            Our website contains links to external sites operated by our partners (including liveroof.com and
+            hydropavers.ca). Once you leave liveroofontario.ca, this Privacy Policy no longer applies.
+            We encourage you to review the privacy policies of any third-party sites you visit.
+          </p>
+        </div>
+
+        <!-- Section 9 -->
+        <div class="mb-10">
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">9. Contact Us</h2>
+          <p class="text-text-muted leading-relaxed mb-4">
+            If you have questions about this Privacy Policy or wish to exercise your privacy rights, please contact our
+            Privacy Officer:
+          </p>
+          <div class="bg-mid rounded-xl p-6 border border-border text-[0.9rem] leading-relaxed text-dark">
+            <strong>LiveRoof Ontario</strong><br />
+            23078 Adelaide Road<br />
+            Mt. Brydges, ON, N0L 1W0<br />
+            <a href="mailto:kees@liveroofontario.ca" class="text-green hover:text-green-hover transition-colors font-medium">kees@liveroofontario.ca</a>
+          </div>
+        </div>
+
+        <!-- Section 10 -->
+        <div>
+          <h2 class="font-serif text-[1.5rem] text-dark mb-4">10. Updates to This Policy</h2>
+          <p class="text-text-muted leading-relaxed">
+            We may update this Privacy Policy from time to time to reflect changes in our practices or legal
+            requirements. The "Last updated" date at the top of this page indicates when the policy was last revised.
+            We encourage you to review this page periodically.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+  <Footer />
+</Layout>

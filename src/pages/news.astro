@@ -6,36 +6,31 @@ import PageHero from '../components/PageHero.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Footer from '../components/Footer.astro';
 
-// Fetch RSS feed from liveroof.com at build time
-let articles: { title: string; link: string; date: string; excerpt: string }[] = [];
+// Fetch posts from WordPress REST API at build time (includes featured images)
+let articles: { title: string; link: string; date: string; excerpt: string; image: string }[] = [];
+
+const FALLBACK_IMG = '/images/wildflower-roof-cityview.jpg';
 
 try {
-  const res = await fetch('https://liveroof.com/feed/');
-  const xml = await res.text();
+  const res = await fetch(
+    'https://liveroof.com/wp-json/wp/v2/posts?per_page=9&_embed&_fields=title,link,date,excerpt,_links,_embedded'
+  );
+  const posts: any[] = await res.json();
 
-  // Parse <item> blocks from RSS XML
-  const itemRegex = /<item>([\s\S]*?)<\/item>/g;
-  let match;
-  while ((match = itemRegex.exec(xml)) !== null) {
-    const item = match[1];
-    const title = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1]
-      ?? item.match(/<title>(.*?)<\/title>/)?.[1] ?? '';
-    const link = item.match(/<link>(.*?)<\/link>/)?.[1] ?? '';
-    const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] ?? '';
-    const desc = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/s)?.[1]
-      ?? item.match(/<description>(.*?)<\/description>/s)?.[1] ?? '';
-
-    // Strip HTML tags from description for a clean excerpt
-    const excerpt = desc.replace(/<[^>]*>/g, '').replace(/&#8230;/g, '...').replace(/&amp;/g, '&').trim().slice(0, 200);
-
-    const date = pubDate
-      ? new Date(pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  articles = posts.map((post) => {
+    const title = post.title?.rendered?.replace(/&#\d+;/g, c => String.fromCharCode(Number(c.slice(2,-1)))) ?? '';
+    const link = post.link ?? '';
+    const date = post.date
+      ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
       : '';
+    const excerptHtml = post.excerpt?.rendered ?? '';
+    const excerpt = excerptHtml.replace(/<[^>]*>/g, '').replace(/&#8230;/g, '...').replace(/&amp;/g, '&').trim().slice(0, 200);
+    const media = post._embedded?.['wp:featuredmedia'];
+    const image = media?.[0]?.source_url ?? FALLBACK_IMG;
 
-    articles.push({ title, link, date, excerpt: excerpt ? excerpt + '...' : '' });
-  }
+    return { title, link, date, excerpt: excerpt ? excerpt + '...' : '', image };
+  });
 } catch (e) {
-  // If fetch fails at build time, show empty state
   articles = [];
 }
 ---
@@ -62,7 +57,7 @@ try {
           {articles.map((article) => (
             <a href={article.link} target="_blank" rel="noopener noreferrer" class="news-card group block">
               <div class="h-[200px] overflow-hidden">
-                <img src="/images/wildflower-roof-cityview.jpg" alt={article.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src={article.image} alt={article.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
               <div class="news-card-body p-6">
                 <div class="news-date">{article.date}</div>
