@@ -1,24 +1,31 @@
 ---
-const articles = [
-  {
-    img: '/images/solargreen-installation.jpg',
-    date: 'March 2025',
-    title: 'The Science Behind LiveRoof — Energy Savings',
-    desc: 'In an era of rising energy costs, LiveRoof vegetated roof systems deliver measurable reductions in building energy consumption.',
-  },
-  {
-    img: '/images/sedum-red-landscape.jpg',
-    date: 'February 2025',
-    title: 'Ronald McDonald House Vegetated Roofs in Atlanta',
-    desc: "Designed to last: the long-term performance of vegetated roofs built to endure Georgia's climate for decades.",
-  },
-  {
-    img: '/images/wildflower-roof-cityview.jpg',
-    date: 'January 2025',
-    title: 'Eight Years Later: LiveRoof Performance in Toronto',
-    desc: "A case study from Bloor Islington Place, installed July 2018 — still thriving in one of Canada's most demanding urban climates.",
-  },
-];
+// Fetch the 3 most recent posts from the WordPress REST API at build time (includes featured images)
+let articles: { title: string; link: string; date: string; excerpt: string; image: string }[] = [];
+
+const FALLBACK_IMG = '/images/wildflower-roof-cityview.jpg';
+
+try {
+  const res = await fetch(
+    'https://liveroof.com/wp-json/wp/v2/posts?per_page=3&_embed&_fields=title,link,date,excerpt,_links,_embedded'
+  );
+  const posts: any[] = await res.json();
+
+  articles = posts.map((post) => {
+    const title = post.title?.rendered?.replace(/&#\d+;/g, c => String.fromCharCode(Number(c.slice(2,-1)))) ?? '';
+    const link = post.link ?? '';
+    const date = post.date
+      ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+      : '';
+    const excerptHtml = post.excerpt?.rendered ?? '';
+    const excerpt = excerptHtml.replace(/<[^>]*>/g, '').replace(/&#8230;/g, '...').replace(/&amp;/g, '&').trim().slice(0, 200);
+    const media = post._embedded?.['wp:featuredmedia'];
+    const image = media?.[0]?.source_url ?? FALLBACK_IMG;
+
+    return { title, link, date, excerpt: excerpt ? excerpt + '...' : '', image };
+  });
+} catch (e) {
+  articles = [];
+}
 ---
 
 <section class="py-14 md:py-24">
@@ -28,20 +35,26 @@ const articles = [
       <h2>Latest from LiveRoof</h2>
       <p>Research, case studies, and insights from the world's leading vegetated roof system.</p>
     </div>
-    <div class="news-grid">
-      {articles.map((a) => (
-        <div class="news-card">
-          <div class="h-[200px]">
-            <img src={a.img} alt={a.title} class="h-full w-full object-cover" />
-          </div>
-          <div class="news-card-body p-6">
-            <div class="news-date">{a.date}</div>
-            <h4>{a.title}</h4>
-            <p>{a.desc}</p>
-            <a href="/news" class="news-read">Read Article →</a>
-          </div>
-        </div>
-      ))}
-    </div>
+    {articles.length > 0 ? (
+      <div class="news-grid">
+        {articles.map((a) => (
+          <a href={a.link} target="_blank" rel="noopener noreferrer" class="news-card group block">
+            <div class="h-[200px] overflow-hidden">
+              <img src={a.image} alt={a.title} class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="news-card-body p-6">
+              <div class="news-date">{a.date}</div>
+              <h4 class="group-hover:text-blue transition-colors">{a.title}</h4>
+              {a.excerpt && <p>{a.excerpt}</p>}
+              <span class="news-read">Read Article →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-16">
+        <p class="text-text-muted">Unable to load articles. Visit <a href="/news" class="text-blue hover:underline">our news page</a> for the latest.</p>
+      </div>
+    )}
   </div>
 </section>
