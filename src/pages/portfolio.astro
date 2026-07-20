@@ -101,12 +101,23 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
               <p id="filter-count" class="text-[0.85rem] text-text-muted font-medium">
                 Showing <span id="visible-count">{activeProjects.length}</span> of {activeProjects.length} projects
               </p>
-              <button
-                id="clear-filters"
-                class="hidden text-[0.8rem] font-semibold text-green hover:underline"
-              >
-                Clear all filters
-              </button>
+              <div class="flex items-center gap-4">
+                <button
+                  id="clear-filters"
+                  class="hidden text-[0.8rem] font-semibold text-green hover:underline"
+                >
+                  Clear all filters
+                </button>
+                <label class="flex items-center gap-2">
+                  <span class="filter-label">Sort</span>
+                  <select id="sort-select" class="sort-select">
+                    <option value="name-asc">Name (A–Z)</option>
+                    <option value="name-desc">Name (Z–A)</option>
+                    <option value="date-desc">Newest first</option>
+                    <option value="date-asc">Oldest first</option>
+                  </select>
+                </label>
+              </div>
             </div>
 
             {/* Province */}
@@ -210,6 +221,8 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                   data-leed={project.leedCertified ?? ''}
                   data-options={(project.options ?? []).join(' ')}
                   data-flags={flags}
+                  data-name={project.name ?? ''}
+                  data-date={project.installationDate ?? ''}
                 >
                   {/* Photo */}
                   <div class="aspect-[4/3] bg-[#ddd] relative overflow-hidden">
@@ -379,6 +392,26 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
     border-color: #17b060;
     color: #ffffff;
   }
+  .sort-select {
+    padding: 5px 30px 5px 12px;
+    border-radius: 999px;
+    border: 1.5px solid #e0dedc;
+    background: #ffffff url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%236b6566' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 11px center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #6b6566;
+    font-family: inherit;
+    line-height: 1.4;
+    cursor: pointer;
+    appearance: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .sort-select:hover,
+  .sort-select:focus {
+    border-color: #17b060;
+    color: #17b060;
+    outline: none;
+  }
   .project-card {
     transition: opacity 0.2s;
   }
@@ -390,6 +423,8 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
 <script>
   const chips = document.querySelectorAll<HTMLButtonElement>('.filter-chip');
   const cards = document.querySelectorAll<HTMLElement>('.project-card');
+  const grid = document.getElementById('project-grid') as HTMLElement;
+  const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
   const clearBtn = document.getElementById('clear-filters') as HTMLButtonElement;
   const visibleCount = document.getElementById('visible-count') as HTMLElement;
   const noResults = document.getElementById('no-results') as HTMLElement;
@@ -443,6 +478,27 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
       applyFilters();
     });
   });
+
+  function applySort() {
+    const mode = sortSelect.value;
+    const sorted = [...cards].sort((a, b) => {
+      if (mode === 'name-asc' || mode === 'name-desc') {
+        const cmp = (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '', 'en');
+        return mode === 'name-asc' ? cmp : -cmp;
+      }
+      // Undated projects always sort to the bottom, whichever direction.
+      const da = a.dataset.date ?? '';
+      const db = b.dataset.date ?? '';
+      if (!da && !db) return (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '', 'en');
+      if (!da) return 1;
+      if (!db) return -1;
+      return mode === 'date-desc' ? db.localeCompare(da) : da.localeCompare(db);
+    });
+
+    sorted.forEach(card => grid.appendChild(card));
+  }
+
+  sortSelect.addEventListener('change', applySort);
 
   clearBtn.addEventListener('click', () => {
     activeFilters.clear();
