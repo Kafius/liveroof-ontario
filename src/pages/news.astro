@@ -5,34 +5,11 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Footer from '../components/Footer.astro';
+import { fetchArticles } from '../lib/news';
 
-// Fetch posts from WordPress REST API at build time (includes featured images)
-let articles: { title: string; link: string; date: string; excerpt: string; image: string }[] = [];
-
-const FALLBACK_IMG = '/images/wildflower-roof-cityview.jpg';
-
-try {
-  const res = await fetch(
-    'https://liveroof.com/wp-json/wp/v2/posts?per_page=9&_embed&_fields=title,link,date,excerpt,_links,_embedded'
-  );
-  const posts: any[] = await res.json();
-
-  articles = posts.map((post) => {
-    const title = post.title?.rendered?.replace(/&#\d+;/g, c => String.fromCharCode(Number(c.slice(2,-1)))) ?? '';
-    const link = post.link ?? '';
-    const date = post.date
-      ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-      : '';
-    const excerptHtml = post.excerpt?.rendered ?? '';
-    const excerpt = excerptHtml.replace(/<[^>]*>/g, '').replace(/&#8230;/g, '...').replace(/&amp;/g, '&').trim().slice(0, 200);
-    const media = post._embedded?.['wp:featuredmedia'];
-    const image = media?.[0]?.source_url ?? FALLBACK_IMG;
-
-    return { title, link, date, excerpt: excerpt ? excerpt + '...' : '', image };
-  });
-} catch (e) {
-  articles = [];
-}
+// Posts are fetched at build time and refreshed in the browser on every page
+// load (see the script below), so the listing stays current without a redeploy.
+const articles = await fetchArticles(9);
 ---
 
 <Layout title="News – LiveRoof Vegetated Roof Systems">
@@ -52,24 +29,29 @@ try {
 
   <section class="py-14 md:py-24 bg-white">
     <div class="container">
-      {articles.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {articles.map((article) => (
-            <a href={article.link} target="_blank" rel="noopener noreferrer" class="news-card group block">
-              <div class="h-[200px] overflow-hidden">
-                <img src={article.image} alt={article.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div class="news-card-body p-6">
-                <div class="news-date">{article.date}</div>
-                <h4 class="group-hover:text-blue transition-colors">{article.title}</h4>
-                {article.excerpt && <p>{article.excerpt}</p>}
-                <span class="news-read">Read Article &rarr;</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-16">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
+        data-news-grid
+        data-news-limit="9"
+        hidden={articles.length === 0}
+      >
+        {articles.map((article) => (
+          <a href={article.link} target="_blank" rel="noopener noreferrer" class="news-card group block">
+            <div class="h-[200px] overflow-hidden">
+              <img src={article.image} alt={article.title} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="news-card-body p-6">
+              <div class="news-date">{article.date}</div>
+              <h4 class="group-hover:text-blue transition-colors">{article.title}</h4>
+              {article.excerpt && <p>{article.excerpt}</p>}
+              <span class="news-read">Read Article &rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {articles.length === 0 && (
+        <div class="text-center py-16" data-news-fallback>
           <p class="text-text-muted">Unable to load articles. Visit <a href="https://liveroof.com/news/" target="_blank" rel="noopener noreferrer" class="text-blue hover:underline">liveroof.com/news</a> for the latest.</p>
         </div>
       )}
@@ -79,3 +61,8 @@ try {
   <CtaBanner />
   <Footer />
 </Layout>
+
+<script>
+  import { refreshNewsGrids } from '../lib/news';
+  refreshNewsGrids();
+</script>

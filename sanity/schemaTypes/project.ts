@@ -187,6 +187,12 @@ export const project = defineType({
       type: 'boolean',
       initialValue: false,
     }),
+    defineField({
+      name: 'hydropavers',
+      title: 'Hydropavers',
+      type: 'boolean',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: {

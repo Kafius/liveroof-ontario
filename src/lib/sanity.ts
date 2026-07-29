@@ -27,6 +27,7 @@ export interface SanityProject {
   retrofit: boolean;
   roofBlue: boolean;
   solaGreen: boolean;
+  hydropavers: boolean;
 }
 
 export const PROJECTS_QUERY = `*[_type == "project"] | order(name asc) {
@@ -48,5 +49,6 @@ export const PROJECTS_QUERY = `*[_type == "project"] | order(name asc) {
   active,
   retrofit,
   roofBlue,
-  solaGreen
+  solaGreen,
+  hydropavers
 }`;

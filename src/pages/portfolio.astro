@@ -9,7 +9,19 @@ import { sanityClient, PROJECTS_QUERY } from '../lib/sanity';
 import type { SanityProject } from '../lib/sanity';
 
 const projects: SanityProject[] = await sanityClient.fetch(PROJECTS_QUERY);
-const activeProjects = projects.filter(p => p.active !== false);
+
+// Default order: newest first. Mirrors the 'date-desc' branch of applySort() below
+// so the server-rendered order matches what the client would produce.
+const activeProjects = projects
+  .filter(p => p.active !== false)
+  .sort((a, b) => {
+    const da = a.installationDate ?? '';
+    const db = b.installationDate ?? '';
+    if (!da && !db) return (a.name ?? '').localeCompare(b.name ?? '', 'en');
+    if (!da) return 1;
+    if (!db) return -1;
+    return db.localeCompare(da);
+  });
 
 const provinceLabels: Record<string, string> = {
   ON: 'Ontario',
@@ -59,6 +71,9 @@ const hasRetrofit   = activeProjects.some(p => p.retrofit);
 const hasPublic     = activeProjects.some(p => p.publicAccess);
 const hasRoofBlue   = activeProjects.some(p => p.roofBlue);
 const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
+
+// The Features group holds option chips and flag chips. Hydropavers is offered
+// unconditionally (no projects use it yet), so the group always has at least one chip.
 ---
 
 <Layout title="Portfolio – LiveRoof Ontario">
@@ -111,10 +126,10 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                 <label class="flex items-center gap-2">
                   <span class="filter-label">Sort</span>
                   <select id="sort-select" class="sort-select">
+                    <option value="date-desc" selected>Newest first</option>
+                    <option value="date-asc">Oldest first</option>
                     <option value="name-asc">Name (A–Z)</option>
                     <option value="name-desc">Name (Z–A)</option>
-                    <option value="date-desc">Newest first</option>
-                    <option value="date-asc">Oldest first</option>
                   </select>
                 </label>
               </div>
@@ -177,22 +192,21 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
             )}
 
             {/* Options */}
-            {usedOptions.length > 0 && (
-              <div class="filter-group" data-group="option">
-                <span class="filter-label">Features</span>
-                <div class="filter-chips">
-                  {usedOptions.map(v => (
-                    <button class="filter-chip" data-group="option" data-value={v}>
-                      {optionLabels[v] ?? v}
-                    </button>
-                  ))}
-                  {hasRoofBlue   && <button class="filter-chip" data-group="flag" data-value="roofblue">RoofBlue</button>}
-                  {hasSolaGreen  && <button class="filter-chip" data-group="flag" data-value="solagreen">SolaGreen</button>}
-                  {hasRetrofit   && <button class="filter-chip" data-group="flag" data-value="retrofit">Retrofit</button>}
-                  {hasPublic     && <button class="filter-chip" data-group="flag" data-value="public-access">Public Access</button>}
-                </div>
+            <div class="filter-group" data-group="option">
+              <span class="filter-label">Features</span>
+              <div class="filter-chips">
+                {usedOptions.map(v => (
+                  <button class="filter-chip" data-group="option" data-value={v}>
+                    {optionLabels[v] ?? v}
+                  </button>
+                ))}
+                {hasRoofBlue   && <button class="filter-chip" data-group="flag" data-value="roofblue">RoofBlue</button>}
+                {hasSolaGreen  && <button class="filter-chip" data-group="flag" data-value="solagreen">SolaGreen</button>}
+                <button class="filter-chip" data-group="flag" data-value="hydropavers">Hydropavers</button>
+                {hasRetrofit   && <button class="filter-chip" data-group="flag" data-value="retrofit">Retrofit</button>}
+                {hasPublic     && <button class="filter-chip" data-group="flag" data-value="public-access">Public Access</button>}
               </div>
-            )}
+            </div>
 
           </div>
 
@@ -207,6 +221,7 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
               const flags = [
                 project.roofBlue    && 'roofblue',
                 project.solaGreen   && 'solagreen',
+                project.hydropavers && 'hydropavers',
                 project.retrofit    && 'retrofit',
                 project.publicAccess && 'public-access',
               ].filter(Boolean).join(' ');
@@ -257,6 +272,9 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                       )}
                       {project.solaGreen && (
                         <span class="chip green text-[0.65rem]">SolaGreen</span>
+                      )}
+                      {project.hydropavers && (
+                        <span class="chip blue text-[0.65rem]">Hydropavers</span>
                       )}
                     </div>
 
@@ -499,6 +517,10 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
   }
 
   sortSelect.addEventListener('change', applySort);
+
+  // Browsers restore a previously chosen <select> value across reloads, which would
+  // leave the server-rendered order out of sync with what the control says.
+  if (sortSelect.value !== 'date-desc') applySort();
 
   clearBtn.addEventListener('click', () => {
     activeFilters.clear();

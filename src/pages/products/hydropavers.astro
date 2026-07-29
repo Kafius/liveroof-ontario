@@ -17,7 +17,7 @@ const howItWorks = [
     step: '02',
     title: 'The Paver Holds & Filters',
     description:
-      'Each paver can absorb up to a ¼-inch rain event before reaching saturation. As water moves through the ceramic matrix, sediments and contaminants are filtered, helping to keep stormwater cleaner before it ever reaches the soil or storm system.',
+      'Each paver can absorb up to a 6 mm rain event before reaching saturation. As water moves through the ceramic matrix, sediments and contaminants are filtered, helping to keep stormwater cleaner before it ever reaches the soil or storm system.',
   },
   {
     step: '03',
@@ -43,7 +43,7 @@ const benefits = [
   {
     title: 'Lower CO₂ Footprint',
     description:
-      'Just 1.15 lbs CO₂ per sq ft — versus 20.5 lbs for traditional Portland-cement alternatives. Made from post-industrial recycled ceramic tile.',
+      'Just 5.6 kg CO₂ per m² — versus 100 kg for traditional Portland-cement alternatives. Made from post-industrial recycled ceramic tile.',
     color: 'green',
   },
   {
@@ -78,9 +78,9 @@ const applications = [
 ];
 
 const stats = [
-  { value: '¼"', label: 'Rain event absorbed before saturation' },
+  { value: '6 mm', label: 'Rain event absorbed before saturation' },
   { value: '12', label: 'Standard colors plus custom collections' },
-  { value: '11', label: 'Sizes from 4″×4″ up to 24″×24″' },
+  { value: '11', label: 'Sizes from 100×100 mm up to 600×600 mm' },
   { value: '94%+', label: 'Recycled content from post-industrial ceramic' },
 ];
 ---
@@ -118,19 +118,27 @@ const stats = [
           </p>
           <p class="text-text-muted leading-relaxed">
             Manufactured from recycled ceramic tile, bentonite clay, and oxide pigment — then
-            compressed at 1,600 tonnes and fired at 1,200 °C in a 1,500-foot kiln — each paver
+            compressed at 1,600 tonnes and fired at 1,200 °C in a 460-metre kiln — each paver
             becomes a permanent, hard-wearing surface that drains like a sponge and lasts like stone.
           </p>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 lg:gap-4">
-          {stats.map((s) => (
-            <div class="bg-mid rounded-xl p-5">
-              <div class="font-serif text-[1.8rem] text-green leading-none mb-2">{s.value}</div>
-              <div class="text-[0.78rem] text-text-muted leading-snug">{s.label}</div>
-            </div>
-          ))}
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/Hydropavers_ORCA.jpg"
+            alt="hydroPAVERS® rooftop terrace at ORCA, laid in a herringbone pattern beside a glass balustrade"
+            class="w-full h-full object-cover"
+          />
         </div>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mt-10 lg:mt-12">
+        {stats.map((s) => (
+          <div class="bg-mid rounded-xl p-5">
+            <div class="font-serif text-[1.8rem] text-green leading-none mb-2">{s.value}</div>
+            <div class="text-[0.78rem] text-text-muted leading-snug">{s.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -212,7 +220,7 @@ const stats = [
           <ul class="space-y-3 text-[0.92rem] text-white/75 leading-relaxed">
             <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>Paver body absorbs and retains water until saturation, then drains downward.</span></li>
             <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>Made from recycled ceramic tile diverted from landfill.</span></li>
-            <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>1.15 lbs CO₂ per sq ft — versus 20.5 lbs for cement alternatives.</span></li>
+            <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>5.6 kg CO₂ per m² — versus 100 kg for cement alternatives.</span></li>
             <li class="flex gap-3"><span class="text-green flex-shrink-0">✓</span><span>Permeability tested and maintained for the life of the product.</span></li>
           </ul>
         </div>
@@ -234,37 +242,31 @@ const stats = [
   <!-- Blue Roof / LiveRoof Integration -->
   <section class="py-14 md:py-20 bg-white">
     <div class="container">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-        <div>
-          <span class="tag" style="color:#0092CF">Blue Roof Integration</span>
-          <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] text-dark mb-4 leading-[1.18]">
-            From the Ground Up — and the Roof Down
-          </h2>
-          <p class="text-text-muted leading-relaxed mb-4">
-            On the rooftop, hydroPAVERS<sup>®</sup> sit on self-leveling pedestals to create
-            walkable, slip-resistant amenity decks that complement a vegetated LiveRoof system —
-            providing parapet-to-parapet stormwater capture across the entire roof.
-          </p>
-          <p class="text-text-muted leading-relaxed mb-6">
-            Pavers on pedestals retain roughly <strong class="text-dark">6 L/m²</strong> per rain
-            event. Paired with GR52 water-retention panels, that capacity grows to over
-            <strong class="text-dark">20 L/m²</strong> — turning hard surfaces into active
-            stormwater infrastructure.
-          </p>
-          <div class="grid grid-cols-2 gap-3">
-            <div class="bg-blue-light rounded-xl p-4">
-              <div class="font-serif text-[1.6rem] text-blue leading-none mb-1">6 L/m²</div>
-              <div class="text-[0.78rem] text-text-muted leading-snug">On pedestals alone</div>
-            </div>
-            <div class="bg-blue-light rounded-xl p-4">
-              <div class="font-serif text-[1.6rem] text-blue leading-none mb-1">20+ L/m²</div>
-              <div class="text-[0.78rem] text-text-muted leading-snug">With retention panels</div>
-            </div>
+      <div class="max-w-[760px] mx-auto text-center">
+        <span class="tag" style="color:#0092CF">Blue Roof Integration</span>
+        <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.4rem)] text-dark mb-4 leading-[1.18]">
+          From the Ground Up — and the Roof Down
+        </h2>
+        <p class="text-text-muted leading-relaxed mb-4">
+          On the rooftop, hydroPAVERS<sup>®</sup> sit on self-leveling pedestals to create
+          walkable, slip-resistant amenity decks that complement a vegetated LiveRoof system —
+          providing parapet-to-parapet stormwater capture across the entire roof.
+        </p>
+        <p class="text-text-muted leading-relaxed mb-8">
+          Pavers on pedestals retain roughly <strong class="text-dark">6 L/m²</strong> per rain
+          event. Paired with GR52 water-retention panels, that capacity grows to over
+          <strong class="text-dark">20 L/m²</strong> — turning hard surfaces into active
+          stormwater infrastructure.
+        </p>
+        <div class="grid grid-cols-2 gap-3 max-w-[460px] mx-auto">
+          <div class="bg-blue-light rounded-xl p-4">
+            <div class="font-serif text-[1.6rem] text-blue leading-none mb-1">6 L/m²</div>
+            <div class="text-[0.78rem] text-text-muted leading-snug">On pedestals alone</div>
           </div>
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img src="/images/roofstone-pavers.png" alt="Hydropavers on rooftop" class="w-full h-full object-cover" />
+          <div class="bg-blue-light rounded-xl p-4">
+            <div class="font-serif text-[1.6rem] text-blue leading-none mb-1">20+ L/m²</div>
+            <div class="text-[0.78rem] text-text-muted leading-snug">With retention panels</div>
+          </div>
         </div>
       </div>
     </div>
