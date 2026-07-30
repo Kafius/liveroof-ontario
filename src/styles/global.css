@@ -711,7 +711,13 @@
       min-height: 480px;
     }
     .hero-container {
-      padding: 80px 0 48px;
+      padding: 80px 24px 56px;
+    }
+    .hero-content {
+      max-width: 100%;
+    }
+    .hero-sub {
+      margin-bottom: 28px;
     }
     .hero-badge {
       display: none;
