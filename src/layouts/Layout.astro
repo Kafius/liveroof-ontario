@@ -128,6 +128,9 @@ const ogImage = new URL(image, Astro.site).href;
         const continueLink = document.getElementById('ext-modal-continue') as HTMLAnchorElement;
         const body = document.getElementById('ext-modal-body') as HTMLElement;
 
+        // The link that opened the dialog, so focus can be restored on close.
+        let lastTrigger: HTMLElement | null = null;
+
         const partners: Record<string, { domain: string; copy: string }> = {
           'liveroof.com': {
             domain: 'liveroof.com',
@@ -153,12 +156,42 @@ const ogImage = new URL(image, Astro.site).href;
             'You are now leaving <strong>liveroofontario.ca</strong> and entering <strong>' +
             partner.domain + '</strong> — ' + partner.copy;
           modal.style.display = 'flex';
+          // Background must not scroll behind the dialog.
+          document.body.style.overflow = 'hidden';
           cancelBtn.focus();
         }
 
         function closeModal() {
           modal.style.display = 'none';
+          document.body.style.overflow = '';
           continueLink.href = '#';
+          // Return focus to the link that opened the dialog, not the top of
+          // the page. Without this a keyboard user loses their place.
+          if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus();
+          lastTrigger = null;
+        }
+
+        const isOpen = () => modal.style.display === 'flex';
+
+        // The dialog is aria-modal, which tells assistive tech the rest of the
+        // page is inert — so focus has to actually be kept inside it.
+        function trapFocus(e: KeyboardEvent) {
+          if (e.key !== 'Tab' || !isOpen()) return;
+          const focusable = [cancelBtn, continueLink].filter(
+            (el) => el && !(el as HTMLButtonElement).disabled,
+          ) as HTMLElement[];
+          if (!focusable.length) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          const active = document.activeElement;
+
+          if (e.shiftKey && (active === first || !modal.contains(active))) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && (active === last || !modal.contains(active))) {
+            e.preventDefault();
+            first.focus();
+          }
         }
 
         document.addEventListener('click', function (e) {
@@ -168,17 +201,22 @@ const ogImage = new URL(image, Astro.site).href;
           const partner = matchPartner(href);
           if (partner) {
             e.preventDefault();
+            lastTrigger = anchor as HTMLElement;
             openModal(href, partner);
           }
         });
 
         cancelBtn.addEventListener('click', closeModal);
         continueLink.addEventListener('click', function () {
+          // Navigating away: drop the trap without stealing focus back.
           modal.style.display = 'none';
+          document.body.style.overflow = '';
+          lastTrigger = null;
         });
         backdrop.addEventListener('click', closeModal);
         document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') closeModal();
+          if (e.key === 'Escape' && isOpen()) closeModal();
+          trapFocus(e);
         });
       })();
     </script>

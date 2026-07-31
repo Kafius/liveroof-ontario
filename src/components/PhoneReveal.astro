@@ -39,6 +39,7 @@ const masked = format === 'dash'
   aria-label={ariaLabel ?? 'Click to reveal phone number'}
 >
   <span class="phone-reveal-text">{masked}</span>
+  {/* Swapped to "tap to call" on reveal — a second tap dials. */}
   <span class="phone-reveal-hint" aria-hidden="true"> &middot; tap to reveal</span>
 </button>
 
@@ -48,6 +49,10 @@ const masked = format === 'dash'
     border: 0;
     padding: 0;
     margin: 0;
+    /* WCAG 2.5.8: 24x24 minimum target size */
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     color: inherit;
     font: inherit;
     cursor: pointer;
@@ -95,6 +100,8 @@ const masked = format === 'dash'
       e.preventDefault();
       var span = btn.querySelector('.phone-reveal-text');
       if (span) span.textContent = format(btn);
+      var hint = btn.querySelector('.phone-reveal-hint');
+      if (hint) hint.textContent = ' · tap to call';
       btn.dataset.revealed = 'true';
       btn.setAttribute('aria-label', 'Call ' + format(btn));
     });

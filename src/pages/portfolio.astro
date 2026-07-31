@@ -80,7 +80,15 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
 
             {/* Header row */}
             <div class="flex items-center justify-between gap-4 flex-wrap">
-              <p id="filter-count" class="text-[0.85rem] text-text-muted font-medium">
+              {/* Live region: filtering updates this count without moving focus,
+                  so screen readers need the change announced. */}
+              <p
+                id="filter-count"
+                class="text-[0.85rem] text-text-muted font-medium"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
                 Showing <span id="visible-count">{activeProjects.length}</span> of {activeProjects.length} projects
               </p>
               <div class="flex items-center gap-4">
@@ -108,7 +116,7 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                 <span class="filter-label">Province</span>
                 <div class="filter-chips">
                   {usedProvinces.map(v => (
-                    <button class="filter-chip" data-group="province" data-value={v}>
+                    <button class="filter-chip" data-group="province" data-value={v} aria-pressed="false">
                       {provinceLabels[v] ?? v}
                     </button>
                   ))}
@@ -122,7 +130,7 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                 <span class="filter-label">Type</span>
                 <div class="filter-chips">
                   {usedShowcase.map(v => (
-                    <button class="filter-chip" data-group="showcase" data-value={v}>
+                    <button class="filter-chip" data-group="showcase" data-value={v} aria-pressed="false">
                       {showcaseLabels[v!] ?? v}
                     </button>
                   ))}
@@ -136,7 +144,7 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                 <span class="filter-label">Module</span>
                 <div class="filter-chips">
                   {usedModules.map(v => (
-                    <button class="filter-chip" data-group="module" data-value={v}>
+                    <button class="filter-chip" data-group="module" data-value={v} aria-pressed="false">
                       {moduleLabels[v!] ?? v}
                     </button>
                   ))}
@@ -150,7 +158,7 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                 <span class="filter-label">LEED</span>
                 <div class="filter-chips">
                   {usedLeed.map(v => (
-                    <button class="filter-chip" data-group="leed" data-value={v}>
+                    <button class="filter-chip" data-group="leed" data-value={v} aria-pressed="false">
                       {leedLabels[v!] ?? v}
                     </button>
                   ))}
@@ -158,20 +166,23 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
               </div>
             )}
 
-            {/* Options */}
-            <div class="filter-group" data-group="option">
+            {/* Features — Sanity `options` and the boolean product flags share a
+                single filter group so every chip under this heading behaves the
+                same way (OR). Splitting them meant picking one of each ANDed
+                them together and could return nothing. */}
+            <div class="filter-group" data-group="feature">
               <span class="filter-label">Features</span>
               <div class="filter-chips">
                 {usedOptions.map(v => (
-                  <button class="filter-chip" data-group="option" data-value={v}>
+                  <button class="filter-chip" data-group="feature" data-value={v} aria-pressed="false">
                     {optionLabels[v] ?? v}
                   </button>
                 ))}
-                {hasRoofBlue   && <button class="filter-chip" data-group="flag" data-value="roofblue">RoofBlue</button>}
-                {hasSolaGreen  && <button class="filter-chip" data-group="flag" data-value="solagreen">SolaGreen</button>}
-                <button class="filter-chip" data-group="flag" data-value="hydropavers">Hydropavers</button>
-                {hasRetrofit   && <button class="filter-chip" data-group="flag" data-value="retrofit">Retrofit</button>}
-                {hasPublic     && <button class="filter-chip" data-group="flag" data-value="public-access">Public Access</button>}
+                {hasRoofBlue   && <button class="filter-chip" data-group="feature" data-value="roofblue" aria-pressed="false">RoofBlue</button>}
+                {hasSolaGreen  && <button class="filter-chip" data-group="feature" data-value="solagreen" aria-pressed="false">SolaGreen</button>}
+                <button class="filter-chip" data-group="feature" data-value="hydropavers" aria-pressed="false">Hydropavers</button>
+                {hasRetrofit   && <button class="filter-chip" data-group="feature" data-value="retrofit" aria-pressed="false">Retrofit</button>}
+                {hasPublic     && <button class="filter-chip" data-group="feature" data-value="public-access" aria-pressed="false">Public Access</button>}
               </div>
             </div>
 
@@ -189,7 +200,10 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
           <h2 class="sr-only">Projects</h2>
           <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {activeProjects.map((project) => {
-              const flags = [
+              // Options and boolean flags share one filter group, so they share
+              // one data attribute. The two value sets do not overlap.
+              const features = [
+                ...(project.options ?? []),
                 project.roofBlue    && 'roofblue',
                 project.solaGreen   && 'solagreen',
                 project.hydropavers && 'hydropavers',
@@ -205,8 +219,7 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
                   data-showcase={project.showcaseType ?? ''}
                   data-module={project.moduleType ?? ''}
                   data-leed={project.leedCertified ?? ''}
-                  data-options={(project.options ?? []).join(' ')}
-                  data-flags={flags}
+                  data-features={features}
                   data-name={project.name ?? ''}
                   data-date={project.installationDate ?? ''}
                 >
@@ -425,13 +438,11 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
 
     cards.forEach(card => {
       const matches = [...activeFilters.entries()].every(([group, values]) => {
-        if (group === 'option') {
-          const cardOptions = (card.dataset.options ?? '').split(' ').filter(Boolean);
-          return [...values].some(v => cardOptions.includes(v));
-        }
-        if (group === 'flag') {
-          const cardFlags = (card.dataset.flags ?? '').split(' ').filter(Boolean);
-          return [...values].some(v => cardFlags.includes(v));
+        // Features are multi-valued per card, so a card matches if it has any
+        // of the selected values. Every other group is single-valued.
+        if (group === 'feature') {
+          const cardFeatures = (card.dataset.features ?? '').split(' ').filter(Boolean);
+          return [...values].some(v => cardFeatures.includes(v));
         }
         return values.has(card.dataset[group] ?? '');
       });
@@ -457,9 +468,11 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
         set.delete(value);
         if (set.size === 0) activeFilters.delete(group);
         chip.classList.remove('active');
+        chip.setAttribute('aria-pressed', 'false');
       } else {
         set.add(value);
         chip.classList.add('active');
+        chip.setAttribute('aria-pressed', 'true');
       }
 
       applyFilters();
@@ -493,7 +506,10 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
 
   clearBtn.addEventListener('click', () => {
     activeFilters.clear();
-    chips.forEach(c => c.classList.remove('active'));
+    chips.forEach(c => {
+      c.classList.remove('active');
+      c.setAttribute('aria-pressed', 'false');
+    });
     applyFilters();
   });
 </script>

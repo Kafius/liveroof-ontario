@@ -87,6 +87,8 @@ const technicalDropdown = [
         id="mobile-menu-btn"
         class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] cursor-pointer"
         aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
       >
         <span class="hamburger-line block w-6 h-[2px] bg-dark transition-all"></span>
         <span class="hamburger-line block w-6 h-[2px] bg-dark transition-all"></span>
@@ -102,7 +104,7 @@ const technicalDropdown = [
 
       <!-- Mobile Products Accordion -->
       <div class="mobile-accordion">
-        <button class="mobile-nav-link flex items-center justify-between w-full" data-accordion="products">
+        <button class="mobile-nav-link flex items-center justify-between w-full" data-accordion="products" aria-expanded="false" aria-controls="accordion-products">
           <span>Products</span>
           <svg class="accordion-arrow w-4 h-4 text-text-muted transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
         </button>
@@ -119,7 +121,7 @@ const technicalDropdown = [
 
       <!-- Mobile Technical Accordion -->
       <div class="mobile-accordion">
-        <button class="mobile-nav-link flex items-center justify-between w-full" data-accordion="technical">
+        <button class="mobile-nav-link flex items-center justify-between w-full" data-accordion="technical" aria-expanded="false" aria-controls="accordion-technical">
           <span>Technical</span>
           <svg class="accordion-arrow w-4 h-4 text-text-muted transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
         </button>
@@ -222,8 +224,10 @@ const technicalDropdown = [
     const menu = document.getElementById('mobile-menu');
     if (btn && menu) {
       btn.addEventListener('click', () => {
-        menu.classList.toggle('hidden');
+        // toggle() returns true when 'hidden' was added, i.e. the menu closed.
+        const isOpen = !menu.classList.toggle('hidden');
         btn.classList.toggle('menu-open');
+        btn.setAttribute('aria-expanded', String(isOpen));
       });
     }
 
@@ -233,8 +237,9 @@ const technicalDropdown = [
         const id = trigger.getAttribute('data-accordion');
         const panel = document.getElementById(`accordion-${id}`);
         if (!panel) return;
-        panel.classList.toggle('hidden');
+        const isOpen = !panel.classList.toggle('hidden');
         trigger.classList.toggle('accordion-open');
+        trigger.setAttribute('aria-expanded', String(isOpen));
       });
     });
   });
