@@ -60,10 +60,23 @@ const ogImage = new URL(image, Astro.site).href;
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* Loaded with media="print" so it does not block first paint on a
+        cross-origin round trip (~155ms measured). A script below flips it to
+        media="all" once fetched; <noscript> covers the no-JS case. The URL
+        already carries display=swap, so text paints in the fallback face and
+        swaps when the webfont lands. */}
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
       rel="stylesheet"
+      media="print"
+      data-font-css
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
   </head>
   <body>
     {/* First tab stop: lets keyboard users jump the ~25-item nav. */}
@@ -102,6 +115,18 @@ const ogImage = new URL(image, Astro.site).href;
     </div>
 
     <script>
+      // Apply the webfont stylesheet once it has loaded. It ships as
+      // media="print" so it never blocks first paint; flipping to "all" here
+      // avoids an inline onload= handler, keeping the pages CSP-friendly.
+      (function () {
+        const fontCss = document.querySelector<HTMLLinkElement>('link[data-font-css]');
+        if (!fontCss) return;
+        const apply = () => { fontCss.media = 'all'; };
+        // sheet is non-null once the stylesheet has finished loading
+        if (fontCss.sheet) apply();
+        else fontCss.addEventListener('load', apply, { once: true });
+      })();
+
       // Logo fallback for Header/Footer. Replaces inline onerror= handlers so
       // the pages stay CSP-friendly, and matches the fallback by data attribute
       // rather than nextElementSibling.

@@ -94,6 +94,24 @@ The script is idempotent (it keeps the original whenever re-encoding would make
 a file larger) and preserves each file's extension so existing
 `src="/images/…"` references keep working.
 
+**Add `loading="lazy"` to any new content image.** No hero on this site contains
+an `<img>`, so the only image that should load eagerly is the header logo.
+
+## Video
+
+The homepage hero loop is re-encoded by `npm run optimize:video` (720p, CRF 32,
+24fps, audio stripped — the element is muted). It also writes
+`media1-poster.jpg`, which the `<video>` uses as its `poster` so the hero paints
+before the clip downloads. Run it with `--replace` to overwrite the original;
+without the flag it writes alongside so you can compare first.
+
+## Caching
+
+`vercel.json` sets `Cache-Control` for `public/` assets. They are **not**
+content-hashed, so they can't be cached immutably — `stale-while-revalidate`
+serves instantly from cache while refreshing in the background. Astro's own
+`/_astro/` bundles are hashed and Vercel already gives them a year.
+
 ## Scripts
 
 | Command | Purpose |

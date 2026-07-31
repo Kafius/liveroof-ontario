@@ -32,7 +32,7 @@ const benefits = [
       {benefits.map((b) => (
         <div class="benefit-card">
           <div class="h-[220px]">
-            <img src={b.img} alt={b.title} class="h-full w-full object-cover" />
+            <img src={b.img} alt={b.title} class="h-full w-full object-cover" loading="lazy" decoding="async" />
           </div>
           <div class="benefit-body p-7">
             <h3>{b.title}</h3>

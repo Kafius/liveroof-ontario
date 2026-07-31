@@ -14,7 +14,7 @@ const { name, tagline, description, href, img, chip, chipColor = 'green' } = Ast
 
 <a href={href} class="group block bg-white rounded-xl border border-border overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_36px_rgba(35,31,32,0.1)] hover:border-blue">
   <div class="aspect-[16/10] overflow-hidden">
-    <img src={img} alt={name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+    <img src={img} alt={name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
   </div>
   <div class="p-6">
     {chip && <span class={`chip ${chipColor}`}>{chip}</span>}

@@ -11,7 +11,8 @@
     "optimize:images": "node scripts/optimize-images.mjs",
     "optimize:images:dry": "node scripts/optimize-images.mjs --dry",
     "seed:projects": "node scripts/seed-projects.mjs",
-    "generate:pdfs": "node scripts/generate-pdfs.mjs"
+    "generate:pdfs": "node scripts/generate-pdfs.mjs",
+    "optimize:video": "node scripts/optimize-video.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "ffmpeg-static": "^5.3.0",
     "puppeteer": "^24.41.0",
     "sharp": "^0.35.3",
     "typescript": "^5.9.3"

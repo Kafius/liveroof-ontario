@@ -19,7 +19,7 @@ const projects = [
     <div class="portfolio-grid">
       {projects.map((p) => (
         <div class="port-item">
-          <img src={p.img} alt={p.name} class="h-full w-full object-cover" />
+          <img src={p.img} alt={p.name} class="h-full w-full object-cover" loading="lazy" decoding="async" />
         </div>
       ))}
     </div>

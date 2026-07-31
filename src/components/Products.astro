@@ -25,7 +25,7 @@ const products = [
       {products.map((p) => (
         <a href={p.href} class="product-card">
           <div class="h-40 overflow-hidden">
-            <img src={p.img} alt={p.title} class="w-full h-full object-cover" />
+            <img src={p.img} alt={p.title} class="w-full h-full object-cover" loading="lazy" decoding="async" />
           </div>
           <div class="product-card-body p-5">
             <h3>{p.title}</h3>
