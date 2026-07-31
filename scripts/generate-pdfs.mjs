@@ -19,7 +19,6 @@ const staticPages = [
   { route: '/',             name: 'index' },
   { route: '/about',        name: 'about' },
   { route: '/benefits',     name: 'benefits' },
-  { route: '/careers',      name: 'careers' },
   { route: '/contact',      name: 'contact' },
   { route: '/faq',          name: 'faq' },
   { route: '/news',         name: 'news' },

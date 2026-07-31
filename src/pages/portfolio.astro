@@ -76,7 +76,10 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
 // unconditionally (no projects use it yet), so the group always has at least one chip.
 ---
 
-<Layout title="Portfolio – LiveRoof Ontario">
+<Layout
+  title="Portfolio – LiveRoof Ontario"
+  description="Vegetated roof projects across Ontario — from university campuses and hospitals to city halls, transit stations and corporate headquarters. Over 900 projects completed."
+>
   <TopBar />
   <Header />
 
@@ -446,7 +449,6 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
   const clearBtn = document.getElementById('clear-filters') as HTMLButtonElement;
   const visibleCount = document.getElementById('visible-count') as HTMLElement;
   const noResults = document.getElementById('no-results') as HTMLElement;
-  const total = cards.length;
 
   // activeFilters: group → Set of active values
   const activeFilters = new Map<string, Set<string>>();

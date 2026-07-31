@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopBar from '../components/TopBar.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const suggestions = [
+  { label: 'Products', href: '/products', desc: 'Vegetated roof modules, Hydropavers and accessories.' },
+  { label: 'Portfolio', href: '/portfolio', desc: 'Over 900 completed projects across Ontario.' },
+  { label: 'Benefits', href: '/benefits', desc: 'Stormwater, energy, longevity and biodiversity.' },
+  { label: 'Contact', href: '/contact', desc: 'Talk to our team about your project.' },
+];
+---
+
+<Layout
+  title="Page Not Found – LiveRoof Ontario"
+  description="The page you were looking for could not be found."
+  noindex
+>
+  <TopBar />
+  <Header />
+
+  <section class="py-20 md:py-32">
+    <div class="container max-w-container">
+      <span class="tag">Error 404</span>
+      <h1 class="font-serif text-[2.4rem] md:text-[3.2rem] leading-[1.15] text-dark mt-4 mb-5">
+        This page has not taken root
+      </h1>
+      <p class="text-base text-text-muted leading-[1.75] max-w-[560px]">
+        The page you were looking for may have been moved or renamed. Some of our product and
+        technical documentation lives on the LiveRoof Global site — try one of the links below,
+        or head back to the homepage.
+      </p>
+
+      <div class="flex flex-wrap gap-3.5 mt-8">
+        <a href="/" class="btn btn-primary">Back to Homepage</a>
+        <a href="/contact" class="btn-outline-dark btn">Contact Us</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+        {suggestions.map((s) => (
+          <a
+            href={s.href}
+            class="block rounded-xl border border-border p-6 transition-colors hover:border-brand-green"
+          >
+            <h2 class="font-serif text-xl text-dark mb-2">{s.label}</h2>
+            <p class="text-sm text-text-muted leading-relaxed">{s.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

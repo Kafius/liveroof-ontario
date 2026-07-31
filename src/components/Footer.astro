@@ -1,24 +1,30 @@
 ---
 import PhoneReveal from './PhoneReveal.astro';
+// Product and technical detail pages live on the LiveRoof Global site; only
+// /products, /products/hydropavers and /technical exist locally. These mirror
+// the Header dropdowns and route through the external-link interstitial.
 const productLinks = [
-  { label: 'Vegetated Roof Modules', href: '/products/modules' },
-  { label: 'RoofEdge', href: '/products/roofedge' },
-  { label: 'RoofStone', href: '/products/roofstone' },
-  { label: 'WindDisc', href: '/products/winddisc' },
-  { label: 'PipeRunner', href: '/products/piperunner' },
-  { label: 'RoofBlue', href: '/products/roofblue' },
-  { label: 'Plants', href: '/products/plants' },
-  { label: 'Soil', href: '/products/soil' },
+  { label: 'All Products', href: '/products' },
+  { label: 'Vegetated Roof Modules', href: 'https://liveroof.com/products/modules/' },
+  { label: 'RoofEdge', href: 'https://liveroof.com/products/roofedge/' },
+  { label: 'RoofStone', href: 'https://liveroof.com/products/roofstone/' },
+  { label: 'WindDisc', href: 'https://liveroof.com/products/winddisc/' },
+  { label: 'PipeRunner', href: 'https://liveroof.com/products/piperunner/' },
+  { label: 'RoofBlue', href: 'https://liveroof.com/products/roofblue/' },
+  { label: 'Plants', href: 'https://liveroof.com/products/plants/' },
+  { label: 'Soil', href: 'https://liveroof.com/products/soil/' },
+  { label: 'Hydropavers', href: '/products/hydropavers' },
 ];
 const technicalLinks = [
-  { label: 'Design & Engineering', href: '/technical/design-engineering' },
-  { label: 'Detail Drawings', href: '/technical/detail-drawings' },
-  { label: 'Installation Guide', href: '/technical/installation' },
-  { label: 'LEED Resources', href: '/technical/leed' },
-  { label: 'Spec Writer', href: 'https://liveroof.com/technical/spec-writer' },
-  { label: 'Continuing Education', href: '/technical/continuing-education' },
-  { label: 'Maintenance & Ops', href: '/technical/maintenance' },
-  { label: 'Videos', href: '/videos' },
+  { label: 'All Resources', href: '/technical' },
+  { label: 'Design & Engineering', href: 'https://liveroof.com/technical/design/' },
+  { label: 'Detail Drawings', href: 'https://liveroof.com/technical/detail-drawings/' },
+  { label: 'Installation Guide', href: 'https://liveroof.com/technical/installation/' },
+  { label: 'LEED Resources', href: 'https://liveroof.com/technical/leed/' },
+  { label: 'Spec Writer', href: 'https://liveroof.com/technical/spec-writer/' },
+  { label: 'Continuing Education', href: 'https://liveroof.com/technical/continuing-education/' },
+  { label: 'Maintenance & Ops', href: 'https://liveroof.com/technical/maintenance/' },
+  { label: 'Videos', href: 'https://liveroof.com/videos/' },
 ];
 const companyLinks = [
   { label: 'About Us', href: '/about' },

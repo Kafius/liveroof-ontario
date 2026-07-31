@@ -4,6 +4,7 @@ import TopBar from '../../components/TopBar.astro';
 import Header from '../../components/Header.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import Footer from '../../components/Footer.astro';
+import ProjectCarousel from '../../components/ProjectCarousel.astro';
 import { sanityClient, PROJECTS_QUERY } from '../../lib/sanity';
 import type { SanityProject } from '../../lib/sanity';
 
@@ -58,11 +59,60 @@ const optionLabels: Record<string, string> = {
 };
 
 const location = [project.city, provinceLabels[project.province]].filter(Boolean).join(', ');
+// Carousel order: the main photo leads, everything else keeps its Sanity order.
 const heroPhoto = project.photos?.find(p => p.isMain) ?? project.photos?.[0];
-const galleryPhotos = project.photos?.filter(p => p !== heroPhoto) ?? [];
+const carouselPhotos = heroPhoto
+  ? [heroPhoto, ...(project.photos ?? []).filter(p => p !== heroPhoto)]
+  : [];
+
+// Per-project meta description, so no two project pages share one — search
+// engines discard duplicate descriptions across a site. Prefers the copy
+// written in Sanity, but many project entries have only a terse fragment
+// ("LiveRoof X-Lite installation"), so anything short gets topped up with the
+// structured fields. Results truncate around 160 characters.
+const MAX_DESCRIPTION = 160;
+const MIN_USEFUL_DESCRIPTION = 90;
+
+function truncate(text: string): string {
+  if (text.length <= MAX_DESCRIPTION) return text;
+  const clipped = text.slice(0, MAX_DESCRIPTION - 1);
+  const lastSpace = clipped.lastIndexOf(' ');
+  return `${(lastSpace > 80 ? clipped.slice(0, lastSpace) : clipped).replace(/[,;:.\s]+$/, '')}…`;
+}
+
+/** "Brampton City Hall in Brampton, Ontario — 734 sq m, LiveRoof Lite System" */
+function buildSummary(): string {
+  const facts = [
+    // Schema field is "Project Size (sq m)" — matches the spec table below.
+    project.projectSize ? `${project.projectSize.toLocaleString('en-CA')} sq m` : null,
+    project.moduleType ? moduleLabels[project.moduleType] : null,
+    project.leedCertified ? leedLabels[project.leedCertified] : null,
+  ].filter(Boolean);
+
+  const lead = location ? `${project.name} in ${location}` : project.name;
+  return facts.length ? `${lead} — ${facts.join(', ')}` : lead;
+}
+
+function buildMetaDescription(): string {
+  const summary = buildSummary();
+  const authored = project.description?.trim().replace(/\s+/g, ' ') ?? '';
+
+  if (!authored) return truncate(`${summary}. A pre-grown modular vegetated roof by LiveRoof Ontario.`);
+  if (authored.length >= MIN_USEFUL_DESCRIPTION) return truncate(authored);
+
+  // Short CMS copy: lead with it, then add the facts it omits.
+  return truncate(`${authored.replace(/[.\s]+$/, '')}. ${summary}.`);
+}
+
+const metaDescription = buildMetaDescription();
+const ogImage = heroPhoto?.image?.asset?.url;
 ---
 
-<Layout title={`${project.name} – LiveRoof Ontario`}>
+<Layout
+  title={`${project.name} – LiveRoof Ontario`}
+  description={metaDescription}
+  image={ogImage}
+>
   <TopBar />
   <Header />
 
@@ -125,52 +175,14 @@ const galleryPhotos = project.photos?.filter(p => p !== heroPhoto) ?? [];
         {/* Left: Photos + description */}
         <div class="space-y-8">
 
-          {/* Hero photo */}
-          <div class="aspect-[16/10] bg-mid rounded-2xl overflow-hidden">
-            {heroPhoto?.image?.asset?.url ? (
-              <img
-                src={heroPhoto.image.asset.url + '?w=1280&h=800&fit=crop&auto=format'}
-                alt={heroPhoto.caption ?? project.name}
-                class="w-full h-full object-cover"
-              />
-            ) : (
-              <div class="photo-placeholder h-full rounded-none">
-                <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="18" height="18" rx="3" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <path d="m6 21 5.5-7 3.5 4 2.5-3L21 21" />
-                </svg>
-                <span>Photos coming soon</span>
-              </div>
-            )}
-          </div>
+          {/* Photo carousel */}
+          <ProjectCarousel photos={carouselPhotos} name={project.name} />
 
           {/* Description */}
           {project.description && (
             <div class="prose max-w-none">
               <h2 class="font-serif text-[1.6rem] text-dark mb-4">About this project</h2>
               <p class="text-text-muted leading-relaxed text-[1rem] whitespace-pre-line">{project.description}</p>
-            </div>
-          )}
-
-          {/* Gallery */}
-          {galleryPhotos.length > 0 && (
-            <div>
-              <h2 class="font-serif text-[1.6rem] text-dark mb-4">Gallery</h2>
-              <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {galleryPhotos.map(photo => (
-                  photo.image?.asset?.url && (
-                    <div class="aspect-square bg-mid rounded-lg overflow-hidden">
-                      <img
-                        src={photo.image.asset.url + '?w=480&h=480&fit=crop&auto=format'}
-                        alt={photo.caption ?? project.name}
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                  )
-                ))}
-              </div>
             </div>
           )}
         </div>

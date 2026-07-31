@@ -1,6 +1,8 @@
 node_modules/
 dist/
 .astro/
+# Puppeteer output from scripts/generate-pdfs.mjs
+preview/
 .env
 .env.*
 !.env.example

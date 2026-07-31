@@ -1,9 +1,29 @@
 ---
 interface Props {
   title: string;
+  /** Meta + Open Graph description. Falls back to the company boilerplate. */
+  description?: string;
+  /** Social share image, site-root-relative. Resolved to an absolute URL. */
+  image?: string;
+  /** Set on pages that should stay out of search results. */
+  noindex?: boolean;
 }
 
-const { title } = Astro.props;
+const DEFAULT_DESCRIPTION =
+  'Canada’s largest producer of pre-vegetated modular green roof systems — grown on our Ontario nursery farm and delivered to the roof fully mature.';
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  image = '/images/wildflower-roof-cityview.jpg',
+  noindex = false,
+} = Astro.props;
+
+// Astro.site comes from `site` in astro.config.mjs; both are required for
+// canonical + og:url to be absolute, which is what crawlers and social
+// unfurlers need.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
@@ -12,9 +32,28 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#3a7d44" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LiveRoof Ontario" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_CA" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
