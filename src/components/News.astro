@@ -23,7 +23,7 @@ const articles = await fetchArticles(3);
           </div>
           <div class="news-card-body p-6">
             <div class="news-date">{a.date}</div>
-            <h4 class="group-hover:text-blue transition-colors">{a.title}</h4>
+            <h3 class="group-hover:text-blue transition-colors">{a.title}</h3>
             {a.excerpt && <p>{a.excerpt}</p>}
             <span class="news-read">Read Article →</span>
           </div>

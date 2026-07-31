@@ -1,10 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import TopBar from '../../components/TopBar.astro';
-import Header from '../../components/Header.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
-import Footer from '../../components/Footer.astro';
 
 const sections = [
   {
@@ -68,9 +65,6 @@ const sections = [
   title="Technical Resources – LiveRoof Vegetated Roof Systems"
   description="Design guides, detail drawings, installation instructions, LEED resources and specifications — everything you need to specify and maintain a LiveRoof system."
 >
-  <TopBar />
-  <Header />
-
   <PageHero
     eyebrow="Technical"
     title="Technical"
@@ -84,6 +78,7 @@ const sections = [
 
   <section class="py-14 md:py-24 bg-white">
     <div class="container">
+      <h2 class="sr-only">Technical resources</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {sections.map((s) => (
           <a href={s.href} class="group block bg-mid rounded-xl p-8 transition-all hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(35,31,32,0.1)] hover:border-blue border border-transparent">
@@ -97,5 +92,4 @@ const sections = [
   </section>
 
   <CtaBanner />
-  <Footer />
 </Layout>

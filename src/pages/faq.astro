@@ -1,10 +1,7 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
-import TopBar from '../components/TopBar.astro';
-import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import Footer from '../components/Footer.astro';
 import PhoneReveal from '../components/PhoneReveal.astro';
 
 const categories = [
@@ -201,9 +198,6 @@ const categories = [
   title="FAQ – LiveRoof Vegetated Roof Systems"
   description="Answers to common questions about LiveRoof vegetated roof systems — design, weight and structural loading, installation, plant selection, maintenance, warranty and cost."
 >
-  <TopBar />
-  <Header />
-
   <PageHero
     eyebrow="FAQ"
     title="Frequently Asked"
@@ -273,7 +267,6 @@ const categories = [
   </section>
 
   <CtaBanner />
-  <Footer />
 </Layout>
 
 <script>

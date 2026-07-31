@@ -44,21 +44,23 @@ const companyLinks = [
           <img
             src="/logo-no-tagline.svg"
             alt="LiveRoof Ontario"
+            width="225"
+            height="52"
             class="h-[52px] w-auto object-contain"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+            data-logo
           />
-          <div class="hidden font-serif text-2xl">
+          <div class="font-serif text-2xl" style="display:none" data-logo-fallback="block">
             <span class="text-blue">Live</span><span class="text-green">Roof</span>
           </div>
         </a>
-        <div class="text-white/40 text-[0.6rem] tracking-wide uppercase font-medium mt-2">
+        <div class="text-white/55 text-[0.6rem] tracking-wide uppercase font-medium mt-2">
           The Proof is in the Roof
         </div>
         <p class="text-[0.85rem] leading-relaxed mt-5 text-white/50 max-w-[280px]">
           LiveRoof vegetated roof systems deliver instant maturity, natural beauty, and decades of proven
           performance — locally grown, locally supported.
         </p>
-        <div class="mt-5 text-[0.8rem] leading-[1.7] text-white/[0.45]">
+        <div class="mt-5 text-[0.8rem] leading-[1.7] text-white/55">
           LiveRoof Ontario<br />
           23078 Adelaide Road<br />
           Mt. Brydges, ON, N0L 1W0<br />
@@ -68,7 +70,7 @@ const companyLinks = [
         </div>
       </div>
       <div class="footer-col">
-        <h5>Products</h5>
+        <h2>Products</h2>
         <ul>
           {productLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -76,7 +78,7 @@ const companyLinks = [
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Technical</h5>
+        <h2>Technical</h2>
         <ul>
           {technicalLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -84,7 +86,7 @@ const companyLinks = [
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Company</h5>
+        <h2>Company</h2>
         <ul>
           {companyLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -92,11 +94,11 @@ const companyLinks = [
         </ul>
       </div>
     </div>
-    <div class="border-t border-white/[0.08] py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
+    <div class="border-t border-white/[0.08] py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
       <span>&copy; 2025 LiveRoof Ontario. All rights reserved.</span>
       <div class="flex gap-5">
-        <a href="/privacy" class="text-white/30 hover:text-green transition-colors">Privacy Policy</a>
-        <a href="/faq" class="text-white/30 hover:text-green transition-colors">FAQ's</a>
+        <a href="/privacy" class="text-white/50 hover:text-green transition-colors">Privacy Policy</a>
+        <a href="/faq" class="text-white/50 hover:text-green transition-colors">FAQ's</a>
         <p>Website by <a href="https://thelinovagroup.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">The Linova Group</a></p>
       </div>
     </div>

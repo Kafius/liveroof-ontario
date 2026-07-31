@@ -1,8 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TopBar from '../components/TopBar.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 
 const suggestions = [
   { label: 'Products', href: '/products', desc: 'Vegetated roof modules, Hydropavers and accessories.' },
@@ -17,9 +14,6 @@ const suggestions = [
   description="The page you were looking for could not be found."
   noindex
 >
-  <TopBar />
-  <Header />
-
   <section class="py-20 md:py-32">
     <div class="container max-w-container">
       <span class="tag">Error 404</span>
@@ -50,6 +44,4 @@ const suggestions = [
       </div>
     </div>
   </section>
-
-  <Footer />
 </Layout>

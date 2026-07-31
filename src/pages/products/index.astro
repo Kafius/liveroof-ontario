@@ -1,11 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import TopBar from '../../components/TopBar.astro';
-import Header from '../../components/Header.astro';
 import PageHero from '../../components/PageHero.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
-import Footer from '../../components/Footer.astro';
 
 const products = [
   {
@@ -133,9 +130,6 @@ const whyFeatures = [
   description="Integrated vegetated roof systems and accessories — modules, RoofEdge, WindDisc, PipeRunner, RoofBlue, plants, soil and Hydropavers, all engineered for plant health and long life."
   image="/images/index-modules.webp"
 >
-  <TopBar />
-  <Header />
-
   <PageHero
     eyebrow="Our Products"
     title="Vegetated Roof Products"
@@ -230,5 +224,4 @@ const whyFeatures = [
   </section>
 
   <CtaBanner />
-  <Footer />
 </Layout>

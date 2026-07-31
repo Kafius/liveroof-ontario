@@ -1,10 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import TopBar from '../../components/TopBar.astro';
-import Header from '../../components/Header.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
-import Footer from '../../components/Footer.astro';
 
 const howItWorks = [
   {
@@ -90,9 +87,6 @@ const stats = [
   description="A truly porous paving system that absorbs stormwater through the paver itself — keeping surfaces dry and safer while dramatically reducing runoff."
   image="/images/Hydropavers_ORCA.jpg"
 >
-  <TopBar />
-  <Header />
-
   <PageHero
     eyebrow="Hydropavers"
     title="Permeable Paving That"
@@ -349,5 +343,4 @@ const stats = [
   </section>
 
   <CtaBanner />
-  <Footer />
 </Layout>

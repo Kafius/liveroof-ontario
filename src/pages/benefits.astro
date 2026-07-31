@@ -1,10 +1,7 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
-import TopBar from '../components/TopBar.astro';
-import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import Footer from '../components/Footer.astro';
 
 const sections = [
   {
@@ -180,9 +177,6 @@ const sections = [
   description="Vegetated roofs go beyond any other roofing option — stormwater management, energy savings, longer membrane life, biodiversity and usable green space."
   image="/images/wildflower-cityscape-1.jpg"
 >
-  <TopBar />
-  <Header />
-
   <PageHero
     eyebrow="Benefits"
     title="Vegetated Roof"
@@ -230,5 +224,4 @@ const sections = [
   ))}
 
   <CtaBanner />
-  <Footer />
 </Layout>

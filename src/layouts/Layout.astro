@@ -1,4 +1,8 @@
 ---
+import TopBar from '../components/TopBar.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
 interface Props {
   title: string;
   /** Meta + Open Graph description. Falls back to the company boilerplate. */
@@ -62,9 +66,20 @@ const ogImage = new URL(image, Astro.site).href;
     />
   </head>
   <body>
-    <slot />
+    {/* First tab stop: lets keyboard users jump the ~25-item nav. */}
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- External link interstitial -->
+    <TopBar />
+    <Header />
+
+    {/* tabindex="-1" so the skip link above moves focus here, not just scroll. */}
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+
+    {/* External link interstitial */}
     <div id="ext-modal" role="dialog" aria-modal="true" aria-labelledby="ext-modal-title" style="display:none">
       <div id="ext-modal-backdrop"></div>
       <div id="ext-modal-box">
@@ -87,6 +102,25 @@ const ogImage = new URL(image, Astro.site).href;
     </div>
 
     <script>
+      // Logo fallback for Header/Footer. Replaces inline onerror= handlers so
+      // the pages stay CSP-friendly, and matches the fallback by data attribute
+      // rather than nextElementSibling.
+      (function () {
+        function showFallback(img: HTMLImageElement) {
+          const fallback = img.parentElement?.querySelector<HTMLElement>('[data-logo-fallback]');
+          if (!fallback) return;
+          img.style.display = 'none';
+          fallback.style.display = fallback.dataset.logoFallback || 'block';
+        }
+
+        document.querySelectorAll<HTMLImageElement>('img[data-logo]').forEach((img) => {
+          img.addEventListener('error', () => showFallback(img));
+          // This script is deferred, so a fast failure can happen before the
+          // listener is attached; catch that case on startup.
+          if (img.complete && img.naturalWidth === 0) showFallback(img);
+        });
+      })();
+
       (function () {
         const modal = document.getElementById('ext-modal') as HTMLElement;
         const backdrop = document.getElementById('ext-modal-backdrop') as HTMLElement;

@@ -1,11 +1,16 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
-import TopBar from '../components/TopBar.astro';
-import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import Footer from '../components/Footer.astro';
-import { sanityClient, PROJECTS_QUERY } from '../lib/sanity';
+import {
+  sanityClient,
+  PROJECTS_QUERY,
+  provinceLabels,
+  showcaseLabels,
+  moduleLabels,
+  leedLabels,
+  optionLabels,
+} from '../lib/sanity';
 import type { SanityProject } from '../lib/sanity';
 
 const projects: SanityProject[] = await sanityClient.fetch(PROJECTS_QUERY);
@@ -22,44 +27,6 @@ const activeProjects = projects
     if (!db) return -1;
     return db.localeCompare(da);
   });
-
-const provinceLabels: Record<string, string> = {
-  ON: 'Ontario',
-  NB: 'New Brunswick',
-  NL: 'Newfoundland & Labrador',
-  NS: 'Nova Scotia',
-  PE: 'Prince Edward Island',
-};
-
-const showcaseLabels: Record<string, string> = {
-  commercial: 'Commercial',
-  educational: 'Educational',
-  healthcare: 'Healthcare',
-  'other-institutional': 'Other Institutional',
-  public: 'Public',
-  residential: 'Residential',
-};
-
-const moduleLabels: Record<string, string> = {
-  deep: 'LiveRoof Deep System',
-  lite: 'LiveRoof Lite System',
-  maxx: 'LiveRoof Maxx System',
-  standard: 'LiveRoof Standard System',
-};
-
-const leedLabels: Record<string, string> = {
-  certified: 'LEED Certified',
-  silver: 'LEED Silver',
-  gold: 'LEED Gold',
-  platinum: 'LEED Platinum',
-};
-
-const optionLabels: Record<string, string> = {
-  'multiple-plant-mixes': 'Multiple Plant Mixes',
-  'organic-shape': 'Organic Shape Design',
-  'roofstone-pavers': 'RoofStone Pavers',
-  'sloped-roof': 'Sloped Roof',
-};
 
 // Compute which filter values actually exist in the data
 const usedProvinces = [...new Set(activeProjects.map(p => p.province).filter(Boolean))];
@@ -80,9 +47,6 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
   title="Portfolio – LiveRoof Ontario"
   description="Vegetated roof projects across Ontario — from university campuses and hospitals to city halls, transit stations and corporate headquarters. Over 900 projects completed."
 >
-  <TopBar />
-  <Header />
-
   <PageHero
     eyebrow="Portfolio"
     title="Project"
@@ -219,6 +183,10 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
           </p>
 
           {/* ── Project Grid ── */}
+          {/* Gives the card h3s a parent heading level. Visually hidden because
+              the section is self-evident on screen, but without it the page
+              jumps h1 -> h3 for screen readers navigating by heading. */}
+          <h2 class="sr-only">Projects</h2>
           <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {activeProjects.map((project) => {
               const flags = [
@@ -365,7 +333,6 @@ const hasSolaGreen  = activeProjects.some(p => p.solaGreen);
   </section>
 
   <CtaBanner />
-  <Footer />
 </Layout>
 
 <style>

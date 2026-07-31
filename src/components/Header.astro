@@ -36,10 +36,12 @@ const technicalDropdown = [
         <img
           src="/logo-no-tagline.svg"
           alt="LiveRoof Ontario"
+          width="259"
+          height="60"
           class="h-[60px] w-auto object-contain"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          data-logo
         />
-        <div class="flex-col hidden" id="logo-fallback">
+        <div class="flex-col" id="logo-fallback" style="display:none" data-logo-fallback="flex">
           <div class="font-serif text-[1.75rem] leading-none">
             <span class="text-blue">Live</span><span class="text-green">Roof</span>
           </div>

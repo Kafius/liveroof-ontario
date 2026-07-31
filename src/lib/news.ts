@@ -110,7 +110,7 @@ export function renderCard(article: Article): string {
   </div>
   <div class="news-card-body p-6">
     <div class="news-date">${escapeHtml(article.date)}</div>
-    <h4 class="group-hover:text-blue transition-colors">${title}</h4>
+    <h3 class="group-hover:text-blue transition-colors">${title}</h3>
     ${excerpt}
     <span class="news-read">Read Article &rarr;</span>
   </div>

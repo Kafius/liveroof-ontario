@@ -1,11 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import TopBar from '../../components/TopBar.astro';
-import Header from '../../components/Header.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
-import Footer from '../../components/Footer.astro';
 import ProjectCarousel from '../../components/ProjectCarousel.astro';
-import { sanityClient, PROJECTS_QUERY } from '../../lib/sanity';
+import {
+  sanityClient,
+  PROJECTS_QUERY,
+  provinceLabels,
+  showcaseLabels,
+  moduleLabels,
+  leedLabels,
+  optionLabels,
+} from '../../lib/sanity';
 import type { SanityProject } from '../../lib/sanity';
 
 export async function getStaticPaths() {
@@ -19,44 +24,6 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props as { project: SanityProject };
-
-const provinceLabels: Record<string, string> = {
-  ON: 'Ontario',
-  NB: 'New Brunswick',
-  NL: 'Newfoundland & Labrador',
-  NS: 'Nova Scotia',
-  PE: 'Prince Edward Island',
-};
-
-const showcaseLabels: Record<string, string> = {
-  commercial: 'Commercial',
-  educational: 'Educational',
-  healthcare: 'Healthcare',
-  'other-institutional': 'Other Institutional',
-  public: 'Public',
-  residential: 'Residential',
-};
-
-const moduleLabels: Record<string, string> = {
-  deep: 'LiveRoof Deep System',
-  lite: 'LiveRoof Lite System',
-  maxx: 'LiveRoof Maxx System',
-  standard: 'LiveRoof Standard System',
-};
-
-const leedLabels: Record<string, string> = {
-  certified: 'LEED Certified',
-  silver: 'LEED Silver',
-  gold: 'LEED Gold',
-  platinum: 'LEED Platinum',
-};
-
-const optionLabels: Record<string, string> = {
-  'multiple-plant-mixes': 'Multiple Plant Mixes',
-  'organic-shape': 'Organic Shape Design',
-  'roofstone-pavers': 'RoofStone Pavers',
-  'sloped-roof': 'Sloped Roof',
-};
 
 const location = [project.city, provinceLabels[project.province]].filter(Boolean).join(', ');
 // Carousel order: the main photo leads, everything else keeps its Sanity order.
@@ -113,9 +80,6 @@ const ogImage = heroPhoto?.image?.asset?.url;
   description={metaDescription}
   image={ogImage}
 >
-  <TopBar />
-  <Header />
-
   {/* ── Hero ── */}
   <section class="relative py-16 md:py-24 overflow-hidden bg-dark">
     <div class="absolute inset-0 bg-gradient-to-br from-dark via-dark-80 to-blue/20"></div>
@@ -190,7 +154,7 @@ const ogImage = heroPhoto?.image?.asset?.url;
         {/* Right: Sidebar */}
         <aside class="lg:sticky lg:top-24 self-start space-y-6">
           <div class="bg-mid rounded-2xl p-6 space-y-5">
-            <h3 class="font-serif text-[1.2rem] text-dark">Project details</h3>
+            <h2 class="font-serif text-[1.2rem] text-dark">Project details</h2>
 
             <dl class="space-y-4 text-[0.9rem]">
               {location && (
@@ -265,5 +229,4 @@ const ogImage = heroPhoto?.image?.asset?.url;
   </section>
 
   <CtaBanner />
-  <Footer />
 </Layout>
