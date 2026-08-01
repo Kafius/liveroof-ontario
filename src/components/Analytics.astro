@@ -10,19 +10,17 @@
 // bootstrap lives in the bundled <script> at the bottom instead; Vite
 // substitutes import.meta.env.PUBLIC_* at build time, so the ID still reaches
 // the client without an inline block.
-const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+//
+// Nothing is rendered from the frontmatter: the gtag.js loader is deliberately
+// NOT a markup <script>. Consent Mode requires the 'default' command to be
+// queued before gtag.js evaluates, and an async tag in the head can win that
+// race against a deferred module — which let GA write _ga cookies before
+// consent was declared. The script below injects the loader after the defaults
+// are queued, which makes the ordering deterministic.
 ---
 
-{/* is:inline keeps Astro from rewriting this into a local bundle — it is a
-    remote loader with no inline body, so the CSP only needs the origin
-    allowed in script-src. */}
-{measurementId && (
-  <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
-)}
-
 <script>
-  // Bundled (not is:inline) so script-src 'self' covers it. Astro hoists this
-  // regardless of the conditional above, so it re-checks the ID itself.
+  // Bundled (not is:inline) so script-src 'self' covers it.
   const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
   if (measurementId) {
@@ -33,7 +31,38 @@ const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
       // eslint-disable-next-line prefer-rest-params
       dataLayer.push(arguments);
     }
+
+    // Consent Mode v2. Everything starts denied, so GA cannot write cookies
+    // before the visitor chooses. ConsentBanner.astro sends the 'update' once
+    // they do, and replays a stored choice on later visits. This must be
+    // queued before 'config', which is why it lives here rather than in the
+    // banner.
+    const stored = (() => {
+      try {
+        return localStorage.getItem('lr-consent');
+      } catch {
+        return null; // Safari private mode and similar
+      }
+    })();
+    const granted = stored === 'granted' ? 'granted' : 'denied';
+
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: granted,
+      wait_for_update: 500,
+    });
+
     gtag('js', new Date());
-    gtag('config', measurementId);
+    gtag('config', measurementId, { anonymize_ip: true });
+
+    // Only now load gtag.js, so it sees the consent defaults already queued in
+    // dataLayer. Injecting it here rather than via a markup <script> is what
+    // makes that ordering deterministic.
+    const loader = document.createElement('script');
+    loader.async = true;
+    loader.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+    document.head.appendChild(loader);
   }
 </script>

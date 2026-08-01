@@ -23,8 +23,6 @@ const staticPages = [
   { route: '/faq',          name: 'faq' },
   { route: '/news',         name: 'news' },
   { route: '/portfolio',    name: 'portfolio' },
-  { route: '/videos',       name: 'videos' },
-  { route: '/why-liveroof', name: 'why-liveroof' },
   { route: '/products',     name: 'products' },
   { route: '/technical',    name: 'technical' },
 ];

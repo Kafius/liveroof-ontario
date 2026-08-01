@@ -169,14 +169,23 @@ Two things differ from Google's copy-paste snippet:
 
 ### Consent
 
-GA4 sets cookies. The privacy policy (Section 5, "Cookies & Analytics") already
-discloses that the site *may* use cookies and *may* use a third-party analytics
-tool such as Google Analytics, so the disclosure is in place.
+`ConsentBanner.astro` implements **Google Consent Mode v2**. Everything starts
+denied, so GA cannot write cookies before the visitor chooses; the banner sends
+the `consent update` and stores the answer in `localStorage` under
+`lr-consent`. Reject is given equal visual weight to Accept, which GDPR
+requires. The banner only renders when `PUBLIC_GA_MEASUREMENT_ID` is set —
+with no analytics there is nothing to consent to.
 
-There is currently **no consent banner**. Under PIPEDA that is a defensible
-position for anonymized analytics with clear notice, but GDPR requires prior
-consent for analytics cookies — so if the site expects meaningful EU traffic,
-add a consent mechanism (Google Consent Mode v2) before relying on it.
+**Ordering matters here.** The `gtag.js` loader is injected by the bundled
+script *after* the consent defaults are queued, rather than sitting in the
+markup as an async tag. An async tag in the head can evaluate before a deferred
+module, and when it does GA writes `_ga` cookies before consent is declared —
+this was verified failing, then fixed. If you ever move the loader back into
+the markup, that bug returns.
+
+Verified end to end in a browser: no cookies at all while denied, cookies only
+after Accept, none after Reject, and the choice persists across pages without
+re-prompting.
 
 ## Security headers
 

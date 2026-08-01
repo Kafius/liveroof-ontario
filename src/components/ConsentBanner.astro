@@ -1,0 +1,171 @@
+---
+// Cookie consent for Google Analytics.
+//
+// Only rendered when analytics is actually configured — with no
+// PUBLIC_GA_MEASUREMENT_ID nothing is loaded, so there is nothing to consent
+// to and showing a banner would be theatre.
+//
+// Analytics.astro sets Consent Mode v2 to denied by default, so GA cannot
+// store anything before a choice is made. This component sends the update.
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+{measurementId && (
+  <div
+    id="consent-banner"
+    class="consent-banner"
+    role="region"
+    aria-label="Cookie consent"
+    hidden
+  >
+    <div class="consent-inner">
+      <p class="consent-copy">
+        We use cookies to understand how visitors use this site. Analytics only —
+        nothing is shared with advertisers. See our <a href="/privacy">Privacy Policy</a>.
+      </p>
+      <div class="consent-actions">
+        {/* Reject is presented with equal weight to Accept, which GDPR requires. */}
+        <button type="button" id="consent-reject" class="consent-btn consent-btn-secondary">
+          Reject
+        </button>
+        <button type="button" id="consent-accept" class="consent-btn consent-btn-primary">
+          Accept
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  .consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 300;
+    background: #231f20;
+    border-top: 3px solid #17b060;
+    padding: 18px 0;
+    box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.25);
+  }
+  .consent-banner[hidden] {
+    display: none;
+  }
+  .consent-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .consent-copy {
+    color: rgba(255, 255, 255, 0.75); /* 8.6:1 on #231f20 */
+    font-size: 0.86rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 640px;
+  }
+  .consent-copy a {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  .consent-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .consent-btn {
+    /* 44px tall clears WCAG 2.5.8 comfortably */
+    min-height: 44px;
+    min-width: 96px;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .consent-btn-primary {
+    background: #17b060;
+    color: #ffffff;
+    border: 2px solid #17b060;
+  }
+  .consent-btn-primary:hover {
+    background: #149e56;
+    border-color: #149e56;
+  }
+  .consent-btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+  .consent-btn-secondary:hover {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .consent-btn:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+  }
+  @media (max-width: 640px) {
+    .consent-inner {
+      padding: 0 20px;
+    }
+    .consent-actions {
+      width: 100%;
+    }
+    .consent-btn {
+      flex: 1;
+    }
+  }
+</style>
+
+<script>
+  const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+  const STORAGE_KEY = 'lr-consent';
+
+  if (measurementId) {
+    const banner = document.getElementById('consent-banner');
+
+    /** localStorage throws in Safari private mode; treat that as "no choice yet". */
+    function readChoice(): string | null {
+      try {
+        return localStorage.getItem(STORAGE_KEY);
+      } catch {
+        return null;
+      }
+    }
+    function saveChoice(value: string) {
+      try {
+        localStorage.setItem(STORAGE_KEY, value);
+      } catch {
+        /* refusing to persist is not a reason to fail */
+      }
+    }
+
+    function gtag(..._args: unknown[]) {
+      const dataLayer = ((window as any).dataLayer = (window as any).dataLayer || []);
+      // eslint-disable-next-line prefer-rest-params
+      dataLayer.push(arguments);
+    }
+
+    function decide(value: 'granted' | 'denied') {
+      saveChoice(value);
+      gtag('consent', 'update', { analytics_storage: value });
+      if (banner) banner.hidden = true;
+    }
+
+    // Only ask if they have not already answered. A stored 'granted' was
+    // already applied as the Consent Mode default in Analytics.astro.
+    if (banner && !readChoice()) {
+      banner.hidden = false;
+      document.getElementById('consent-accept')?.addEventListener('click', () => decide('granted'));
+      document.getElementById('consent-reject')?.addEventListener('click', () => decide('denied'));
+    }
+  }
+</script>

@@ -8,13 +8,31 @@
 // Writes alongside the original (media1.optimized.mp4 / media1-poster.jpg) so
 // the result can be compared before anything is replaced.
 //
+// Needs ffmpeg. It is not a dependency of this project — an ~80 MB binary is
+// not worth carrying for a script that runs when the hero video changes, which
+// is rarely. Use a system ffmpeg, or install one just for the run:
+//
+//   npx --yes --package ffmpeg-static node scripts/optimize-video.mjs
+//
 //   node scripts/optimize-video.mjs           # encode next to the original
 //   node scripts/optimize-video.mjs --replace # overwrite the original
 import { execFileSync } from 'node:child_process';
 import { statSync, renameSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import ffmpeg from 'ffmpeg-static';
+import { createRequire } from 'node:module';
+
+/** Prefer ffmpeg-static if it happens to be installed, else fall back to PATH. */
+function resolveFfmpeg() {
+  try {
+    return createRequire(import.meta.url)('ffmpeg-static');
+  } catch {
+    // `ffmpeg` on PATH; execFileSync throws a clear ENOENT if it is absent.
+    return 'ffmpeg';
+  }
+}
+
+const ffmpeg = resolveFfmpeg();
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, 'public', 'images', 'media1.mp4');
@@ -26,6 +44,17 @@ const mb = (p) => (statSync(p).size / 1024 / 1024).toFixed(2);
 
 if (!existsSync(SRC)) {
   console.error(`  source not found: ${SRC}`);
+  process.exit(1);
+}
+
+try {
+  execFileSync(ffmpeg, ['-version'], { stdio: 'ignore' });
+} catch {
+  console.error(
+    '  ffmpeg not found.\n' +
+      '  Install it system-wide, or run this script with a throwaway copy:\n' +
+      '    npx --yes --package ffmpeg-static node scripts/optimize-video.mjs',
+  );
   process.exit(1);
 }
 
