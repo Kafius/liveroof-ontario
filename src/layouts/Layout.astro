@@ -2,6 +2,7 @@
 import TopBar from '../components/TopBar.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
 
 interface Props {
   title: string;
@@ -77,6 +78,8 @@ const ogImage = new URL(image, Astro.site).href;
         rel="stylesheet"
       />
     </noscript>
+
+    <Analytics />
   </head>
   <body>
     {/* First tab stop: lets keyboard users jump the ~25-item nav. */}

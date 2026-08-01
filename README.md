@@ -48,8 +48,9 @@ Both are `PUBLIC_`-prefixed because the Sanity CDN is queried directly. See
 
 | Variable | Notes |
 |---|---|
-| `PUBLIC_SANITY_PROJECT_ID` | Sanity project id |
+| `PUBLIC_SANITY_PROJECT_ID` | Sanity project id — **required**, the build fails without it |
 | `PUBLIC_SANITY_DATASET` | Defaults to `production` if unset |
+| `PUBLIC_GA_MEASUREMENT_ID` | Google Analytics 4 id. Optional — analytics is skipped entirely when unset. See [Analytics](#analytics) |
 
 ## Routes
 
@@ -120,6 +121,39 @@ serves instantly from cache while refreshing in the background. Astro's own
 | `npm run seed:projects` | Seed portfolio projects into Sanity |
 | `npm run generate:pdfs` | Render PDFs via Puppeteer |
 
+## Analytics
+
+Google Analytics 4, wired up in `src/components/Analytics.astro` and rendered
+from `Layout.astro`.
+
+Set `PUBLIC_GA_MEASUREMENT_ID` (e.g. `G-XXXXXXXXXX`) to enable it. **With the
+variable unset nothing is loaded at all** — no script tag, no `dataLayer`, no
+requests — so local dev and preview deploys stay untracked without any extra
+configuration. Set it in Vercel under Project Settings → Environment Variables,
+scoped to Production only if you want previews to remain untracked.
+
+Two things differ from Google's copy-paste snippet:
+
+- The `dataLayer` bootstrap lives in a **bundled** script, not an inline one.
+  The CSP uses `script-src 'self'`, which blocks inline scripts; Vite
+  substitutes `import.meta.env.PUBLIC_GA_MEASUREMENT_ID` at build time so the
+  ID still reaches the client.
+- The CSP already allows the origins GA needs — `googletagmanager.com` in
+  `script-src`, and `google-analytics.com` / `*.analytics.google.com` in
+  `connect-src` and `img-src`. Swapping to a different analytics vendor means
+  updating those.
+
+### Consent
+
+GA4 sets cookies. The privacy policy (Section 5, "Cookies & Analytics") already
+discloses that the site *may* use cookies and *may* use a third-party analytics
+tool such as Google Analytics, so the disclosure is in place.
+
+There is currently **no consent banner**. Under PIPEDA that is a defensible
+position for anonymized analytics with clear notice, but GDPR requires prior
+consent for analytics cookies — so if the site expects meaningful EU traffic,
+add a consent mechanism (Google Consent Mode v2) before relying on it.
+
 ## Security headers
 
 `vercel.json` sets a Content-Security-Policy alongside the usual hardening
@@ -140,6 +174,8 @@ Origins the policy allows:
 | `fonts.googleapis.com`, `fonts.gstatic.com` | webfonts |
 | `cdn.sanity.io` | portfolio project photos |
 | `liveroof.com` | news feed images, and the API the client-side refresh fetches |
+| `googletagmanager.com` | the GA4 loader (`script-src`) |
+| `google-analytics.com`, `*.analytics.google.com` | GA4 hit collection (`connect-src`, `img-src`) |
 | `formspree.io` | `form-action` for the contact form |
 
 Adding a new third-party service means adding it here too, or the browser will
