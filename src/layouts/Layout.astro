@@ -3,6 +3,7 @@ import TopBar from '../components/TopBar.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
+import { organizationSchema, websiteSchema } from '../lib/structuredData';
 
 interface Props {
   title: string;
@@ -29,6 +30,13 @@ const {
 // unfurlers need.
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
+
+// The organisation graph belongs on one page, not all 92 — other pages point
+// at it by @id. The homepage is the conventional home for it.
+const isHomepage = Astro.url.pathname === '/';
+const siteJsonLd = isHomepage
+  ? JSON.stringify([organizationSchema(), websiteSchema()])
+  : null;
 ---
 
 <!doctype html>
@@ -78,6 +86,8 @@ const ogImage = new URL(image, Astro.site).href;
         rel="stylesheet"
       />
     </noscript>
+
+    {siteJsonLd && <script is:inline type="application/ld+json" set:html={siteJsonLd} />}
 
     <Analytics />
   </head>

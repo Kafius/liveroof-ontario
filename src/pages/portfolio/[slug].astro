@@ -12,6 +12,7 @@ import {
   optionLabels,
 } from '../../lib/sanity';
 import type { SanityProject } from '../../lib/sanity';
+import { breadcrumbSchema } from '../../lib/structuredData';
 
 export async function getStaticPaths() {
   const projects: SanityProject[] = await sanityClient.fetch(PROJECTS_QUERY);
@@ -73,6 +74,16 @@ function buildMetaDescription(): string {
 
 const metaDescription = buildMetaDescription();
 const ogImage = heroPhoto?.image?.asset?.url;
+
+// These pages build their breadcrumb trail inline rather than through
+// PageHero, so the matching JSON-LD is emitted here. Keep the two in step.
+const breadcrumbJsonLd = JSON.stringify(
+  breadcrumbSchema([
+    { label: 'Home', href: '/' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: project.name },
+  ]),
+);
 ---
 
 <Layout
@@ -80,6 +91,8 @@ const ogImage = heroPhoto?.image?.asset?.url;
   description={metaDescription}
   image={ogImage}
 >
+  <script is:inline type="application/ld+json" set:html={breadcrumbJsonLd} />
+
   {/* ── Hero ── */}
   <section class="relative py-16 md:py-24 overflow-hidden bg-dark">
     <div class="absolute inset-0 bg-gradient-to-br from-dark via-dark-80 to-blue/20"></div>

@@ -121,6 +121,30 @@ serves instantly from cache while refreshing in the background. Astro's own
 | `npm run seed:projects` | Seed portfolio projects into Sanity |
 | `npm run generate:pdfs` | Render PDFs via Puppeteer |
 
+## Structured data
+
+JSON-LD is built in `src/lib/structuredData.ts` and emitted as
+`<script type="application/ld+json">`. That is a *data block*, never executed,
+so the strict `script-src 'self'` CSP does not apply to it (verified in a
+browser with the policy active).
+
+| Schema | Where | Count |
+|---|---|---|
+| `LocalBusiness` + `WebSite` | homepage only; other pages reference it by `@id` | 1 each |
+| `BreadcrumbList` | `PageHero` (9 pages), the About page, and every project page | 90 |
+
+`PageHero` emits its own breadcrumb markup from the same `breadcrumbs` prop it
+renders visibly, so the two cannot drift apart. The About page and
+`portfolio/[slug].astro` build their trails by hand and declare their JSON-LD
+locally — **if you change those visible trails, update the JSON-LD beside
+them.**
+
+The business details are deliberately limited to facts that appear on the site.
+There are no opening hours, `sameAs` social profiles, or ratings, because the
+site does not have them — inventing them would be worse than omitting them. If
+the client provides social profiles or hours, add them in
+`structuredData.ts`.
+
 ## Analytics
 
 Google Analytics 4, wired up in `src/components/Analytics.astro` and rendered

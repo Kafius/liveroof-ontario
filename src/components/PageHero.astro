@@ -7,8 +7,18 @@ interface Props {
   breadcrumbs: { label: string; href?: string }[];
 }
 
+import { breadcrumbSchema } from '../lib/structuredData';
+
 const { title, highlight, subtitle, eyebrow, breadcrumbs } = Astro.props;
+
+// Emitted here rather than in the page so the visible trail and the markup
+// can never drift apart — both read the same prop.
+const breadcrumbJsonLd = JSON.stringify(breadcrumbSchema(breadcrumbs));
 ---
+
+{/* is:inline is correct here — ld+json is a data block, never executed, so
+    Astro should not try to bundle it and the CSP's script-src does not apply. */}
+<script is:inline type="application/ld+json" set:html={breadcrumbJsonLd} />
 
 <section class="relative py-16 md:py-28 overflow-hidden bg-dark">
   <div class="absolute inset-0 bg-gradient-to-br from-dark via-dark-80 to-blue/20"></div>
