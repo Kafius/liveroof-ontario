@@ -120,6 +120,31 @@ serves instantly from cache while refreshing in the background. Astro's own
 | `npm run seed:projects` | Seed portfolio projects into Sanity |
 | `npm run generate:pdfs` | Render PDFs via Puppeteer |
 
+## Security headers
+
+`vercel.json` sets a Content-Security-Policy alongside the usual hardening
+headers (HSTS, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`,
+`Permissions-Policy`).
+
+The CSP uses a plain `script-src 'self'`, which only works because
+`astro.config.mjs` sets `vite.build.assetsInlineLimit: 0`. Otherwise Astro
+inlines small bundled scripts into the HTML, and the policy would need
+per-build `sha256` hashes that go stale silently whenever a script changes.
+**If you re-enable script inlining, the CSP will start blocking the site's own
+JavaScript.**
+
+Origins the policy allows:
+
+| Origin | Why |
+|---|---|
+| `fonts.googleapis.com`, `fonts.gstatic.com` | webfonts |
+| `cdn.sanity.io` | portfolio project photos |
+| `liveroof.com` | news feed images, and the API the client-side refresh fetches |
+| `formspree.io` | `form-action` for the contact form |
+
+Adding a new third-party service means adding it here too, or the browser will
+block it.
+
 ## Notes
 
 - `.npmrc` sets `legacy-peer-deps=true` to unblock installs on Vercel. This

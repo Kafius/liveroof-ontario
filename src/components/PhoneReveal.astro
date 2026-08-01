@@ -39,7 +39,7 @@ const masked = format === 'dash'
   aria-label={ariaLabel ?? 'Click to reveal phone number'}
 >
   <span class="phone-reveal-text">{masked}</span>
-  {/* Swapped to "tap to call" on reveal — a second tap dials. */}
+  {/* Hidden by CSS once data-revealed="true" — see the rule below. */}
   <span class="phone-reveal-hint" aria-hidden="true"> &middot; tap to reveal</span>
 </button>
 
@@ -69,28 +69,31 @@ const masked = format === 'dash'
   .phone-reveal[data-revealed="true"] .phone-reveal-hint { display: none; }
 </style>
 
-<script is:inline>
+<!-- Not is:inline: bundling keeps it out of the HTML (it was emitted once per
+     instance, ~2.5 KB per page) and lets a CSP use script-src 'self' with no
+     per-build hash. -->
+<script>
+  // Astro emits a component's script once per page no matter how many
+  // instances render, so this module runs exactly once — no global guard
+  // needed. The number is split across data attributes and assembled here so
+  // it never appears in the served HTML for scrapers to harvest.
   (function () {
-    if (window.__phoneRevealInit) return;
-    window.__phoneRevealInit = true;
-
-    function format(btn) {
-      var a = btn.dataset.a || '';
-      var b = btn.dataset.b || '';
-      var c = btn.dataset.c || '';
-      var d = btn.dataset.d || '';
-      var fmt = btn.dataset.format || 'paren';
-      if (fmt === 'dash') {
+    function format(btn: HTMLElement): string {
+      const a = btn.dataset.a || '';
+      const b = btn.dataset.b || '';
+      const c = btn.dataset.c || '';
+      const d = btn.dataset.d || '';
+      if ((btn.dataset.format || 'paren') === 'dash') {
         return (a ? a + '-' : '') + b + '-' + c + '-' + d;
       }
       return '(' + b + ') ' + c + '-' + d;
     }
-    function tel(btn) {
+    function tel(btn: HTMLElement): string {
       return '+' + (btn.dataset.a || '1') + (btn.dataset.b || '') + (btn.dataset.c || '') + (btn.dataset.d || '');
     }
 
     document.addEventListener('click', function (e) {
-      var btn = e.target && e.target.closest && e.target.closest('.phone-reveal');
+      const btn = (e.target as Element | null)?.closest<HTMLElement>('.phone-reveal');
       if (!btn) return;
       if (btn.dataset.revealed === 'true') {
         e.preventDefault();
@@ -98,10 +101,8 @@ const masked = format === 'dash'
         return;
       }
       e.preventDefault();
-      var span = btn.querySelector('.phone-reveal-text');
+      const span = btn.querySelector('.phone-reveal-text');
       if (span) span.textContent = format(btn);
-      var hint = btn.querySelector('.phone-reveal-hint');
-      if (hint) hint.textContent = ' · tap to call';
       btn.dataset.revealed = 'true';
       btn.setAttribute('aria-label', 'Call ' + format(btn));
     });

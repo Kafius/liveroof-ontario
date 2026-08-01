@@ -58,6 +58,22 @@ export function formatDate(raw: string): string {
     : parsed.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+/**
+ * Only let http(s) URLs through. These values come from a third-party
+ * WordPress API and end up in href/src attributes; escaping stops an attribute
+ * breakout but not a `javascript:` or `data:` URL, which would still be
+ * clickable. Anything else falls back to a safe default.
+ */
+function safeUrl(value: unknown, fallback: string): string {
+  if (typeof value !== 'string' || !value) return fallback;
+  try {
+    const { protocol } = new URL(value, 'https://liveroof.com');
+    return protocol === 'http:' || protocol === 'https:' ? value : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export function mapPost(post: any): Article {
   const title = decodeEntities(post?.title?.rendered ?? '');
   const excerptText = decodeEntities(String(post?.excerpt?.rendered ?? '').replace(/<[^>]*>/g, ''))
@@ -67,10 +83,10 @@ export function mapPost(post: any): Article {
 
   return {
     title,
-    link: post?.link ?? '',
+    link: safeUrl(post?.link, 'https://liveroof.com/news/'),
     date: formatDate(post?.date ?? ''),
     excerpt: excerpt ? `${excerpt}...` : '',
-    image: post?._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? FALLBACK_IMG,
+    image: safeUrl(post?._embedded?.['wp:featuredmedia']?.[0]?.source_url, FALLBACK_IMG),
   };
 }
 
