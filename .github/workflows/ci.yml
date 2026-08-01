@@ -50,3 +50,30 @@ jobs:
       # have caught the 16 broken Footer links.
       - name: Verify internal links and assets
         run: node scripts/check-links.mjs
+
+  studio:
+    name: Type check Sanity Studio
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    # A separate npm project with its own lockfile and dependency tree, so it
+    # needs its own install. The website's tsconfig excludes it for the same
+    # reason — checking it from the root fails on a missing `sanity` module.
+    defaults:
+      run:
+        working-directory: studio-liveroof-ontario
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: studio-liveroof-ontario/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit

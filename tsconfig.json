@@ -1,3 +1,9 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "extends": "astro/tsconfigs/strict",
+  // studio-liveroof-ontario is a separate npm project with its own tsconfig
+  // and its own dependencies. Without this exclude, `astro check` tried to
+  // type-check its schema files using the website's dependency tree — which
+  // works locally only if the Studio happens to be installed, and fails in CI
+  // with "Cannot find module 'sanity'". The Studio is checked by its own job.
+  "exclude": ["dist", "node_modules", "studio-liveroof-ontario"]
 }
