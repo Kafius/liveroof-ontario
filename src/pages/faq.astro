@@ -297,4 +297,46 @@ const categories = [
       });
     });
   });
+
+  // Expand every answer for printing. Two things are needed and neither is
+  // achievable in CSS alone:
+  //   1. A closed <details> hides its content at the element level, so
+  //      `display: block` on the child does nothing — measured 0px tall.
+  //   2. The FAQ is tabbed by category, so 30 of the 39 answers sit inside a
+  //      panel with `hidden`. Printing only the active tab loses most of it.
+  // Without both, a printed FAQ is mostly questions with no answers.
+  (function () {
+    let expanded = false;
+    let reopened: HTMLDetailsElement[] = [];
+    let revealed: HTMLElement[] = [];
+
+    function expandAll() {
+      // beforeprint and the print media query can both fire; capturing state
+      // twice would clobber the restore list and leave everything expanded.
+      if (expanded) return;
+      expanded = true;
+
+      revealed = [...document.querySelectorAll<HTMLElement>('.faq-panel.hidden')];
+      revealed.forEach((panel) => panel.classList.remove('hidden'));
+
+      reopened = [...document.querySelectorAll<HTMLDetailsElement>('details')].filter((d) => !d.open);
+      reopened.forEach((d) => (d.open = true));
+    }
+
+    function restore() {
+      if (!expanded) return;
+      expanded = false;
+      reopened.forEach((d) => (d.open = false));
+      revealed.forEach((panel) => panel.classList.add('hidden'));
+      reopened = [];
+      revealed = [];
+    }
+
+    window.addEventListener('beforeprint', expandAll);
+    window.addEventListener('afterprint', restore);
+
+    // Safari has historically not fired beforeprint; the media query covers it.
+    const printMedia = window.matchMedia('print');
+    printMedia.addEventListener('change', (e) => (e.matches ? expandAll() : restore()));
+  })();
 </script>

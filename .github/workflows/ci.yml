@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+# A second push to the same branch cancels the in-flight run rather than
+# queueing behind it.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Type check, build, verify links
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      # Not a secret: this id is PUBLIC_-prefixed, is committed in
+      # studio-liveroof-ontario/sanity.cli.ts, and ships in every built page.
+      # The repository variable lets a fork point at its own dataset; the
+      # fallback keeps CI green without any repo configuration.
+      PUBLIC_SANITY_PROJECT_ID: ${{ vars.PUBLIC_SANITY_PROJECT_ID || '8gi1g2j6' }}
+      PUBLIC_SANITY_DATASET: ${{ vars.PUBLIC_SANITY_DATASET || 'production' }}
+      # Deliberately left unset: analytics must not fire from CI builds.
+      PUBLIC_GA_MEASUREMENT_ID: ''
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # `npm ci` honours .npmrc, which sets legacy-peer-deps=true.
+      - name: Install
+        run: npm ci
+
+      - name: Type check
+        run: npx astro check
+
+      - name: Build
+        run: npm run build
+
+      # Astro emits dead hrefs without complaint — this is the check that would
+      # have caught the 16 broken Footer links.
+      - name: Verify internal links and assets
+        run: node scripts/check-links.mjs

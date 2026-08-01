@@ -26,5 +26,13 @@
     "puppeteer": "^24.41.0",
     "sharp": "^0.35.3",
     "typescript": "^5.9.3"
-  }
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "Safari >= 15",
+    "iOS >= 15"
+  ]
 }

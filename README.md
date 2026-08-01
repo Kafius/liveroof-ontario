@@ -187,6 +187,21 @@ Verified end to end in a browser: no cookies at all while denied, cookies only
 after Accept, none after Reject, and the choice persists across pages without
 re-prompting.
 
+## Browser targets
+
+`package.json` declares a `browserslist`, but **be aware it currently has no
+effect on the CSS.** Autoprefixer is not running: `@astrojs/tailwind` v6
+configures PostCSS through Vite and overrides both a root `postcss.config` and
+`vite.css.postcss` in `astro.config.mjs`. Replacing the integration with a
+plain `postcss.config` running `tailwindcss` + `autoprefixer` does let
+autoprefixer run, but Tailwind then stops emitting utilities entirely (the
+bundle drops from 42 KB to 16 KB) — tried and reverted.
+
+The practical effect is small: `user-select` and `backdrop-filter` ship
+unprefixed, which Safari 15–17 needs. Both degrade gracefully — text stays
+selectable on the carousel, and two elements lose a blur. Worth revisiting if
+the project ever moves to Tailwind 4, which changes the PostCSS wiring anyway.
+
 ## Security headers
 
 `vercel.json` sets a Content-Security-Policy alongside the usual hardening

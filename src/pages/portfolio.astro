@@ -3,17 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import {
-  sanityClient,
-  PROJECTS_QUERY,
+  fetchProjects,
   provinceLabels,
   showcaseLabels,
   moduleLabels,
   leedLabels,
   optionLabels,
 } from '../lib/sanity';
-import type { SanityProject } from '../lib/sanity';
 
-const projects: SanityProject[] = await sanityClient.fetch(PROJECTS_QUERY);
+const projects = await fetchProjects();
 
 // Default order: newest first. Mirrors the 'date-desc' branch of applySort() below
 // so the server-rendered order matches what the client would produce.

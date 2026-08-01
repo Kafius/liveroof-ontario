@@ -821,3 +821,94 @@
     color: #2b2728;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PRINT
+   Architects and spec writers print the product and technical pages, so the
+   printed sheet should be the content — not the navigation, the calls to
+   action, or a full-bleed dark hero that empties an ink cartridge.
+   Deliberately outside @layer so these rules beat Tailwind's utilities.
+   ───────────────────────────────────────────────────────────────────────── */
+@media print {
+  /* Site chrome and anything interactive that cannot be used on paper. */
+  [data-print-hide],
+  header,
+  footer,
+  .skip-link,
+  .cta-banner,
+  #consent-banner,
+  #ext-modal,
+  #filter-bar,
+  .carousel-arrow,
+  .carousel-dots,
+  .carousel-thumbs,
+  .carousel-counter,
+  video {
+    display: none !important;
+  }
+
+  /* Ink: dark panels become plain text on white. */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  /* The hero is a full-bleed video panel; on paper it is just the heading. */
+  .hero {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 0 12pt !important;
+  }
+  .hero-overlay {
+    display: none !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Spell out destinations, since a printed link is otherwise dead. Internal
+     hrefs are skipped — the domain is on the page already. */
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    word-break: break-all;
+  }
+
+  /* Keep a project card, FAQ answer or spec row from splitting across sheets. */
+  .project-card,
+  .product-card,
+  .news-card,
+  details,
+  figure,
+  li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 15mm;
+  }
+}

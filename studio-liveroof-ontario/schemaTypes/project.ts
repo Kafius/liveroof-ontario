@@ -1,5 +1,12 @@
 import { defineField, defineType } from 'sanity';
 
+// Validation policy: fields the site genuinely cannot render without are
+// errors; fields that merely make a project page thin are warnings. Warnings
+// surface the gap in the Studio without blocking an editor from saving an
+// unrelated change to an older document — several dozen existing projects are
+// missing descriptions, captions and classification fields, and hard-failing
+// them would make routine edits impossible.
+
 export const project = defineType({
   name: 'project',
   title: 'Project',
@@ -37,6 +44,10 @@ export const project = defineType({
               name: 'caption',
               title: 'Caption',
               type: 'string',
+              description:
+                'Shown under the photo in the carousel and used as the image alt text. Without it the photo is invisible to screen readers and to image search.',
+              validation: (r) =>
+                r.required().warning('Add a caption — it becomes the alt text for this photo.'),
             },
             {
               name: 'isMain',
@@ -53,34 +64,53 @@ export const project = defineType({
           },
         },
       ],
-      validation: (r) => r.max(10),
+      validation: (r) => r.min(1).error('A project needs at least one photo.').max(10),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
       rows: 4,
+      description:
+        'Used on the project page and as its search-result description. Aim for at least a sentence or two — short fragments get padded with the spec fields.',
+      validation: (r) =>
+        r
+          .required()
+          .min(90)
+          .warning('Under ~90 characters this gets padded with the project specs.'),
     }),
     defineField({
       name: 'city',
       title: 'City',
       type: 'string',
+      validation: (r) => r.required().warning('Used for the location line and the page description.'),
     }),
     defineField({
       name: 'projectSize',
       title: 'Project Size (sq m)',
       type: 'number',
+      description: 'Square metres, not square feet — the site renders this value with a "sq m" suffix.',
+      validation: (r) =>
+        r.positive().error('Size must be greater than zero.').required().warning('Shown in the project spec table.'),
     }),
     defineField({
       name: 'installationDate',
       title: 'Installation Date',
       type: 'date',
       options: { dateFormat: 'YYYY-MM-DD' },
+      description: 'Undated projects sort to the bottom of the portfolio in both directions.',
+      validation: (r) =>
+        r
+          .max(new Date().toISOString().slice(0, 10))
+          .error('Installation date cannot be in the future.')
+          .required()
+          .warning('Without a date this project sorts to the bottom of the portfolio.'),
     }),
     defineField({
       name: 'grower',
       title: 'Grower',
       type: 'string',
+      validation: (r) => r.required().warning('Shown in the project spec table.'),
     }),
     defineField({
       name: 'province',
@@ -113,6 +143,8 @@ export const project = defineType({
         ],
         layout: 'radio',
       },
+      validation: (r) =>
+        r.required().warning('Without a type this project is invisible to the "Type" filter.'),
     }),
     defineField({
       name: 'moduleType',
@@ -127,6 +159,8 @@ export const project = defineType({
         ],
         layout: 'radio',
       },
+      validation: (r) =>
+        r.required().warning('Without a module type this project is invisible to the "Module" filter.'),
     }),
     defineField({
       name: 'options',
@@ -197,8 +231,11 @@ export const project = defineType({
   preview: {
     select: {
       title: 'name',
-      subtitle: 'province',
-      media: 'image',
+      subtitle: 'city',
+      // There is no top-level `image` field — photos are an array — so the
+      // previous `media: 'image'` never resolved and list items showed no
+      // thumbnail.
+      media: 'photos.0.image',
     },
   },
 });

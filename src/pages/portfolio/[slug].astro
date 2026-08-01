@@ -3,8 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import ProjectCarousel from '../../components/ProjectCarousel.astro';
 import {
-  sanityClient,
-  PROJECTS_QUERY,
+  fetchProjects,
   provinceLabels,
   showcaseLabels,
   moduleLabels,
@@ -15,7 +14,7 @@ import type { SanityProject } from '../../lib/sanity';
 import { breadcrumbSchema } from '../../lib/structuredData';
 
 export async function getStaticPaths() {
-  const projects: SanityProject[] = await sanityClient.fetch(PROJECTS_QUERY);
+  const projects = await fetchProjects();
   return projects
     .filter(p => p.active !== false)
     .map(project => ({

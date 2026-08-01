@@ -14,9 +14,11 @@ if (!projectId) {
   );
 }
 
+const dataset = import.meta.env.PUBLIC_SANITY_DATASET ?? 'production';
+
 export const sanityClient = createClient({
   projectId,
-  dataset: import.meta.env.PUBLIC_SANITY_DATASET ?? 'production',
+  dataset,
   apiVersion: '2024-01-01',
   useCdn: true,
 });
@@ -124,3 +126,31 @@ export const PROJECTS_QUERY = `*[_type == "project"] | order(name asc) {
   solaGreen,
   hydropavers
 }`;
+
+/**
+ * Fetch the project list.
+ *
+ * The raw client throws a bare API error here — "Dataset \"production\" not
+ * found for project ID ..." with a stack trace pointing into node_modules,
+ * which does not say that the *build* just lost 80 pages or what to check.
+ * Failing the build is right (deploying a portfolio with zero projects would
+ * be worse), but it should say why.
+ */
+export async function fetchProjects(): Promise<SanityProject[]> {
+  try {
+    return await sanityClient.fetch<SanityProject[]>(PROJECTS_QUERY);
+  } catch (cause) {
+    const detail = cause instanceof Error ? cause.message : String(cause);
+    throw new Error(
+      [
+        'Could not load projects from Sanity, so the portfolio pages cannot be built.',
+        `  project: ${projectId}`,
+        `  dataset: ${dataset}`,
+        `  cause:   ${detail}`,
+        'Check the project id and dataset, and that the dataset is readable without a',
+        'token — the site queries it anonymously at build time.',
+      ].join('\n'),
+      { cause },
+    );
+  }
+}
