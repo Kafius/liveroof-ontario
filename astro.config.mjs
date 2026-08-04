@@ -3,6 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
+<<<<<<< Updated upstream
   // Required for canonical URLs, og:url and sitemap generation.
   site: 'https://www.liveroofontario.ca',
   integrations: [tailwind(), sitemap()],
@@ -14,6 +15,16 @@ export default defineConfig({
       // <script type="module"> blocks that would have needed per-build sha256
       // hashes, which go stale silently the moment a script changes.
       assetsInlineLimit: 0,
+=======
+  integrations: [tailwind()],
+  vite: {
+    resolve: {
+      alias: [
+        // @formspree/ajax's "browser" field points at an IIFE bundle with no
+        // named exports; point bundled imports at the ESM build instead.
+        { find: /^@formspree\/ajax$/, replacement: '@formspree/ajax/dist/index.mjs' },
+      ],
+>>>>>>> Stashed changes
     },
   },
 });

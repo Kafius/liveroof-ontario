@@ -17,6 +17,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/tailwind": "^6.0.2",
+    "@formspree/ajax": "^1.1.5",
     "@sanity/client": "^7.21.0",
     "astro": "^7.1.6",
     "tailwindcss": "^3.4.17"

@@ -45,10 +45,29 @@ const serviceAreas = [
           </p>
 
           <form
+            id="contact-form"
             class="bg-white rounded-xl p-6 sm:p-7 shadow-[0_2px_20px_rgba(35,31,32,0.06)]"
-            action="https://formspree.io/f/your-form-id"
+            action="https://formspree.io/f/xaewwlje"
             method="POST"
           >
+          <!-- Submission status (shown by @formspree/ajax) -->
+          <div
+            data-fs-success
+            role="status"
+            aria-live="polite"
+            class="mb-5 rounded-lg border border-green/30 bg-green-light px-4 py-3 text-[0.9rem] text-dark"
+          >
+            Thanks — your message has been sent. We'll get back to you within one business day.
+          </div>
+          <div
+            data-fs-error=""
+            role="alert"
+            class="mb-5 rounded-lg border border-[#f5c6cb] bg-[#f8d7da] px-4 py-3 text-[0.9rem] text-[#8a1c26]"
+          ></div>
+
+          <!-- Subject line for the notification email -->
+          <input type="hidden" name="_subject" value="New contact enquiry — liveroofontario.ca" />
+
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label for="contact-firstName" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">First Name *</label>
@@ -58,8 +77,10 @@ const serviceAreas = [
                 name="firstName"
                 required
                 autocomplete="given-name"
+                data-fs-field
                 class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none transition-colors focus:border-green focus:ring-1 focus:ring-green"
               />
+              <span data-fs-error="firstName" class="mt-1.5 text-[0.78rem] text-[#dc3545]"></span>
             </div>
             <div>
               <label for="contact-lastName" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Last Name *</label>
@@ -69,8 +90,10 @@ const serviceAreas = [
                 name="lastName"
                 required
                 autocomplete="family-name"
+                data-fs-field
                 class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none transition-colors focus:border-green focus:ring-1 focus:ring-green"
               />
+              <span data-fs-error="lastName" class="mt-1.5 text-[0.78rem] text-[#dc3545]"></span>
             </div>
           </div>
 
@@ -83,8 +106,10 @@ const serviceAreas = [
                 name="email"
                 required
                 autocomplete="email"
+                data-fs-field
                 class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none transition-colors focus:border-green focus:ring-1 focus:ring-green"
               />
+              <span data-fs-error="email" class="mt-1.5 text-[0.78rem] text-[#dc3545]"></span>
             </div>
             <div>
               <label for="contact-phone" class="block text-[0.75rem] font-semibold text-text-muted uppercase tracking-wider mb-2">Phone Number</label>
@@ -93,8 +118,10 @@ const serviceAreas = [
                 id="contact-phone"
                 name="phone"
                 autocomplete="tel"
+                data-fs-field
                 class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none transition-colors focus:border-green focus:ring-1 focus:ring-green"
               />
+              <span data-fs-error="phone" class="mt-1.5 text-[0.78rem] text-[#dc3545]"></span>
             </div>
           </div>
 
@@ -149,18 +176,20 @@ const serviceAreas = [
               name="message"
               rows="5"
               required
+              data-fs-field
               placeholder="Tell us about your project — building type, roof size, timeline, and any questions you have."
               class="w-full px-4 py-3 rounded-lg border border-border bg-mid text-dark text-[0.92rem] outline-none transition-colors focus:border-green focus:ring-1 focus:ring-green resize-y"
             ></textarea>
+            <span data-fs-error="message" class="mt-1.5 text-[0.78rem] text-[#dc3545]"></span>
           </div>
 
-          <!-- Honeypot anti-spam (hidden from users) -->
+          <!-- Honeypot anti-spam — Formspree silently discards submissions where _gotcha is filled -->
           <div style="position:absolute;left:-9999px" aria-hidden="true">
             <label for="contact-website">Website</label>
-            <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off" />
+            <input type="text" id="contact-website" name="_gotcha" tabindex="-1" autocomplete="off" />
           </div>
 
-          <button type="submit" class="btn btn-primary w-full text-center">Send Message</button>
+          <button type="submit" data-fs-submit-btn class="btn btn-primary w-full text-center">Send Message</button>
 
             <p class="text-[0.75rem] text-text-muted text-center mt-4 leading-relaxed">
               By submitting, you agree to be contacted by LiveRoof Ontario regarding your inquiry.
@@ -270,3 +299,40 @@ const serviceAreas = [
 
   <CtaBanner />
 </Layout>
+
+<style>
+  /* Status elements are hidden until @formspree/ajax marks them active */
+  [data-fs-success]:not([data-fs-active]),
+  [data-fs-error]:not([data-fs-active]) {
+    display: none;
+  }
+  [data-fs-success][data-fs-active],
+  [data-fs-error][data-fs-active] {
+    display: block;
+  }
+  [data-fs-field][aria-invalid='true'] {
+    border-color: #dc3545;
+  }
+</style>
+
+<script>
+  import { initForm } from '@formspree/ajax';
+
+  initForm({
+    formElement: '#contact-form',
+    formId: 'xaewwlje',
+    // We style the success/error elements with Tailwind instead
+    useDefaultStyles: false,
+    onSubmit: (ctx) => {
+      const btn = ctx.form.querySelector('[data-fs-submit-btn]');
+      if (btn) btn.textContent = 'Sending…';
+    },
+    onSuccess: (ctx) => {
+      ctx.form.reset();
+      ctx.form.querySelector('[data-fs-success]')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    },
+  });
+</script>
