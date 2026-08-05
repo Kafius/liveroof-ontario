@@ -44,8 +44,12 @@ const serviceAreas = [
             back to you within one business day.
           </p>
 
+          {/* Distinct from the section's id="contact-form" above. They collided,
+              and querySelector returned the <section>, so @formspree/ajax bailed
+              with "Element #contact-form is not a form element" and the inline
+              success/error UI never ran. */}
           <form
-            id="contact-form"
+            id="contact-form-element"
             class="bg-white rounded-xl p-6 sm:p-7 shadow-[0_2px_20px_rgba(35,31,32,0.06)]"
             action="https://formspree.io/f/xaewwlje"
             method="POST"
@@ -319,7 +323,7 @@ const serviceAreas = [
   import { initForm } from '@formspree/ajax';
 
   initForm({
-    formElement: '#contact-form',
+    formElement: '#contact-form-element',
     formId: 'xaewwlje',
     // We style the success/error elements with Tailwind instead
     useDefaultStyles: false,
