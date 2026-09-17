@@ -20,7 +20,13 @@ export const sanityClient = createClient({
   projectId,
   dataset,
   apiVersion: '2024-01-01',
-  useCdn: true,
+  // The CDN is eventually consistent: for a few seconds after a publish it can
+  // still serve the previous version of a document. A Sanity webhook fires the
+  // instant the client hits Publish, so a CDN read here races that publish and
+  // can bake the old content into the build, which looks exactly like the
+  // webhook never fired. This query runs once per build, not once per request,
+  // so there is nothing to gain from caching it.
+  useCdn: false,
 });
 
 // These unions mirror the option lists in
