@@ -1,6 +1,9 @@
-// Shared helpers for pulling posts from the liveroof.com WordPress REST API.
-// Used both at build time (Astro frontmatter) and at runtime (client script in
-// News.astro / news.astro) so the news listing stays current between deploys.
+// News listing helpers. Posts come from the liveroof.com RSS feed (see
+// ./feed.js): fetched at build time in Astro frontmatter, and refreshed in the
+// browser through our own /api/news function, because liveroof.com's feed
+// sends no CORS headers and its REST API is now closed to the public.
+
+import { fetchArticles as fetchFeedArticles, FALLBACK_IMG } from './feed.js';
 
 export interface Article {
   title: string;
@@ -10,104 +13,42 @@ export interface Article {
   image: string;
 }
 
-export const FALLBACK_IMG = '/images/wildflower-roof-cityview.jpg';
+export { FALLBACK_IMG };
 
-export function newsApiUrl(limit: number): string {
-  return `https://liveroof.com/wp-json/wp/v2/posts?per_page=${limit}&_embed&_fields=title,link,date,excerpt,_links,_embedded`;
+/** Build-time fetch (server only). Returns [] on any failure. */
+export function fetchArticles(limit: number): Promise<Article[]> {
+  return fetchFeedArticles(limit);
 }
 
-const NAMED_ENTITIES: Record<string, string> = {
-  amp: '&',
-  lt: '<',
-  gt: '>',
-  quot: '"',
-  apos: "'",
-  nbsp: ' ',
-  hellip: '…',
-  rsquo: '’',
-  lsquo: '‘',
-  rdquo: '”',
-  ldquo: '“',
-  ndash: '–',
-  mdash: '—',
-};
-
-function decodeOnce(input: string): string {
-  return input.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, entity: string) => {
-    if (entity[0] === '#') {
-      const code =
-        entity[1] === 'x' || entity[1] === 'X'
-          ? parseInt(entity.slice(2), 16)
-          : parseInt(entity.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : match;
-    }
-    return NAMED_ENTITIES[entity.toLowerCase()] ?? match;
-  });
-}
-
-/** WordPress sometimes double-encodes titles (&amp;#8217;), so decode twice. */
-export function decodeEntities(input: string): string {
-  return decodeOnce(decodeOnce(input));
-}
-
-export function formatDate(raw: string): string {
-  if (!raw) return '';
-  const parsed = new Date(raw);
-  return Number.isNaN(parsed.getTime())
-    ? ''
-    : parsed.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-}
-
-/**
- * Only let http(s) URLs through. These values come from a third-party
- * WordPress API and end up in href/src attributes; escaping stops an attribute
- * breakout but not a `javascript:` or `data:` URL, which would still be
- * clickable. Anything else falls back to a safe default.
- */
-function safeUrl(value: unknown, fallback: string): string {
-  if (typeof value !== 'string' || !value) return fallback;
+/** Browser-side fetch through /api/news. Returns [] on any failure. */
+async function fetchLiveArticles(limit: number): Promise<Article[]> {
   try {
-    const { protocol } = new URL(value, 'https://liveroof.com');
-    return protocol === 'http:' || protocol === 'https:' ? value : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-export function mapPost(post: any): Article {
-  const title = decodeEntities(post?.title?.rendered ?? '');
-  const excerptText = decodeEntities(String(post?.excerpt?.rendered ?? '').replace(/<[^>]*>/g, ''))
-    .replace(/\s+/g, ' ')
-    .trim();
-  const excerpt = excerptText.replace(/[….]+$/, '').slice(0, 200);
-
-  return {
-    title,
-    link: safeUrl(post?.link, 'https://liveroof.com/news/'),
-    date: formatDate(post?.date ?? ''),
-    excerpt: excerpt ? `${excerpt}...` : '',
-    image: safeUrl(post?._embedded?.['wp:featuredmedia']?.[0]?.source_url, FALLBACK_IMG),
-  };
-}
-
-/** Fetch the newest posts. Returns [] on any failure so the page still renders. */
-export async function fetchArticles(limit: number): Promise<Article[]> {
-  try {
-    const res = await fetch(newsApiUrl(limit));
+    const res = await fetch(`/api/news?limit=${limit}`, { headers: { Accept: 'application/json' } });
     if (!res.ok) return [];
-    const posts = await res.json();
-    return Array.isArray(posts) ? posts.map(mapPost) : [];
+    const data = await res.json();
+    return Array.isArray(data?.articles) ? data.articles : [];
   } catch {
     return [];
   }
 }
 
 function escapeHtml(value: string): string {
-  return value
+  return String(value ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/** Same check as feed.js: only http(s) URLs reach href/src. */
+function safeUrl(value: unknown, fallback: string): string {
+  if (typeof value !== 'string' || !value) return fallback;
+  try {
+    const { protocol } = new URL(value, window.location.origin);
+    return protocol === 'http:' || protocol === 'https:' ? value : fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 /**
@@ -116,13 +57,13 @@ function escapeHtml(value: string): string {
  */
 export function renderCard(article: Article): string {
   const title = escapeHtml(article.title);
-  const excerpt = article.excerpt
-    ? `<p>${escapeHtml(article.excerpt)}</p>`
-    : '';
+  const excerpt = article.excerpt ? `<p>${escapeHtml(article.excerpt)}</p>` : '';
+  const link = safeUrl(article.link, 'https://liveroof.com/news/');
+  const image = safeUrl(article.image, FALLBACK_IMG);
 
-  return `<a href="${escapeHtml(article.link)}" target="_blank" rel="noopener noreferrer" class="news-card group block">
+  return `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" class="news-card group block">
   <div class="h-[200px] overflow-hidden">
-    <img src="${escapeHtml(article.image)}" alt="${title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+    <img src="${escapeHtml(image)}" alt="${title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
   </div>
   <div class="news-card-body p-6">
     <div class="news-date">${escapeHtml(article.date)}</div>
@@ -143,7 +84,7 @@ export async function refreshNewsGrids(): Promise<void> {
 
   for (const grid of grids) {
     const limit = Number(grid.dataset.newsLimit) || 3;
-    const articles = await fetchArticles(limit);
+    const articles = await fetchLiveArticles(limit);
     if (!articles.length) continue;
 
     grid.innerHTML = articles.map(renderCard).join('');
